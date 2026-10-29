@@ -1,6 +1,6 @@
 # Сайт-портфолио Александры Зянчуриной
 
-UX/UI-дизайнер. Сайт на [Astro](https://astro.build), публикуется на GitHub Pages: https://sashagrigori.github.io
+UI/UX-дизайнер. Сайт на [Astro](https://astro.build), публикуется на GitHub Pages: https://sashagrigori.github.io
 
 ```sh
 npm install

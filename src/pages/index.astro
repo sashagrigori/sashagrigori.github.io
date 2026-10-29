@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 
 ---
-<Base title={'Александра Зянчурина — UX/UI-дизайнер'} description={'Портфолио UX/UI-дизайнера: сервис «Напоказ», сайт манги, приложение онлайн-школы, лендинг и айдентика. Исследую, проектирую в Figma и довожу продукт до запуска.'} mobile={false}>
+<Base title={'Александра Зянчурина — UI/UX-дизайнер'} description={'Портфолио UI/UX-дизайнера: сервис «Напоказ», сайт манги, приложение онлайн-школы, лендинг и айдентика. Исследую, проектирую в Figma и довожу продукт до запуска.'} mobile={false}>
 <Fragment slot="head"><style is:inline>
   :root { --bg:#fff; }
   html, body { height:100%; overflow:hidden; }
@@ -250,8 +250,8 @@ import Base from '../layouts/Base.astro';
     body { padding-bottom:84px; }
   }
 </style></Fragment>
-<div class="top mono"><span>UX/UI-дизайнер</span><nav class="mid"><a href="#" class="wk">Работы</a><span class="sl">/</span><a href="/about/">Обо&nbsp;мне</a></nav><span><a href="/about/">Александра Зянчурина</a></span></div>
-<div class="bgword" aria-hidden="true"><span id="bgw">UX/UI</span></div>
+<div class="top mono"><span>UI/UX-дизайнер</span><nav class="mid"><a href="#" class="wk">Работы</a><span class="sl">/</span><a href="/about/">Обо&nbsp;мне</a></nav><span><a href="/about/">Александра Зянчурина</a></span></div>
+<div class="bgword" aria-hidden="true"><span id="bgw">UI/UX</span></div>
 <div class="stage" id="stage"></div>
 <div class="info" data-native><div class="mrow"><div class="n mono" id="in"></div><div class="mnav"><button class="marr" type="button" data-d="-1" aria-label="предыдущая работа"></button><div class="mdots" id="mdots"></div><button class="marr" type="button" data-d="1" aria-label="следующая работа"></button></div></div><div class="t" id="it"></div><div class="d" id="id"></div><div class="g mono" id="ig"></div><a class="go" id="igo" href="#">Смотреть кейс&nbsp;→</a></div>
 <div class="lst l-toc" data-native><div id="tochead"></div><div id="toc"></div></div>
@@ -260,12 +260,12 @@ import Base from '../layouts/Base.astro';
 <Fragment slot="scripts"><script is:inline>
 const root=document.documentElement; root.dataset.l="toc"; root.dataset.f="ptn"; root.classList.add("narrow");
 const ph = (t, bg, fg) => "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900"><rect width="100%" height="100%" fill="${bg}"/><text x="60" y="820" font-family="PT Sans Narrow, Arial Narrow, sans-serif" font-size="150" font-weight="700" fill="${fg}" letter-spacing="-4">${t}</text><text x="64" y="110" font-family="PT Sans Narrow, sans-serif" font-size="34" fill="${fg}" opacity=".6">ОБЛОЖКА-ЗАГЛУШКА</text></svg>`);
-const GROUPS = { prod:"UX/UI", id:"Айдентика и графика" };
+const GROUPS = { prod:"UI/UX", id:"Айдентика и графика" };
 const ALL = [
-  { grp:"prod", t:"Напоказ", d:"Дневник культурного опыта: от 8 интервью до живого сервиса", g:"Продукт / UX/UI — 2026", cover:"/img/home/napokaz-cov.webp", ui:"/img/home/napokaz-x.webp", ar:1920/1234, href:"/napokaz/" },
-  { grp:"prod", t:"The Rose Girl", d:"Сайт фанатской манги на пяти языках", g:"UX/UI / разработка — 2026", cover:"/img/home/manga-cov.webp", ui:"/img/home/manga-x.webp", ar:1272/1146, href:"/manga/" },
-  { grp:"prod", t:"Praktika.school", d:"iOS-приложение онлайн-школы", g:"UX/UI / EdTech — 2024", cover:"/img/b1.jpg", ui:"/img/home/praktika-x.webp", ar:808/632, href:"/praktika/" },
-  { grp:"prod", t:"Слепок", d:"Лендинг керамической студии: от исследования и бренда до живого сайта", g:"UX/UI / бренд — 2026", cover:"/img/b2.jpg", ui:"/img/home/slepok-x.webp", ar:808/632, href:"/slepok-case/" },
+  { grp:"prod", t:"Напоказ", d:"Дневник культурного опыта: от 8 интервью до живого сервиса", g:"Продукт / UI/UX — 2026", cover:"/img/home/napokaz-cov.webp", ui:"/img/home/napokaz-x.webp", ar:1920/1234, href:"/napokaz/" },
+  { grp:"prod", t:"The Rose Girl", d:"Сайт фанатской манги на пяти языках", g:"UI/UX / разработка — 2026", cover:"/img/home/manga-cov.webp", ui:"/img/home/manga-x.webp", ar:1272/1146, href:"/manga/" },
+  { grp:"prod", t:"Praktika.school", d:"iOS-приложение онлайн-школы", g:"UI/UX / EdTech — 2024", cover:"/img/b1.jpg", ui:"/img/home/praktika-x.webp", ar:808/632, href:"/praktika/" },
+  { grp:"prod", t:"Слепок", d:"Лендинг керамической студии: от исследования и бренда до живого сайта", g:"UI/UX / бренд — 2026", cover:"/img/b2.jpg", ui:"/img/home/slepok-x.webp", ar:808/632, href:"/slepok-case/" },
   { grp:"id", t:"Кино и кофе", d:"Айдентика кофейни-кинотеатра / визуальная основа сервиса «Напоказ»", g:"Айдентика / web — 2026", cover:"/img/b3.jpg", ui:"/img/home/kino-x.webp", ar:808/632, href:"/kino/" },
   { grp:"id", t:"Чердак Бардак", d:"Визуал соцсетей творческой мастерской в Нови-Саде", g:"SMM-дизайн / гайд — 2026", cover:"/img/home/cherdak-cov.webp", ui:"/img/home/cherdak-x.webp", ar:1, href:"/cherdak/" },
   { grp:"id", t:"alё", d:"Айдентика собственного бренда вязаных вещей", g:"Айдентика / бренд — 2024", cover:"/img/home/ale-cov.webp", ui:"/img/ale/grid.webp", ar:2675/1920, href:"/ale/" },
@@ -293,14 +293,14 @@ cards=LIST.map((p,i)=>{ const c=document.createElement("div"); c.className="card
 
 function drawList(g){
   curGrp=g; root.classList.toggle("dark", g==="id");
-  tochead.innerHTML=`<div class="tabs mono">${["prod","id"].map(x=>`<button data-t="${x}" class="${x===g?"on":""}"><span data-r="${x==="prod"?"I":"II"}" data-n="${byGrp(x).length}">${x==="prod"?"UX/UI":(ty==="mix"&&x===g?"айдентика":"Айдентика")}</span><sup>${byGrp(x).length}</sup></button>`).join("")}</div>`;
+  tochead.innerHTML=`<div class="tabs mono">${["prod","id"].map(x=>`<button data-t="${x}" class="${x===g?"on":""}"><span data-r="${x==="prod"?"I":"II"}" data-n="${byGrp(x).length}">${x==="prod"?"UI/UX":(ty==="mix"&&x===g?"айдентика":"Айдентика")}</span><sup>${byGrp(x).length}</sup></button>`).join("")}</div>`;
   tochead.querySelectorAll("button").forEach(b=>b.onclick=()=>{ target=LIST.findIndex(p=>p.grp===b.dataset.t); });
   const active=tochead.querySelector("button.on span"); flip(active, active.textContent, 420);
   const items=LIST.map((p,i)=>({p,i})).filter(o=>o.p.grp===g);
   toc.innerHTML=items.map(({p,i},n)=>`<div class="row" data-i="${i}"><span class="no">${String(n+1).padStart(2,"0")}</span><span>${p.t}</span><span class="lead"></span><span class="yr">${year(p)}</span><span class="ar">→</span></div>`).join("");
   rows=[...toc.querySelectorAll(".row")]; rows.forEach(r=>r.onclick=()=>target=+r.dataset.i);
   // background word slides out / in
-  const bw=document.getElementById("bgw"), next=g==="prod"?"UX/UI":"Айдентика";
+  const bw=document.getElementById("bgw"), next=g==="prod"?"UI/UX":"Айдентика";
   if(bw.textContent!==next){ bw.classList.add("out"); setTimeout(()=>{ bw.textContent=next; bw.classList.remove("out"); bw.classList.add("in"); requestAnimationFrame(()=>requestAnimationFrame(()=>bw.classList.remove("in"))); },380); }
 }
 const H=()=>Math.min(innerHeight*.5, 480, innerWidth*.26);

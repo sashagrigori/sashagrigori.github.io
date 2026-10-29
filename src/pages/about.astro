@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 
 ---
-<Base title={'Обо мне — Александра Зянчурина'} description={'UX/UI-дизайнер с образованием социолога и четырьмя годами в рекрутинге. Санкт-Петербург, удалённо, открыта к работе.'} mobile={true}>
+<Base title={'Обо мне — Александра Зянчурина'} description={'UI/UX-дизайнер с образованием социолога и четырьмя годами в рекрутинге. Санкт-Петербург, удалённо, открыта к работе.'} mobile={true}>
 <Fragment slot="head"><style is:inline>
   :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px; --head:72px; }
   html, body { overflow-x:clip; }
@@ -85,7 +85,7 @@ import Base from '../layouts/Base.astro';
   <div class="main path" data-native>
     <div class="row sub"><span class="y">2021</span><span class="w">СПбГУ<small>социология, бакалавр</small></span><span class="d">Количественные и&nbsp;качественные исследования для&nbsp;реальных заказчиков в&nbsp;Социологической клинике прикладных исследований СПбГУ.</span></div>
     <div class="row sub"><span class="y">2021–⁠2025</span><span class="w">Рекрутинг<small>Skyeng, HIVE, Яндекс Крауд, Zoon</small></span><span class="d">Сотни интервью, в&nbsp;том числе на&nbsp;английском; опросы о&nbsp;найме и&nbsp;адаптации; аналитика воронки; база знаний и&nbsp;обучение коллег. Массовый и&nbsp;точечный найм, включая IT.</span></div>
-    <div class="row sub"><span class="y">2024&nbsp;— сейчас</span><span class="w">Фриланс<small>UX/UI и&nbsp;графический дизайнер</small></span><span class="d">Провожу исследования, проектирую интерфейсы в&nbsp;Figma и&nbsp;собираю их&nbsp;в&nbsp;работающий продукт с&nbsp;помощью Claude Code. Также разрабатываю айдентику и&nbsp;визуал для&nbsp;соцсетей. Учёба: Яндекс Практикум, WANNABE.</span></div>
+    <div class="row sub"><span class="y">2024&nbsp;— сейчас</span><span class="w">Фриланс<small>UI/UX и&nbsp;графический дизайнер</small></span><span class="d">Провожу исследования, проектирую интерфейсы в&nbsp;Figma и&nbsp;собираю их&nbsp;в&nbsp;работающий продукт с&nbsp;помощью Claude Code. Также разрабатываю айдентику и&nbsp;визуал для&nbsp;соцсетей. Учёба: Яндекс Практикум, WANNABE.</span></div>
   </div>
 </section>
 
@@ -110,7 +110,7 @@ import Base from '../layouts/Base.astro';
   <div class="foot lab"><span>Санкт-Петербург / удалённо</span><span>© 2026&nbsp;Александра Зянчурина</span></div>
 </footer>
 <Fragment slot="scripts"><script is:inline>
-const INTRO=`Я Саша — UX/UI-дизайнер с образованием социолога. Начинаю с людей и довожу решение до работающего продукта: исследую, проектирую в Figma и собираю в коде вместе с AI.`;
+const INTRO=`Я Саша — UI/UX-дизайнер с образованием социолога. Начинаю с людей и довожу решение до работающего продукта: исследую, проектирую в Figma и собираю в коде вместе с AI.`;
 const FACTS=`<div class="facts lab"><span>Санкт-Петербург</span><span>Удалённо</span><span>Открыта к работе</span></div>`;
 document.getElementById("hero").className="g hero-a";
 document.getElementById("hero").innerHTML=`<figure class="ph"><img src="/img/about/portrait.jpg" alt="Саша"></figure><div class="tx"><div class="word">Обо мне</div><div><p class="intro">${INTRO}</p>${FACTS}</div></div>`;
