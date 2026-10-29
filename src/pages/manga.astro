@@ -1,0 +1,360 @@
+---
+import Base from '../layouts/Base.astro';
+import '@fontsource/sofia-sans-extra-condensed/800.css';
+import '@fontsource/sofia-sans-extra-condensed/900.css';
+import '@fontsource/onest/400.css';
+import '@fontsource/onest/600.css';
+import '@fontsource/wix-madefor-text/400.css';
+import '@fontsource/wix-madefor-text/500.css';
+---
+<Base title={'The Rose Girl — кейс · Александра Зянчурина'} description={'Сайт фанатской манги художника TeoZyan: пять языков, удобное чтение с любого экрана и админка, в которой автор публикует главы сам'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --n950:#141414; --n900:#1b1a18; --n800:#2a2824; --cream:#fff2d8; --taupe:#898376; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; }
+  .cover .art { background:var(--n950); color:var(--cream); aspect-ratio:21/9; display:grid; place-items:center; align-content:center; gap:28px; }
+  .cover .art img { width:min(62%,900px); height:auto; display:block; }
+  .cover .art .lab { color:var(--cream); opacity:.85; font-family:"Wix Madefor Text"; letter-spacing:.08em; font-size:clamp(12px,1.1vw,16px); }
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt + .txt { margin-top:16px; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+
+  /* tables */
+  table { width:100%; border-collapse:collapse; margin-top:28px; font-size:18px; }
+  th { text-align:left; font-weight:400; padding:0 16px 12px 0; vertical-align:bottom; }
+  td { padding:13px 16px 13px 0; border-top:1px solid var(--line); vertical-align:top; line-height:1.3; }
+  td:first-child { color:var(--muted); }
+  tr.hl td { color:var(--ink); background:#f6f5f2; } tr.hl td:first-child { color:var(--ink); padding-left:10px; }
+  .y { font-size:18px; } .no-v { color:#c9c7c0; }
+
+  /* segments / hypotheses */
+  .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:8px; }
+  .card { border:1px solid var(--line); padding:20px 20px 24px; display:flex; flex-direction:column; gap:12px; min-height:340px; }
+  .card.core { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .card b { font-weight:400; font-size:clamp(22px,1.7vw,26px); letter-spacing:-.02em; line-height:1; }
+  .card .share { font-weight:400; font-size:40px; letter-spacing:-.02em; line-height:.9; }
+  .card p { font-size:18px; line-height:1.35; }
+  .card .need { margin-top:auto; color:var(--muted); line-height:1.35; }
+  .card.core .need, .card.core .lab.mut { color:#9a9a9a; }
+  .pill { display:inline-block; width:max-content; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; padding:3px 10px 5px; border:1px solid var(--ink); border-radius:999px; white-space:nowrap; }
+  .pill.on { background:var(--ink); color:#fff; } .pill.off { border-color:#c9c7c0; color:var(--muted); }
+  .hyps { margin-top:8px; }
+  .hyp { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:baseline; padding:18px 0 20px; border-top:1px solid var(--line); }
+  .hyp .n { grid-column:1 / 2; } .hyp p { grid-column:2 / 7; font-size:clamp(22px,1.7vw,26px); line-height:1.25; }
+  .hyp .r { grid-column:7 / 10; display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .cols3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .cols3 ul { list-style:none; margin-top:16px; } .cols3 li { font-size:clamp(19px,1.35vw,22px); line-height:1.5; }
+
+  /* dark panels: wireframes, palette, components */
+  .panel { background:var(--n950); color:var(--cream); padding:clamp(24px,3vw,48px); margin-top:28px; }
+  .wfs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.4vw,40px) clamp(16px,2vw,32px); }
+  .wfs figure img { width:100%; height:auto; display:block; }
+  .wfs figcaption { margin-top:14px; } .wfs figcaption b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:4px; }
+  .wfs figcaption span { font-size:16px; line-height:1.3; color:#b9b3a6; display:block; }
+  .variants { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .variants figure img { width:100%; display:block; }
+  .variants figcaption { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:12px; font-size:18px; }
+  .variants figure.pick img { outline:2px solid var(--ink); outline-offset:6px; }
+  .variants figure:not(.pick) img { opacity:.55; }
+
+  /* scenario */
+  .flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:8px; align-items:start; }
+  .flow .shot { aspect-ratio:400/869; display:flex; align-items:center; justify-content:center; }
+  .flow .shot img { width:100%; height:100%; object-fit:contain; display:block; }
+  .flow .shot.go { background:#f6f5f2; flex-direction:column; gap:10px; }
+  .flow .go span { font-size:15px; letter-spacing:.04em; text-transform:uppercase; padding:4px 10px 6px; border-radius:999px; color:var(--n950); }
+  .flow .st-n { font-weight:400; font-size:40px; letter-spacing:-.02em; margin-top:18px; line-height:1; }
+  .flow b { display:block; font-weight:400; font-size:24px; margin:6px 0 6px; }
+  .flow p { font-size:18px; line-height:1.35; }
+  .vids { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:40px; }
+  .vid { aspect-ratio:16/10; background:#f6f5f2; display:grid; place-items:center; color:var(--muted); }
+  .desk { margin-top:40px; } .desk img { width:100%; display:block; } .desk figcaption { margin-top:12px; }
+
+  /* design system */
+  .band { display:grid; grid-template-columns:5fr 2fr 1.6fr 1.6fr 1.3fr; height:180px; margin-top:8px; }
+  .band div { padding:14px; display:flex; flex-direction:column; justify-content:flex-end; font-family:"Wix Madefor Text"; font-size:13px; line-height:1.35; }
+  .band div small { opacity:.65; font-size:11px; letter-spacing:.05em; text-transform:uppercase; }
+  .cats { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; margin-top:8px; }
+  .cats div { height:120px; padding:12px; display:flex; flex-direction:column; justify-content:flex-end; color:var(--n950); font-family:"Wix Madefor Text"; font-size:13px; text-transform:uppercase; letter-spacing:.03em; }
+  .cats small { font-size:10.5px; opacity:.6; text-transform:uppercase; letter-spacing:.05em; }
+  .type { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-top:8px; font-family:"Wix Madefor Text"; }
+  .type .aa { grid-column:1 / 4; font-size:clamp(120px,12vw,200px); line-height:.85; letter-spacing:-.04em; }
+  .type .rows { grid-column:4 / 10; }
+  .type .rows div { display:grid; grid-template-columns:7em 1fr; align-items:baseline; gap:16px; padding:10px 0; border-top:1px solid var(--line); }
+  .type .rows .k { font-family:"PT Sans Narrow"; font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+  .comps { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:start; }
+  .comps .ui { grid-column:1 / 6; display:flex; flex-direction:column; gap:22px; font-family:"Wix Madefor Text"; }
+  .comps .card-img { grid-column:6 / 10; } .comps .card-img img { width:100%; display:block; }
+  .ui .row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .ui .btn { border-radius:999px; padding:12px 26px; font-size:13px; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--cream); }
+  .ui .btn.f { background:var(--cream); color:var(--n950); }
+  .ui .chip { border-radius:999px; padding:7px 13px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; border:1px solid #4a463f; display:flex; gap:6px; align-items:center; }
+  .ui .chip.f { background:var(--cream); color:var(--n950); border-color:var(--cream); }
+  .ui .chip i { width:7px; height:7px; border-radius:50%; display:inline-block; }
+  .ui .field { border:1px solid #4a463f; padding:13px 14px; font-size:14px; color:#8d877b; }
+  .ui .lab { color:#b9b3a6; font-family:"PT Sans Narrow"; }
+  .ui .stars { letter-spacing:4px; font-size:18px; }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .cards,.wfs,.variants,.flow{grid-template-columns:1fr 1fr} .cats{grid-template-columns:repeat(4,1fr)} .kv dt,.kv dd{grid-column:1/10} }
+  /* scenarios */
+  .scn { margin-top:72px; } .scn:first-of-type { margin-top:0; }
+  .scn-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:28px; }
+  .scn-h .lab { grid-column:1 / 10; }
+  .scn-h h4 { grid-column:1 / 7; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.025em; line-height:1; margin:8px 0 10px; }
+  .scn-h p { grid-column:1 / 7; font-size:clamp(19px,1.35vw,22px); line-height:1.35; color:var(--muted); }
+  .scn-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); align-items:start; }
+  .scn-row img, .vslot { width:100%; aspect-ratio:390/844; object-fit:cover; object-position:top; display:block; border-radius:22px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); }
+  .vslot { box-shadow:none; background:#f4f3f0; border:1px dashed #cfccc4; display:grid; place-items:center; text-align:center; color:var(--muted); line-height:1.5; }
+  .scn-row figcaption { margin-top:16px; font-size:18px; line-height:1.3; }
+  .scn-row figcaption .lab { display:block; margin-bottom:6px; }
+  .desk { margin-top:96px; } .desk img { width:100%; display:block; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); } .desk figcaption { margin-top:14px; }
+
+  /* --- manga case --- */
+  .cover .covers { background:#fff; padding:clamp(24px,4vw,64px) 0; display:flex; justify-content:center; }
+  .cover .covers img { width:min(92%,1272px); height:auto; }
+  .shot { display:block; width:100%; height:auto; border-radius:10px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  figure.f { margin-top:40px; } figure.f figcaption { margin-top:14px; }
+  figure.f.wide figcaption { font-size:18px; line-height:1.3; } figure.f.wide figcaption .lab { display:block; margin-bottom:4px; }
+  .pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:40px; }
+  .three { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:40px; align-items:start; }
+  .three img { border-radius:22px; }
+  .pair figcaption, .three figcaption { margin-top:12px; font-size:18px; line-height:1.3; }
+  .pair figcaption .lab, .three figcaption .lab { display:block; margin-bottom:4px; }
+  .aud { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .aud .who b { display:block; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:6px 0 10px; }
+  .aud .who p { font-size:18px; line-height:1.38; }
+  .aud q { display:block; quotes:none; font-size:clamp(19px,1.35vw,22px); line-height:1.32; padding:16px 0 0; margin-top:16px; border-top:1px solid var(--line); }
+  .note { margin-top:28px; color:var(--muted); font-size:18px; }
+  .map { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .map ol { list-style:none; margin-top:14px; counter-reset:m; }
+  .map li { counter-increment:m; display:grid; grid-template-columns:2.4em 1fr; padding:9px 0; font-size:clamp(19px,1.35vw,22px); line-height:1.3; }
+  .map li::before { content:counter(m,decimal-leading-zero); font-size:13.5px; letter-spacing:.05em; color:var(--muted); padding-top:5px; }
+  .map li small { grid-column:2; color:var(--muted); font-size:16px; }
+  .feat { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px var(--gap); margin-top:8px; }
+  .feat b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:6px; }
+  .feat p { font-size:18px; line-height:1.38; }
+  .ref { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .ref div { font-size:18px; line-height:1.38; } .ref b { display:block; font-weight:400; font-size:24px; margin-bottom:6px; }
+  .type-m { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .type-m .sp { background:#f4f3ef; padding:28px; min-height:260px; display:flex; flex-direction:column; justify-content:space-between; }
+  .type-m .sofia { font-family:"Sofia Sans Extra Condensed"; font-weight:900; font-size:clamp(90px,9vw,150px); line-height:.82; text-transform:uppercase; }
+  .type-m .onest { font-family:"Onest"; font-size:clamp(60px,6vw,96px); line-height:.9; }
+  .sw { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; margin-top:28px; }
+  .sw div { height:140px; padding:12px; display:flex; flex-direction:column; justify-content:flex-end; font-size:13px; letter-spacing:.04em; text-transform:uppercase; line-height:1.3; }
+  .sw small { opacity:.7; text-transform:none; letter-spacing:0; font-size:13px; }
+  .pills { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; font-family:"Onest"; }
+  .pills span { border-radius:999px; padding:12px 22px; font-size:15px; font-weight:600; border:1px solid #0a0a0a; }
+  .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:40px var(--gap); margin-top:8px; }
+  .stats b { display:block; font-weight:400; font-size:clamp(52px,5vw,84px); letter-spacing:-.02em; line-height:.9; margin-bottom:10px; }
+  .stats p { font-size:18px; line-height:1.38; }
+  .chipsrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
+  .chipsrow span { border:1px solid var(--line); padding:5px 12px 7px; border-radius:999px; font-size:15px; letter-spacing:.04em; text-transform:uppercase; }
+  @media (max-width:900px){ .pair,.three,.aud,.map,.feat,.ref,.type-m,.stats{grid-template-columns:1fr} .sw{grid-template-columns:repeat(3,1fr)} }
+  /* states: live mockups in the site's own fonts */
+  .states { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:40px; }
+  .states .scr { position:relative; aspect-ratio:5/7; border-radius:10px; overflow:hidden; font-family:"Onest"; display:flex; flex-direction:column; justify-content:center; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .states .dk { background:#0a0a0a; color:#fff; } .states .lt { background:#fff; color:#0a0a0a; box-shadow:inset 0 0 0 1px #0a0a0a; }
+  .states .pg { position:absolute; inset:7% 8%; background:#1a1a1a; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-align:center; }
+  .states .pg p { font-size:clamp(12px,1vw,15px); }
+  .states .spin { width:28px; height:28px; border-radius:50%; border:2px solid #555; border-top-color:transparent; animation:spin 1s linear infinite; }
+  .states .tx { padding:0 11%; }
+  .states h5 { font-family:"Sofia Sans Extra Condensed"; font-weight:900; text-transform:uppercase; font-size:clamp(26px,2.5vw,44px); line-height:.86; }
+  .states .tx p { font-size:clamp(11px,.95vw,14px); line-height:1.35; margin-top:16px; opacity:.6; } .states .lt p { opacity:1; }
+  .states .pr { display:flex; gap:5px; margin-top:16px; }
+  .states .pb { border-radius:999px; padding:6px 12px; white-space:nowrap; font-size:clamp(10px,.9vw,13px); font-weight:600; border:1px solid #333; }
+  .states .pb.ac { background:#a9ded1; color:#0a0a0a; border-color:#a9ded1; } .states .pb.bk { background:#0a0a0a; color:#fff; border-color:#0a0a0a; }
+  .states figcaption { margin-top:16px; font-size:16px; line-height:1.35; color:var(--muted); }
+  .states figcaption .lab { display:block; margin-bottom:6px; } .states figcaption b { display:block; font-weight:400; font-size:18px; color:var(--ink); margin-bottom:4px; }
+  @media (max-width:900px){ .states { grid-template-columns:1fr 1fr; } }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">02 / 08</div>
+  <div class="main">
+    <h1>The Rose Girl</h1>
+    <p class="lead">Сайт фанатской манги художника TeoZyan: пять языков, удобное чтение с&nbsp;любого экрана и&nbsp;админка, в&nbsp;которой автор публикует главы сам</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>Дизайн, разработка, запуск</div>
+      <div><span class="lab mut">Год</span>2026</div>
+      <div><span class="lab mut">Инструменты</span>Figma, Claude Code</div>
+      <div><span class="lab mut">Сайт</span><a class="inl" href="https://teozyan.com" target="_blank" rel="noopener">teozyan.com&nbsp;↗</a></div>
+    </div>
+  </div>
+  <div class="full cover"><div class="covers"><img src="/img/manga/covers.jpg" alt="Обложки глав"></div></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Художник рисует мангу и&nbsp;ведёт соцсети. Ему нужен свой сайт, где главы удобно читать и&nbsp;легко выкладывать.</p></div>
+    <p class="txt big">The Rose Girl&nbsp;— фанатская манга TeoZyan по&nbsp;«Человеку-бензопиле». На&nbsp;сайте главы на&nbsp;пяти языках, посты автора и&nbsp;ссылки на&nbsp;его соцсети и&nbsp;Patreon. Читать можно без&nbsp;регистрации, всё бесплатно.</p>
+    <dl class="kv"><dt class="lab">Цель</dt><dd>Спроектировать и&nbsp;запустить сайт, на&nbsp;котором мангу удобно читать с&nbsp;любого экрана, а&nbsp;художник сам выкладывает главы и&nbsp;переводы, без&nbsp;разработчика.</dd>
+      <dt class="lab">Моя роль</dt><dd>Исследование, структура, дизайн-система, экраны и&nbsp;адаптивы, разработка с&nbsp;AI-агентом и&nbsp;запуск на&nbsp;своём сервере.</dd>
+      <dt class="lab">Задачи</dt><dd>Сайт для&nbsp;читателей и&nbsp;для&nbsp;автора; живой сайт с&nbsp;базой, хранилищем картинок и&nbsp;доменом; телефон, планшет и&nbsp;компьютер; два режима чтения, пять языков и&nbsp;админка для&nbsp;глав, переводов и&nbsp;постов.</dd></dl>
+  </section>
+
+  <section class="ch" id="audience" data-t="Две аудитории">
+    <div class="ch-h"><h2><span class="n">02</span>Две аудитории</h2><p>Читатели приходят по&nbsp;ссылкам из&nbsp;соцсетей, а&nbsp;художник ведёт сайт сам.</p></div>
+    <div class="aud">
+      <div class="who"><span class="lab mut">Читатели</span><b>Фанаты со&nbsp;всего мира</b><p>Чаще с&nbsp;телефона, на&nbsp;английском, русском, японском, испанском и&nbsp;португальском.</p>
+        <q>Когда выходит новая глава, я&nbsp;хочу открыть её&nbsp;по&nbsp;ссылке и&nbsp;сразу читать на&nbsp;своём языке&nbsp;— без&nbsp;регистрации и&nbsp;рекламы.</q>
+        <q>Когда я&nbsp;возвращаюсь, я&nbsp;хочу продолжить с&nbsp;той страницы, где остановился.</q>
+        <q>Когда я&nbsp;читаю с&nbsp;телефона, я&nbsp;хочу видеть страницу целиком и&nbsp;листать, как&nbsp;привык в&nbsp;манге.</q></div>
+      <div class="who"><span class="lab mut">Художник</span><b>TeoZyan</b><p>Рисует главы, ведёт соцсети и&nbsp;Patreon, сам публикует главы и&nbsp;переводы.</p>
+        <q>Когда глава готова, я&nbsp;хочу загрузить страницы и&nbsp;опубликовать её&nbsp;за&nbsp;несколько минут, без&nbsp;разработчика.</q>
+        <q>Когда перевод ещё не&nbsp;готов, я&nbsp;хочу выложить главу на&nbsp;английском, а&nbsp;перевод добавить позже.</q>
+        <q>Когда я&nbsp;загружаю десятки страниц, я&nbsp;хочу видеть, какой файл где стоит, и&nbsp;менять порядок перетаскиванием.</q></div>
+    </div>
+    <p class="note">Интервью не&nbsp;проводились: сценарии собраны из&nbsp;описания продукта и&nbsp;правок художника по&nbsp;ходу работы.</p>
+  </section>
+
+  <section class="ch" id="structure" data-t="Структура">
+    <div class="ch-h"><h2><span class="n">03</span>Структура</h2><p>11&nbsp;экранов: публичная часть на&nbsp;пяти языках и&nbsp;админка только для&nbsp;автора.</p></div>
+    <div class="map">
+      <div><span class="lab mut">Публичная часть</span><ol><li>Главная<small>обложка последней главы, главы, посты</small></li><li>Читалка главы<small>scroll или&nbsp;pages</small></li><li>Посты автора</li><li>Пост<small>текст, картинки, видео</small></li><li>404</li></ol></div>
+      <div><span class="lab mut">Админка</span><ol><li>Вход</li><li>Главы<small>список с&nbsp;языковыми версиями</small></li><li>Редактор главы<small>страницы, языки, публикация</small></li><li>Посты</li><li>Редактор поста<small>блоки</small></li><li>Настройки<small>языки, ссылки, обложка, пароль</small></li></ol></div>
+    </div>
+    <figure class="f"><img class="shot" src="/img/manga/home2.webp" alt=""><figcaption class="lab mut">Главная: ссылки автора, анонс бегущей строкой и&nbsp;обложка последней главы</figcaption></figure>
+  </section>
+
+  <section class="ch" id="reader" data-t="Читалка">
+    <div class="ch-h"><h2><span class="n">04</span>Читалка</h2><p>Главный экран сайта. Тёмная поверхность, чтобы арт не&nbsp;спорил с&nbsp;интерфейсом.</p></div>
+    <div class="feat">
+      <div><b>Два режима</b><p>Scroll&nbsp;— лентой сверху вниз, pages&nbsp;— по&nbsp;одной странице.</p></div>
+      <div><b>Manga / comic</b><p>Листать справа налево, как&nbsp;японскую мангу, или&nbsp;слева направо.</p></div>
+      <div><b>Развороты целиком</b><p>Половины разворота того&nbsp;же размера, что&nbsp;одиночные страницы.</p></div>
+      <div><b>Во&nbsp;весь экран</b><p>Одна кнопка прячет панели браузера и&nbsp;системы.</p></div>
+      <div><b>Загрузка</b><p>Пока страница грузится, на&nbsp;заглушке её&nbsp;размера крутится значок&nbsp;— ничего не&nbsp;сдвигается.</p></div>
+      <div><b>Продолжить чтение</b><p>Сайт помнит главу и&nbsp;страницу, где читатель остановился.</p></div>
+    </div>
+    <figure class="f wide"><img class="shot" src="/img/manga/r-spread2.webp" alt=""><figcaption><span class="lab mut">Компьютер / pages</span>Разворот целиком: сверху режимы чтения и&nbsp;направление, снизу листание и&nbsp;номер страницы</figcaption></figure>
+    <div class="three">
+      <figure><img class="shot" src="/img/manga/m-reader.jpg" alt=""><figcaption><span class="lab mut">Телефон</span>Листается тапом по&nbsp;краю и&nbsp;свайпом</figcaption></figure>
+      <figure><img class="shot" src="/img/manga/m-menu.jpg" alt=""><figcaption><span class="lab mut">Телефон</span>Переключатели свёрнуты в&nbsp;«…»</figcaption></figure>
+      <figure><img class="shot" src="/img/manga/m-home.jpg" alt=""><figcaption><span class="lab mut">Телефон</span>Ссылки автора в&nbsp;два ряда</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="languages" data-t="Пять языков">
+    <div class="ch-h"><h2><span class="n">05</span>Пять языков</h2><p>Один переключатель меняет и&nbsp;интерфейс, и&nbsp;язык глав.</p></div>
+    <p class="txt">Язык виден в&nbsp;адресе (/ru/…), поэтому ссылка открывается на&nbsp;том&nbsp;же языке. Непереведённая глава читается на&nbsp;английском с&nbsp;плашкой «translation in progress».</p>
+    <div class="three">
+      <figure><img class="shot" src="/img/manga/m-ru.jpg" alt=""><figcaption><span class="lab mut">RU</span>Русский</figcaption></figure>
+      <figure><img class="shot" src="/img/manga/m-ja.jpg" alt=""><figcaption><span class="lab mut">JA</span>Японский</figcaption></figure>
+      <figure><img class="shot" src="/img/manga/m-pt.jpg" alt=""><figcaption><span class="lab mut">PT</span>Глава без&nbsp;перевода&nbsp;— показываем английскую</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="admin" data-t="Админка">
+    <div class="ch-h"><h2><span class="n">06</span>Админка</h2><p>Художник ведёт сайт сам: главы, переводы, посты и&nbsp;настройки.</p></div>
+    <p class="txt">Страницы уходят в&nbsp;хранилище сразу при&nbsp;загрузке, порядок меняется перетаскиванием, под&nbsp;миниатюрой&nbsp;— имя файла. На&nbsp;каждый язык своя вкладка, у&nbsp;главы есть черновик и&nbsp;публикация. Посты собираются из&nbsp;блоков: заголовок, абзац, список, картинка, видео.</p>
+    <figure class="f"><img class="shot" src="/img/manga/a-chapters2.webp" alt=""><figcaption class="lab mut">Главы: языковые версии и&nbsp;статусы</figcaption></figure>
+    <figure class="f wide"><img class="shot" src="/img/manga/a-editor2.webp" alt=""><figcaption><span class="lab mut">Редактор главы</span>Номер, обложка, вкладки языков, загрузка страниц и&nbsp;порядок перетаскиванием</figcaption></figure>
+    <div class="pair">
+      <figure><img class="shot" src="/img/manga/a-post2.webp" alt=""><figcaption><span class="lab mut">Редактор поста</span>Текст из&nbsp;блоков: абзац, заголовок, список, картинка, видео</figcaption></figure>
+      <figure><img class="shot" src="/img/manga/a-settings2.webp" alt=""><figcaption><span class="lab mut">Настройки</span>Описание манги на&nbsp;каждом из&nbsp;пяти языков</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="system" data-t="Дизайн-система">
+    <div class="ch-h"><h2><span class="n">07</span>Дизайн-система</h2><p>Яркая типографика, много воздуха, главный герой&nbsp;— арт.</p></div>
+    <h3>Шрифты</h3>
+    <div class="type-m">
+      <div class="sp"><span class="sofia">Главы 08</span><span class="lab mut">Sofia Sans Extra Condensed / заголовки, номера глав, бегущая строка</span></div>
+      <div class="sp"><span class="onest">Аа Read</span><span class="lab mut">Onest / текст, интерфейс, кнопки, админка</span></div>
+    </div>
+    <h3>Цвета</h3>
+    <p class="txt">Чёрно-белая основа и&nbsp;один акцент из&nbsp;палитры обложек. Бирюзовый живёт только фоном под&nbsp;чёрным текстом&nbsp;— контраст 13,3 : 1; бирюзовый текст на&nbsp;белом не&nbsp;читается (1,5 : 1), поэтому он запрещён.</p>
+    <div class="sw">
+      <div style="background:#0a0a0a;color:#fff">Ink<small>#0A0A0A / текст, кнопки</small></div>
+      <div style="background:#fff;box-shadow:inset 0 0 0 1px #e8e6e1">Поле<small>#FFFFFF / цвет дают арты</small></div>
+      <div style="background:#a9ded1">Акцент<small>#A9DED1 / только фоном</small></div>
+      <div style="background:#1a1a1a;color:#fff">Читалка<small>#1A1A1A</small></div>
+      <div style="background:#666;color:#fff">Подписи<small>#666666 / 5,7 : 1</small></div>
+      <div style="background:#d61f1f;color:#fff">Ошибки<small>#D61F1F</small></div>
+    </div>
+    <h3>Кнопки и&nbsp;состояния</h3>
+    <span class="lab mut" style="display:block">Кнопки-таблетки</span>
+    <div class="pills" style="margin-top:12px"><span style="background:#0a0a0a;color:#fff">Read chapter 8 →</span><span style="background:#a9ded1">Patreon</span><span>All posts</span><span style="background:#1a1a1a;color:#fff;border-color:#1a1a1a">Share</span></div>
+    <span class="lab mut" style="display:block;margin-top:40px">Состояния</span>
+    <div class="states" style="margin-top:12px">
+      <figure><div class="scr dk"><div class="pg"><i class="spin"></i></div></div><figcaption><span class="lab mut">Загрузка</span><b>Страница грузится</b>Тёмная заглушка того&nbsp;же размера и&nbsp;значок — ничего не&nbsp;сдвигается</figcaption></figure>
+      <figure><div class="scr dk"><div class="pg"><p>Couldn’t load this page</p><span class="pb">Retry</span></div></div><figcaption><span class="lab mut">Ошибка</span><b>Страница не&nbsp;загрузилась</b>«Retry» на&nbsp;её месте, остальные страницы читаются</figcaption></figure>
+      <figure><div class="scr dk tx"><h5>You’re all caught up</h5><p>New chapters are announced here</p><div class="pr"><span class="pb ac">Patreon</span><span class="pb">X</span><span class="pb">Pixiv</span></div></div><figcaption><span class="lab mut">Конец</span><b>Конец последней главы</b>Вместо пустоты — ссылки на&nbsp;соцсети художника</figcaption></figure>
+      <figure><div class="scr lt tx"><h5>Page not found</h5><p>The chapter or post may have been removed.</p><div class="pr"><span class="pb bk">Go to chapters</span></div></div><figcaption><span class="lab mut">404</span><b>Страница не&nbsp;найдена</b>Внутри шапки и&nbsp;подвала, на&nbsp;языке сайта</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="result" data-t="Разработка и итог">
+    <div class="ch-h"><h2><span class="n">08</span>Разработка и&nbsp;итог</h2><p>Свой сервер, база данных, хранилище картинок, вход автора, https и&nbsp;SEO на&nbsp;пяти языках.</p></div>
+    <div class="stats">
+      <div><b>0,24 с</b><p>первая загрузка страницы манги вместо 6–⁠9&nbsp;секунд: версии картинок готовятся сразу после сохранения главы</p></div>
+      <div><b>×1,6 → ×1</b><p>растяжение разворота: раньше он мылился, теперь файл подбирается под&nbsp;его собственную ширину</p></div>
+      <div><b>8</b><p>глав уже выложены&nbsp;— художник публикует их&nbsp;сам</p></div>
+      <div><b>5</b><p>языков интерфейса и&nbsp;глав, язык&nbsp;— в&nbsp;адресе страницы</p></div>
+      <div><b>11</b><p>экранов: публичная часть и&nbsp;админка</p></div>
+      <div><b>1&nbsp;вход</b><p>только для&nbsp;автора: пауза после неверных паролей, загрузки проверяются по&nbsp;содержимому файла</p></div>
+    </div>
+    <div class="chipsrow"><span>Next.js</span><span>PostgreSQL</span><span>Prisma</span><span>Garage</span><span>Docker</span><span>nginx</span><span>https</span></div>
+    <dl class="kv"><dt class="lab">Что&nbsp;получилось</dt><dd>Художник ведёт сайт сам. Читать удобно и&nbsp;с&nbsp;телефона, и&nbsp;на&nbsp;большом мониторе, развороты&nbsp;— целиком. Пять языков в&nbsp;одном сайте, без&nbsp;отдельных версий. Дизайн-система описана токенами и&nbsp;собрана в&nbsp;UI-kit.</dd>
+      <dt class="lab">Арт и&nbsp;манга</dt><dd>TeoZyan&nbsp;— <a class="inl" href="https://teozyan.com" target="_blank" rel="noopener">teozyan.com&nbsp;↗</a></dd></dl>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/praktika/"><div class="t"><div class="lab mut">Следующий кейс / 03</div><div>Praktika.school →</div></div><img src="/img/b1.jpg" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

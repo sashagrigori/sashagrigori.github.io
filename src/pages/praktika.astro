@@ -1,0 +1,363 @@
+---
+import Base from '../layouts/Base.astro';
+import '@fontsource/sofia-sans-extra-condensed/800.css';
+import '@fontsource/sofia-sans-extra-condensed/900.css';
+import '@fontsource/onest/400.css';
+import '@fontsource/onest/600.css';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/wix-madefor-text/400.css';
+import '@fontsource/wix-madefor-text/500.css';
+---
+<Base title={'Praktika.school — кейс · Александра Зянчурина'} description={'Мобильное приложение онлайн-школы, которое помогает студентам не бросить учёбу'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --n950:#141414; --n900:#1b1a18; --n800:#2a2824; --cream:#fff2d8; --taupe:#898376; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; }
+  .cover .art { background:var(--n950); color:var(--cream); aspect-ratio:21/9; display:grid; place-items:center; align-content:center; gap:28px; }
+  .cover .art img { width:min(62%,900px); height:auto; display:block; }
+  .cover .art .lab { color:var(--cream); opacity:.85; font-family:"Wix Madefor Text"; letter-spacing:.08em; font-size:clamp(12px,1.1vw,16px); }
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt + .txt { margin-top:16px; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+
+  /* tables */
+  table { width:100%; border-collapse:collapse; margin-top:28px; font-size:18px; }
+  th { text-align:left; font-weight:400; padding:0 16px 12px 0; vertical-align:bottom; }
+  td { padding:13px 16px 13px 0; border-top:1px solid var(--line); vertical-align:top; line-height:1.3; }
+  td:first-child { color:var(--muted); }
+  tr.hl td { color:var(--ink); background:#f6f5f2; } tr.hl td:first-child { color:var(--ink); padding-left:10px; }
+  .y { font-size:18px; } .no-v { color:#c9c7c0; }
+
+  /* segments / hypotheses */
+  .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:8px; }
+  .card { border:1px solid var(--line); padding:20px 20px 24px; display:flex; flex-direction:column; gap:12px; min-height:340px; }
+  .card.core { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .card b { font-weight:400; font-size:clamp(22px,1.7vw,26px); letter-spacing:-.02em; line-height:1; }
+  .card .share { font-weight:400; font-size:40px; letter-spacing:-.02em; line-height:.9; }
+  .card p { font-size:18px; line-height:1.35; }
+  .card .need { margin-top:auto; color:var(--muted); line-height:1.35; }
+  .card.core .need, .card.core .lab.mut { color:#9a9a9a; }
+  .pill { display:inline-block; width:max-content; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; padding:3px 10px 5px; border:1px solid var(--ink); border-radius:999px; white-space:nowrap; }
+  .pill.on { background:var(--ink); color:#fff; } .pill.off { border-color:#c9c7c0; color:var(--muted); }
+  .hyps { margin-top:8px; }
+  .hyp { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:baseline; padding:18px 0 20px; border-top:1px solid var(--line); }
+  .hyp .n { grid-column:1 / 2; } .hyp p { grid-column:2 / 7; font-size:clamp(22px,1.7vw,26px); line-height:1.25; }
+  .hyp .r { grid-column:7 / 10; display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .cols3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .cols3 ul { list-style:none; margin-top:16px; } .cols3 li { font-size:clamp(19px,1.35vw,22px); line-height:1.5; }
+
+  /* dark panels: wireframes, palette, components */
+  .panel { background:var(--n950); color:var(--cream); padding:clamp(24px,3vw,48px); margin-top:28px; }
+  .wfs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.4vw,40px) clamp(16px,2vw,32px); }
+  .wfs figure img { width:100%; height:auto; display:block; }
+  .wfs figcaption { margin-top:14px; } .wfs figcaption b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:4px; }
+  .wfs figcaption span { font-size:16px; line-height:1.3; color:#b9b3a6; display:block; }
+  .variants { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .variants figure img { width:100%; display:block; }
+  .variants figcaption { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:12px; font-size:18px; }
+  .variants figure.pick img { outline:2px solid var(--ink); outline-offset:6px; }
+  .variants figure:not(.pick) img { opacity:.55; }
+
+  /* scenario */
+  .flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:8px; align-items:start; }
+  .flow .shot { aspect-ratio:400/869; display:flex; align-items:center; justify-content:center; }
+  .flow .shot img { width:100%; height:100%; object-fit:contain; display:block; }
+  .flow .shot.go { background:#f6f5f2; flex-direction:column; gap:10px; }
+  .flow .go span { font-size:15px; letter-spacing:.04em; text-transform:uppercase; padding:4px 10px 6px; border-radius:999px; color:var(--n950); }
+  .flow .st-n { font-weight:400; font-size:40px; letter-spacing:-.02em; margin-top:18px; line-height:1; }
+  .flow b { display:block; font-weight:400; font-size:24px; margin:6px 0 6px; }
+  .flow p { font-size:18px; line-height:1.35; }
+  .vids { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:40px; }
+  .vid { aspect-ratio:16/10; background:#f6f5f2; display:grid; place-items:center; color:var(--muted); }
+  .desk { margin-top:40px; } .desk img { width:100%; display:block; } .desk figcaption { margin-top:12px; }
+
+  /* design system */
+  .band { display:grid; grid-template-columns:5fr 2fr 1.6fr 1.6fr 1.3fr; height:180px; margin-top:8px; }
+  .band div { padding:14px; display:flex; flex-direction:column; justify-content:flex-end; font-family:"Wix Madefor Text"; font-size:13px; line-height:1.35; }
+  .band div small { opacity:.65; font-size:11px; letter-spacing:.05em; text-transform:uppercase; }
+  .cats { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; margin-top:8px; }
+  .cats div { height:120px; padding:12px; display:flex; flex-direction:column; justify-content:flex-end; color:var(--n950); font-family:"Wix Madefor Text"; font-size:13px; text-transform:uppercase; letter-spacing:.03em; }
+  .cats small { font-size:10.5px; opacity:.6; text-transform:uppercase; letter-spacing:.05em; }
+  .type { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-top:8px; font-family:"Wix Madefor Text"; }
+  .type .aa { grid-column:1 / 4; font-size:clamp(120px,12vw,200px); line-height:.85; letter-spacing:-.04em; }
+  .type .rows { grid-column:4 / 10; }
+  .type .rows div { display:grid; grid-template-columns:7em 1fr; align-items:baseline; gap:16px; padding:10px 0; border-top:1px solid var(--line); }
+  .type .rows .k { font-family:"PT Sans Narrow"; font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+  .comps { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:start; }
+  .comps .ui { grid-column:1 / 6; display:flex; flex-direction:column; gap:22px; font-family:"Wix Madefor Text"; }
+  .comps .card-img { grid-column:6 / 10; } .comps .card-img img { width:100%; display:block; }
+  .ui .row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .ui .btn { border-radius:999px; padding:12px 26px; font-size:13px; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--cream); }
+  .ui .btn.f { background:var(--cream); color:var(--n950); }
+  .ui .chip { border-radius:999px; padding:7px 13px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; border:1px solid #4a463f; display:flex; gap:6px; align-items:center; }
+  .ui .chip.f { background:var(--cream); color:var(--n950); border-color:var(--cream); }
+  .ui .chip i { width:7px; height:7px; border-radius:50%; display:inline-block; }
+  .ui .field { border:1px solid #4a463f; padding:13px 14px; font-size:14px; color:#8d877b; }
+  .ui .lab { color:#b9b3a6; font-family:"PT Sans Narrow"; }
+  .ui .stars { letter-spacing:4px; font-size:18px; }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .cards,.wfs,.variants,.flow{grid-template-columns:1fr 1fr} .cats{grid-template-columns:repeat(4,1fr)} .kv dt,.kv dd{grid-column:1/10} }
+  /* scenarios */
+  .scn { margin-top:72px; } .scn:first-of-type { margin-top:0; }
+  .scn-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:28px; }
+  .scn-h .lab { grid-column:1 / 10; }
+  .scn-h h4 { grid-column:1 / 7; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.025em; line-height:1; margin:8px 0 10px; }
+  .scn-h p { grid-column:1 / 7; font-size:clamp(19px,1.35vw,22px); line-height:1.35; color:var(--muted); }
+  .scn-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); align-items:start; }
+  .scn-row img, .vslot { width:100%; aspect-ratio:390/844; object-fit:cover; object-position:top; display:block; border-radius:22px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); }
+  .vslot { box-shadow:none; background:#f4f3f0; border:1px dashed #cfccc4; display:grid; place-items:center; text-align:center; color:var(--muted); line-height:1.5; }
+  .scn-row figcaption { margin-top:16px; font-size:18px; line-height:1.3; }
+  .scn-row figcaption .lab { display:block; margin-bottom:6px; }
+  .desk { margin-top:96px; } .desk img { width:100%; display:block; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); } .desk figcaption { margin-top:14px; }
+
+  /* --- manga case --- */
+  .cover .covers { background:#fff; padding:clamp(24px,4vw,64px) 0; display:flex; justify-content:center; }
+  .cover .covers img { width:min(92%,1272px); height:auto; }
+  .shot { display:block; width:100%; height:auto; border-radius:10px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  figure.f { margin-top:40px; } figure.f figcaption { margin-top:14px; }
+  .pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:40px; }
+  .three { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:40px; align-items:start; }
+  .three img { border-radius:22px; }
+  .pair figcaption, .three figcaption { margin-top:12px; font-size:18px; line-height:1.3; }
+  .pair figcaption .lab, .three figcaption .lab { display:block; margin-bottom:4px; }
+  .aud { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .aud .who b { display:block; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:6px 0 10px; }
+  .aud .who p { font-size:18px; line-height:1.38; }
+  .aud q { display:block; quotes:none; font-size:clamp(19px,1.35vw,22px); line-height:1.32; padding:16px 0 0; margin-top:16px; border-top:1px solid var(--line); }
+  .note { margin-top:28px; color:var(--muted); font-size:18px; }
+  .map { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .map ol { list-style:none; margin-top:14px; counter-reset:m; }
+  .map li { counter-increment:m; display:grid; grid-template-columns:2.4em 1fr; padding:9px 0; font-size:clamp(19px,1.35vw,22px); line-height:1.3; }
+  .map li::before { content:counter(m,decimal-leading-zero); font-size:13.5px; letter-spacing:.05em; color:var(--muted); padding-top:5px; }
+  .map li small { grid-column:2; color:var(--muted); font-size:16px; }
+  .feat { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px var(--gap); margin-top:8px; }
+  .feat b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:6px; }
+  .feat p { font-size:18px; line-height:1.38; }
+  .ref { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .ref div { font-size:18px; line-height:1.38; } .ref b { display:block; font-weight:400; font-size:24px; margin-bottom:6px; }
+  .type-m { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .type-m .sp { background:#f4f3ef; padding:28px; min-height:260px; display:flex; flex-direction:column; justify-content:space-between; }
+  .type-m .sofia { font-family:"Sofia Sans Extra Condensed"; font-weight:900; font-size:clamp(90px,9vw,150px); line-height:.82; text-transform:uppercase; }
+  .type-m .onest { font-family:"Onest"; font-size:clamp(60px,6vw,96px); line-height:.9; }
+  .sw { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; margin-top:28px; }
+  .sw div { height:140px; padding:14px; border-radius:16px; display:flex; flex-direction:column; justify-content:flex-end; font-size:13px; letter-spacing:.04em; text-transform:uppercase; line-height:1.3; }
+  .sw small { opacity:.7; text-transform:none; letter-spacing:0; font-size:13px; }
+  .pills { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; font-family:"Onest"; }
+  .pills span { border-radius:999px; padding:12px 22px; font-size:15px; font-weight:600; border:1px solid #0a0a0a; }
+  .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:40px var(--gap); margin-top:8px; }
+  .stats b { display:block; font-weight:400; font-size:clamp(52px,5vw,84px); letter-spacing:-.02em; line-height:.9; margin-bottom:10px; }
+  .stats p { font-size:18px; line-height:1.38; }
+  .chipsrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
+  .chipsrow span { border:1px solid var(--line); padding:5px 12px 7px; border-radius:999px; font-size:15px; letter-spacing:.04em; text-transform:uppercase; }
+  @media (max-width:900px){ .pair,.three,.aud,.map,.feat,.ref,.type-m,.stats{grid-template-columns:1fr} .sw{grid-template-columns:repeat(3,1fr)} }
+
+  /* --- praktika --- */
+  .cover .pk { background:#ebfe8b; } .cover .pk img { width:100%; display:block; }
+  .flowmap { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .flowmap .col { border-top:2px solid var(--ink); padding-top:14px; }
+  .flowmap .col b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:10px; }
+  .flowmap ul { list-style:none; } .flowmap li { font-size:18px; line-height:1.5; color:#55534f; }
+  .flowmap li.sub { padding-left:14px; color:var(--muted); }
+  .flowmap li.sub::before { content:"→ "; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+  .stories { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .stories q { display:block; quotes:none; font-size:18px; line-height:1.35; padding:14px 0 0; margin-top:14px; border-top:1px solid var(--line); }
+  .wfgrid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px var(--gap); margin-top:8px; background:#f4f4f4; padding:clamp(20px,3vw,44px); border-radius:16px; }
+  .wfgrid img { width:100%; display:block; border-radius:24px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.05), 0 10px 28px rgba(0,0,0,.07); }
+  .wfgrid figcaption { margin-top:14px; font-size:16px; line-height:1.35; color:var(--muted); } .wfgrid figcaption b { display:block; font-weight:400; font-size:18px; color:var(--ink); margin-bottom:4px; }
+  .screens { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:44px var(--gap); margin-top:8px; align-items:start; }
+  .screens img { width:100%; display:block; border-radius:24px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .screens figcaption { margin-top:14px; font-size:18px; line-height:1.3; } .screens figcaption .lab { display:block; margin-bottom:4px; }
+  .mont { font-family:"Montserrat"; }
+  .pk-type { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:end; background:#f4f4f4; padding:32px; border-radius:16px; margin-top:8px; }
+  .pk-type .aa { grid-column:1 / 4; font-family:"Montserrat"; font-size:clamp(120px,11vw,190px); line-height:.8; }
+  .pk-type .rt { grid-column:4 / 10; }
+  .pk-type .abc { font-family:"Montserrat"; font-size:clamp(18px,1.5vw,24px); line-height:1.45; }
+  .pk-type .sizes { display:flex; gap:28px; align-items:baseline; margin-top:18px; font-family:"Montserrat"; }
+  .pk-pills { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; font-family:"Montserrat"; align-items:center; }
+  .pk-pills span { border-radius:12px; padding:12px 26px; font-size:15px; border:1px solid #151b15; }
+  .pk-pills .r { border-radius:999px; padding:6px 14px; font-size:13px; }
+  @media (max-width:900px){ .flowmap{grid-template-columns:1fr 1fr} .stories{grid-template-columns:1fr} .wfgrid{grid-template-columns:1fr 1fr} .screens{grid-template-columns:1fr 1fr} }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">03 / 08</div>
+  <div class="main">
+    <h1>Praktika.school</h1>
+    <p class="lead">Мобильное приложение онлайн-школы, которое помогает студентам не&nbsp;бросить учёбу</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>UX/UI-дизайнер</div>
+      <div><span class="lab mut">Год</span>2024</div>
+      <div><span class="lab mut">Инструменты</span>Figma</div>
+      <div><span class="lab mut">Платформа</span>iOS</div>
+    </div>
+  </div>
+  <div class="full cover"><div class="pk"><img src="/img/praktika/cover.jpg" alt="Praktika.school"></div></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Онлайн-школа с&nbsp;курсами по&nbsp;дизайну, рекламе, маркетингу и&nbsp;продажам.</p></div>
+    <p class="txt big">Praktika.school&nbsp;— образовательная платформа с&nbsp;лекциями и&nbsp;курсами. Студенты учатся параллельно с&nbsp;работой, и&nbsp;их&nbsp;легко потерять: забыли про&nbsp;урок, не&nbsp;успели со&nbsp;сдачей, пропали.</p>
+    <dl class="kv"><dt class="lab">Цель</dt><dd>Спроектировать современное и&nbsp;удобное мобильное приложение, которое поможет увеличить вовлечённость студентов.</dd>
+      <dt class="lab">Этапы</dt><dd>Конкурентный анализ → интервью с&nbsp;аудиторией → User и&nbsp;Job Stories → User Flow → вайерфреймы → UI-kit → прототип.</dd></dl>
+  </section>
+
+  <section class="ch" id="research" data-t="Исследование">
+    <div class="ch-h"><h2><span class="n">02</span>Исследование</h2><p>Три приложения онлайн-школ, референсы и&nbsp;три глубинных интервью.</p></div>
+    <dl class="kv" style="margin-top:0"><dt class="lab">Конкуренты</dt><dd>Stepik, «Правое полушарие интроверта» и&nbsp;«Школа Контур»: что сделано хорошо, где ошибки и&nbsp;что можно переиспользовать. Удивило, что у&nbsp;части популярных школ, например Contented и&nbsp;Skillbox, приложения нет вовсе.</dd>
+      <dt class="lab">Референсы</dt><dd>Экраны с&nbsp;Dribbble, Behance и&nbsp;из&nbsp;сообщества Figma&nbsp;— вход, каталог, карточка курса, плеер, профиль. Визуальный стиль взят с&nbsp;сайта школы: кислотный зелёный, чёрный контур, звёзды и&nbsp;линии.</dd>
+      <dt class="lab">Аудитория</dt><dd>Люди от&nbsp;25&nbsp;до&nbsp;44&nbsp;лет со&nbsp;средним доходом, которые хотят сменить профессию или&nbsp;прокачать навыки. Учатся вечером, с&nbsp;телефона, между работой и&nbsp;делами.</dd>
+      <dt class="lab">Интервью</dt><dd>Три участника, Zoom, 25–⁠50&nbsp;минут. Р1&nbsp;меняет профессию, Р2&nbsp;прокачивает навыки в&nbsp;своей сфере, Р3&nbsp;уходит в&nbsp;смежное направление. Опыт учёбы&nbsp;— от&nbsp;больших онлайн-школ до&nbsp;маленьких авторских курсов.</dd></dl>
+    <h3>Что узнала из&nbsp;интервью</h3>
+    <div class="hyps">
+      <div class="hyp"><span class="n lab mut">01</span><p>Приложение нужно, чтобы учиться в&nbsp;пути и&nbsp;вовремя видеть фидбек, вебинары и&nbsp;дедлайны</p><span class="r"><span class="lab mut">Р1, Р2</span></span></div>
+      <div class="hyp"><span class="n lab mut">02</span><p>Общение уходит в&nbsp;Slack, Discord и&nbsp;рабочие чаты&nbsp;— его хотят внутри платформы</p><span class="r"><span class="lab mut">Р1, Р3</span></span></div>
+      <div class="hyp"><span class="n lab mut">03</span><p>Одного видео мало: нужны конспект, заметки по&nbsp;таймкодам и&nbsp;комментарии к&nbsp;моменту лекции</p><span class="r"><span class="lab mut">Р1, Р3</span></span></div>
+      <div class="hyp"><span class="n lab mut">04</span><p>Дедлайны зависят от&nbsp;формата: при&nbsp;смене профессии спасают от&nbsp;прокрастинации, в&nbsp;лекциях «для&nbsp;себя» мешают</p><span class="r"><span class="lab mut">Р1, Р2, Р3</span></span></div>
+      <div class="hyp"><span class="n lab mut">05</span><p>Важно видеть прогресс по&nbsp;курсу и&nbsp;баланс подписки, а&nbsp;отменять её&nbsp;— без&nbsp;звонка менеджеру</p><span class="r"><span class="lab mut">Р1, Р2</span></span></div>
+      <div class="hyp"><span class="n lab mut">06</span><p>Нужно несколько способов входа: СМС не&nbsp;приходят, а&nbsp;вход через соцсети спрятан</p><span class="r"><span class="lab mut">Р2</span></span></div>
+    </div>
+    <h3>User Stories и&nbsp;Job Stories</h3>
+    <div class="stories">
+      <div><span class="lab mut">User Stories</span>
+        <q>Как&nbsp;студент, я&nbsp;хочу видеть индикатор прогресса в&nbsp;личном кабинете, чтобы реалистично планировать нагрузку на&nbsp;неделю и&nbsp;сохранять мотивацию.</q>
+        <q>Как&nbsp;студент, я&nbsp;хочу фильтровать курсы по&nbsp;цене и&nbsp;направлению, чтобы тратить время только на&nbsp;то&nbsp;обучение, которое отвечает моим целям.</q>
+        <q>Как&nbsp;студент, я&nbsp;хочу всегда видеть остаток на&nbsp;счёте, чтобы контролировать график платежей и&nbsp;не&nbsp;прерывать обучение.</q>
+        <q>Как&nbsp;студент, я&nbsp;хочу входить через социальные сети, чтобы тратить время на&nbsp;учёбу, а&nbsp;не&nbsp;на&nbsp;восстановление пароля.</q></div>
+      <div><span class="lab mut">Job Stories</span>
+        <q>Когда я&nbsp;смотрю лекцию, я&nbsp;хочу создавать заметки в&nbsp;один клик, чтобы вернуться к&nbsp;важным тезисам на&nbsp;практике, не&nbsp;пересматривая всё видео.</q>
+        <q>Когда голова забита рабочими задачами, я&nbsp;хочу получать напоминания об&nbsp;учёбе, чтобы ничего не&nbsp;пропустить и&nbsp;окончить курс.</q>
+        <q>Когда я&nbsp;смотрю лекцию с&nbsp;телефона в&nbsp;кровати, я&nbsp;хочу быстро задать вопрос преподавателю, чтобы не&nbsp;забыть и&nbsp;правильно применить знания.</q>
+        <q>Когда на&nbsp;работе аврал, я&nbsp;хочу перенести срок сдачи проекта в&nbsp;допустимых пределах, чтобы сдать качественную работу без&nbsp;ущерба для&nbsp;жизни.</q></div>
+    </div>
+  </section>
+
+  <section class="ch" id="flow" data-t="Структура">
+    <div class="ch-h"><h2><span class="n">03</span>Структура</h2><p>Пять разделов в&nbsp;нижнем меню и&nbsp;короткий путь от&nbsp;входа до&nbsp;урока.</p></div>
+    <div class="flowmap">
+      <div class="col"><b>Главная</b><ul><li>В&nbsp;процессе</li><li>Избранное</li><li>Загруженные</li><li>Завершённые</li><li class="sub">Сертификаты</li></ul></div>
+      <div class="col"><b>Курсы</b><ul><li>Фильтры</li><li>Поиск</li><li>Страница курса</li><li class="sub">Плеер с&nbsp;уроком</li><li class="sub">Задание</li></ul></div>
+      <div class="col"><b>Лекции</b><ul><li>Фильтры</li><li>Поиск</li><li class="sub">Продолжить</li></ul></div>
+      <div class="col"><b>Чаты</b><ul><li>Куратор</li><li>Ментор</li><li>Группа</li></ul></div>
+      <div class="col"><b>Профиль</b><ul><li>Подписка</li><li class="sub">Продление, отмена</li><li>Активность</li><li>Настройки</li><li class="sub">Тема, язык, уведомления</li></ul></div>
+    </div>
+    <div class="entry"><span>Вход</span>→<span>Главная</span>→<span>Курс в&nbsp;процессе</span>→<span>Страница курса</span>→<span>Плеер с&nbsp;уроком</span>→<span>Задание</span></div>
+  </section>
+
+  <section class="ch" id="wireframes" data-t="Вайерфреймы">
+    <div class="ch-h"><h2><span class="n">04</span>Вайерфреймы</h2><p>Сначала структура экранов в&nbsp;сером, без&nbsp;цвета и&nbsp;иллюстраций. Каждое решение&nbsp;— из&nbsp;интервью или&nbsp;разбора конкурентов.</p></div>
+    <div class="wfgrid" id="wfgrid"></div>
+  </section>
+
+  <section class="ch" id="system" data-t="Дизайн-система">
+    <div class="ch-h"><h2><span class="n">05</span>Дизайн-система</h2><p>Тёмная навигация, два ярких акцента и&nbsp;объёмные иллюстрации.</p></div>
+    <div class="pk-type"><div class="aa">Aa</div><div class="rt"><div class="abc">Montserrat<br>Аа Бб Вв Гг Дд Ее Ёё Жж Зз Ии Йй Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу Фф Хх Цц Чч Шш Щщ Ъъ Ыы Ьь Ээ Юю Яя</div>
+      <div class="sizes"><span style="font-size:12px">12&nbsp;pt</span><span style="font-size:14px">14&nbsp;pt</span><span style="font-size:18px">18&nbsp;pt</span><span style="font-size:24px">24&nbsp;pt</span></div></div></div>
+    <div class="sw" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr 1fr">
+      <div style="background:#f0d8fb">Лаванда<small>акцент, вторичные кнопки</small></div>
+      <div style="background:#ebfe8b">Лайм<small>акцент, активное состояние</small></div>
+      <div style="background:#151b15;color:#fff">Тёмный<small>меню, кнопки</small></div>
+      <div style="background:#777;color:#fff">Серый<small>неактивное</small></div>
+      <div style="background:#e3e3e3">Линии</div>
+      <div style="background:#fff;box-shadow:inset 0 0 0 1px #e8e6e1">Фон</div>
+    </div>
+    <div class="pk-pills"><span style="background:#ebfe8b">Продолжить обучение</span><span style="background:#f0d8fb">Конспект лекции</span><span style="background:#151b15;color:#fff">Войти</span><span style="background:#777;color:#fff;border-color:#777">Disabled</span><span class="r" style="background:#ebfe8b">Смотреть</span><span class="r">UI/UX</span><span class="r">4,9</span></div>
+    <figure class="f"><img src="/img/praktika/illus.png" alt="" style="width:100%;display:block"><figcaption class="lab mut">Иллюстрации для&nbsp;обложек курсов и&nbsp;лекций</figcaption></figure>
+  </section>
+
+  <section class="ch" id="screens" data-t="Экраны">
+    <div class="ch-h"><h2><span class="n">06</span>Экраны</h2><p>Девять экранов: от&nbsp;входа до&nbsp;сертификата.</p></div>
+    <div class="screens">
+      <figure><img src="/img/praktika/s-login.jpg" alt=""><figcaption><span class="lab mut">Вход</span>Почта, телефон или&nbsp;соцсети&nbsp;— без&nbsp;лишних паролей</figcaption></figure>
+      <figure><img src="/img/praktika/s-home-courses.jpg" alt=""><figcaption><span class="lab mut">Главная</span>Мои курсы и&nbsp;прогресс по&nbsp;каждому</figcaption></figure>
+      <figure><img src="/img/praktika/s-home-lect.jpg" alt=""><figcaption><span class="lab mut">Главная</span>Лекции: в&nbsp;процессе, избранные, завершённые</figcaption></figure>
+      <figure><img src="/img/praktika/s-course.jpg" alt=""><figcaption><span class="lab mut">Курс</span>Описание, статистика обучения, список уроков</figcaption></figure>
+      <figure><img src="/img/praktika/s-player.jpg" alt=""><figcaption><span class="lab mut">Урок</span>Плеер, конспект, заметки и&nbsp;домашнее задание</figcaption></figure>
+      <figure><img src="/img/praktika/s-catalog.jpg" alt=""><figcaption><span class="lab mut">Лекции</span>Каталог с&nbsp;поиском и&nbsp;фильтрами</figcaption></figure>
+      <figure><img src="/img/praktika/s-account.jpg" alt=""><figcaption><span class="lab mut">Профиль</span>Подписка и&nbsp;календарь активности</figcaption></figure>
+      <figure><img src="/img/praktika/s-cert.jpg" alt=""><figcaption><span class="lab mut">Сертификат</span>Итог курса, который можно скачать</figcaption></figure>
+      <figure><img src="/img/praktika/s-chats.jpg" alt=""><figcaption><span class="lab mut">Чаты</span>Куратор, ментор и&nbsp;группа</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="testing" data-t="Тестирование">
+    <div class="ch-h"><h2><span class="n">07</span>Тестирование</h2><p>Юзабилити-тест прототипа с&nbsp;двумя респондентами: основной сценарий и&nbsp;13&nbsp;дополнительных задач.</p></div>
+    <p class="txt">Основная задача&nbsp;— «Продолжи обучение по&nbsp;курсу „Веб-дизайн в&nbsp;Figma“». Дополнительные&nbsp;— найти избранное, завершённые курсы и&nbsp;сертификат, каталог с&nbsp;фильтрами, чаты, настройки языка и&nbsp;продление подписки.</p>
+    <dl class="kv"><dt class="lab">Что сработало</dt><dd>Дополнительные сценарии оба участника прошли без&nbsp;затруднений. Р2&nbsp;сначала изучила главный экран и&nbsp;дальше выполнила все задачи без&nbsp;ошибок.</dd>
+      <dt class="lab">Где споткнулись</dt><dd>Р1&nbsp;искал купленный курс в&nbsp;каталоге «Курсы», а&nbsp;не&nbsp;на&nbsp;главной, и&nbsp;избранное&nbsp;— в&nbsp;«Профиле». Оба промахивались по&nbsp;мелким кнопкам.</dd>
+      <dt class="lab">Что исправить</dt><dd>Добавить в&nbsp;«Курсы» и&nbsp;«Лекции» вкладки «Мои курсы» и&nbsp;«Мои лекции» с&nbsp;переходом на&nbsp;главную и&nbsp;увеличить области нажатия. Для&nbsp;нового пользователя главная пустая, пока он ничего не&nbsp;купил,&nbsp;— поэтому путаница с&nbsp;каталогом ожидаема.</dd></dl>
+  </section>
+
+  <section class="ch" id="result" data-t="Итог">
+    <div class="ch-h"><h2><span class="n">08</span>Итог</h2><p>Учебный проект: от&nbsp;исследования до&nbsp;прототипа и&nbsp;юзабилити-теста.</p></div>
+    <dl class="kv" style="margin-top:0"><dt class="lab">Что сделано</dt><dd>Разбор конкурентов, три интервью, User и&nbsp;Job Stories, структура и&nbsp;сценарии, вайерфреймы, UI-kit, прототип и&nbsp;тест с&nbsp;двумя респондентами.</dd>
+      <dt class="lab">Прогресс</dt><dd>Статистика обучения и&nbsp;процент на&nbsp;каждом курсе&nbsp;— видно, сколько осталось.</dd>
+      <dt class="lab">Учёба урывками</dt><dd>Загрузки для&nbsp;офлайна, «продолжить» с&nbsp;места остановки, заметки и&nbsp;конспект прямо в&nbsp;плеере.</dd>
+      <dt class="lab">Связь</dt><dd>Чаты с&nbsp;куратором, ментором и&nbsp;группой, чтобы вопрос не&nbsp;потерялся.</dd>
+      <dt class="lab">Мотивация</dt><dd>Календарь активности в&nbsp;профиле и&nbsp;сертификат в&nbsp;конце курса.</dd></dl>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/slepok/"><div class="t"><div class="lab mut">Следующий кейс / 04</div><div>Слепок →</div></div><img src="/img/b2.jpg" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const WF=[["login","Вход","Соцсети сверху, ниже телефон и почта"],["home","Главная","Мои курсы: в процессе, избранные, завершённые"],["catalog","Каталог","Цена, рейтинг, автор и избранное на карточке"],["filter","Фильтр","Тематика, цена и рейтинг"],["course","Страница курса","Статистика прохождения и кнопка старта"],["lesson","Урок","Комментарии, конспект, заметки по таймкодам и домашка"],["profile","Профиль","Подписка, календарь активности и дни подряд"],["cert","Сертификат","Итог курса, можно скачать файлом"]];
+document.getElementById("wfgrid").innerHTML = WF.map(([k,t,d])=>`<figure><img src="/img/praktika/wfs-${k}.webp" alt="" loading="lazy"><figcaption><b>${t}</b>${d}</figcaption></figure>`).join("");
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

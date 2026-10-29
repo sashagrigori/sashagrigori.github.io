@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Страница не найдена — Александра Зянчурина" description="Такой страницы нет. Все работы — на главной." mobile={false}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; }
+  body { min-height:100svh; display:flex; flex-direction:column; justify-content:space-between; padding:var(--pad); }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .nf h1 { font-weight:400; font-size:clamp(120px,22vw,320px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .nf p { font-size:clamp(22px,1.7vw,28px); line-height:1.15; margin-top:24px; max-width:18em; }
+  .nf a { display:inline-block; margin-top:28px; font-size:clamp(19px,1.35vw,22px); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.2em; }
+</style></Fragment>
+<div class="lab"><a href="/">← Александра&nbsp;Зянчурина</a></div>
+<main class="nf">
+  <h1>404</h1>
+  <p>Такой страницы нет. Возможно, ссылка устарела.</p>
+  <a href="/">Смотреть работы →</a>
+</main>
+<div class="lab" style="color:var(--muted)">Портфолио</div>
+</Base>

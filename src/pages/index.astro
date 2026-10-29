@@ -1,0 +1,374 @@
+---
+import Base from '../layouts/Base.astro';
+
+---
+<Base title={'Александра Зянчурина — UX/UI-дизайнер'} description={'Портфолио UX/UI-дизайнера: сервис «Напоказ», сайт манги, приложение онлайн-школы, лендинг и айдентика. Исследую, проектирую в Figma и довожу продукт до запуска.'} mobile={false}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; }
+  html, body { height:100%; overflow:hidden; }
+  .mono { font-size:13px; }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:5; }
+  .top nav { display:flex; gap:22px; }
+  .stage { position:fixed; inset:0; perspective:1400px; overflow:hidden; }
+  .card { position:absolute; left:50%; top:50%; cursor:pointer; will-change:transform; backface-visibility:hidden; }
+  .card .ph { width:100%; height:100%; box-shadow:0 1px 0 rgba(0,0,0,.05), 0 22px 44px rgba(0,0,0,.12); }
+  .card .ph img { width:100%; height:100%; object-fit:cover; display:block; }
+  .info { position:fixed; right:var(--pad); top:50%; transform:translateY(-50%); z-index:6; width:min(21vw,300px); }
+  .info .n { color:var(--muted); }
+  .info .t { font-size:clamp(34px,3.4vw,56px); letter-spacing:-.035em; line-height:.98; margin:10px 0 14px; }
+  .info .d { font-size:clamp(16px,1.2vw,19px); line-height:1.3; letter-spacing:-.01em; }
+  .info .g { color:var(--muted); margin-top:10px; }
+  .bottom { position:fixed; left:var(--pad); right:var(--pad); bottom:var(--pad); display:flex; justify-content:space-between; align-items:flex-end; z-index:6; }
+  .bottom .word { font-size:clamp(36px,4.6vw,76px); }
+  .lmodes button { all:unset; cursor:pointer; color:var(--muted); margin-left:12px; }
+  .lmodes button.on { color:var(--ink); }
+
+  /* list container on the right */
+  .lst { position:fixed; left:var(--pad); top:50%; transform:translateY(-50%); z-index:6; display:none; }
+  html[data-l="toc"] .l-toc, html[data-l="drum"] .l-drum, html[data-l="thumb"] .l-thumb { display:block; }
+  .lst .head { margin-bottom:18px; color:var(--muted); }
+  .l-toc .grp { display:flex; justify-content:space-between; color:var(--muted); margin:0 0 8px; }
+  .l-toc .grp:not(:first-child) { margin-top:30px; }
+
+  /* 1. table of contents with leaders */
+  .l-toc { width:min(23vw,330px); }
+  .l-toc .row { display:grid; grid-template-columns:2.2em auto 1fr auto 1.2em; align-items:baseline; gap:10px; padding:7px 0; cursor:pointer; color:#bdbbb5; transition:color .25s; font-size:clamp(18px,1.45vw,24px); letter-spacing:-.015em; }
+  .l-toc .row .no { font-family:"JetBrains Mono"; font-size:13px; }
+  .l-toc .row .lead { border-bottom:1px dotted currentColor; transform:translateY(-5px); opacity:.6; }
+  .l-toc .row .yr { font-family:"JetBrains Mono"; font-size:13px; }
+  .l-toc .row .ar { opacity:0; transform:translateX(-6px); transition:all .3s; }
+  .l-toc .row.on { color:var(--ink); } .l-toc .row.on .ar { opacity:1; transform:none; }
+  .l-toc .row:hover { color:#6d6b66; }
+
+  /* 2. drum / picker */
+  .l-drum { width:min(23vw,330px); }
+  .l-drum .win { position:relative; height:340px; overflow:hidden; -webkit-mask-image:linear-gradient(transparent, #000 30%, #000 70%, transparent); mask-image:linear-gradient(transparent, #000 30%, #000 70%, transparent); }
+  .l-drum .cnt { display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+  .l-drum .cnt b { font-family:var(--fd); font-weight:400; font-size:clamp(34px,3vw,52px); letter-spacing:-.02em; line-height:1; }
+  .l-drum .cnt b span { color:#c9c7c0; }
+  .l-drum .head { display:none; }
+  .l-drum .reel { position:absolute; left:0; right:0; top:50%; }
+  .l-drum .it { position:absolute; left:0; height:48px; margin-top:-24px; display:flex; align-items:center; gap:12px; white-space:nowrap; font-size:clamp(22px,2vw,32px); letter-spacing:-.025em; cursor:pointer; transform-origin:0 50%; }
+  .l-drum .it .no { font-family:"JetBrains Mono"; font-size:13px; color:var(--muted); }
+  
+  /* 3. thumbnails */
+  .l-thumb { width:min(22vw,310px); }
+  .l-thumb .row { display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center; padding:7px 0; cursor:pointer; }
+  .l-thumb .tb { position:relative; width:64px; height:44px; }
+  .l-thumb .tb img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(1) opacity(.55); transition:filter .3s; }
+  .l-thumb .tb i { position:absolute; width:6px; height:6px; background:#fff; border:1px solid var(--ink); opacity:0; transition:opacity .2s; }
+  .l-thumb .tb i:nth-of-type(1){left:-4px;top:-4px} .l-thumb .tb i:nth-of-type(2){right:-4px;top:-4px} .l-thumb .tb i:nth-of-type(3){left:-4px;bottom:-4px} .l-thumb .tb i:nth-of-type(4){right:-4px;bottom:-4px}
+  .l-thumb .tb::after { content:""; position:absolute; inset:-1px; border:1px solid var(--ink); opacity:0; transition:opacity .2s; }
+  .l-thumb .tt { font-size:clamp(17px,1.35vw,22px); letter-spacing:-.015em; color:#bdbbb5; transition:color .25s; }
+  .l-thumb .tt small { display:block; font-family:"JetBrains Mono"; font-size:12px; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+  .l-thumb .row.on .tt { color:var(--ink); }
+  .l-thumb .row.on .tb img { filter:none; } .l-thumb .row.on .tb i, .l-thumb .row.on .tb::after { opacity:1; }
+  /* ---------- type pairings ---------- */
+  html { --fd:"PT Sans Narrow"; --ft:"PT Sans Narrow"; --fl:"PT Sans Narrow"; }
+  body, .cur .in { font-family:var(--ft), system-ui, sans-serif; }
+  .mono, .l-toc .row .no, .l-toc .row .yr, .l-drum .it .no, .l-thumb .tt small { font-family:var(--fl), monospace; }
+  .word, .info .t, .l-toc .row > span:nth-child(2), .l-drum .it, .l-thumb .tt { font-family:var(--fd), serif; }
+  /* 1 / editorial */
+  html[data-f="ed"] { --fd:"Cormorant Garamond"; --fl:"IBM Plex Mono"; --ft:"Cormorant Garamond"; }
+  html[data-f="ed"] .word { font-weight:600; letter-spacing:-.03em; font-size:clamp(44px,5.6vw,92px); line-height:.85; }
+  html[data-f="ed"] .info .t { font-weight:500; font-style:italic; letter-spacing:-.02em; font-size:clamp(40px,4vw,66px); }
+  html[data-f="ed"] .info .d { font-size:clamp(19px,1.45vw,23px); }
+  html[data-f="ed"] .l-toc .row, html[data-f="ed"] .l-thumb .tt { font-size:clamp(21px,1.7vw,28px); font-weight:500; }
+  html[data-f="ed"] .l-drum .it { font-size:clamp(26px,2.3vw,36px); font-weight:500; }
+  html[data-f="ed"] .cur .in { font-size:17px; font-style:italic; }
+  /* 2 / wide grotesk */
+  html[data-f="wide"] { --fd:"Unbounded"; --ft:"Onest"; --fl:"Onest"; }
+  html[data-f="wide"] .mono { letter-spacing:.06em; font-weight:500; font-size:11.5px; }
+  html[data-f="wide"] .word { font-weight:400; letter-spacing:-.02em; font-size:clamp(34px,4.4vw,72px); line-height:.9; }
+  html[data-f="wide"] .info .t { font-weight:500; letter-spacing:-.03em; font-size:clamp(26px,2.5vw,42px); line-height:1.05; }
+  html[data-f="wide"] .l-toc .row, html[data-f="wide"] .l-thumb .tt { font-size:clamp(15px,1.15vw,19px); letter-spacing:-.01em; }
+  html[data-f="wide"] .l-drum .it { font-size:clamp(18px,1.6vw,26px); }
+  /* 3 / quiet swiss */
+  html[data-f="swiss"] { --fd:"Geologica"; --ft:"Geologica"; --fl:"Geologica"; }
+  html[data-f="swiss"] .mono { letter-spacing:.08em; font-weight:400; font-size:11.5px; }
+  html[data-f="swiss"] .word { font-weight:400; letter-spacing:-.02em; font-size:clamp(40px,5.2vw,86px); }
+  html[data-f="swiss"] .info .t { font-weight:300; letter-spacing:-.04em; font-size:clamp(36px,3.6vw,60px); }
+  html[data-f="swiss"] .info .d { font-weight:300; }
+  html[data-f="swiss"] .l-toc .row, html[data-f="swiss"] .l-thumb .tt, html[data-f="swiss"] .l-drum .it { font-weight:300; letter-spacing:-.025em; }
+  .fmodes button { all:unset; cursor:pointer; color:var(--muted); margin-left:12px; }
+  .fmodes button.on { color:var(--ink); }
+  .bottom .ctrls { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+  /* ---------- narrow grotesks ---------- */
+  html[data-f="arial"] { --fd:"Arial Narrow"; --ft:"Arial Narrow"; --fl:"Arial Narrow"; }
+  html[data-f="ptn"]   { --fd:"PT Sans Narrow"; --ft:"PT Sans Narrow"; --fl:"PT Sans Narrow"; }
+  html[data-f="robo"]  { --fd:"Roboto Condensed"; --ft:"Roboto Condensed"; --fl:"Roboto Condensed"; }
+  html[data-f="plex"]  { --fd:"IBM Plex Sans Condensed"; --ft:"IBM Plex Sans Condensed"; --fl:"IBM Plex Sans Condensed"; }
+  html.narrow .mono { font-size:13.5px; letter-spacing:.04em; }
+  html.narrow .word { font-weight:400; letter-spacing:-.02em; font-size:clamp(56px,7.4vw,124px); line-height:.82; }
+  html.narrow .info .t { font-weight:400; letter-spacing:-.025em; font-size:clamp(44px,4.4vw,74px); line-height:.95; }
+  html.narrow .info .d { font-size:clamp(19px,1.45vw,23px); }
+  html.narrow .l-toc .row, html.narrow .l-thumb .tt { font-size:clamp(22px,1.8vw,30px); letter-spacing:-.01em; }
+  html.narrow .l-drum .it { font-size:clamp(28px,2.5vw,40px); }
+  html.narrow .cur .in { font-size:16px; letter-spacing:.01em; }
+  html.narrow .cur .star { transform-origin:50% 55%; }
+  html[data-f="robo"] .info .t, html[data-f="plex"] .info .t { font-weight:300; }
+  /* --- grouping variants --- */
+  .switch { display:flex !important; }
+  .l-toc .grp { display:flex; justify-content:space-between; align-items:baseline; color:var(--muted); margin:0 0 10px; }
+  .tabs { display:flex; gap:18px; margin-bottom:22px; }
+  .tabs button { all:unset; cursor:pointer; color:#bdbbb5; font-size:clamp(20px,1.6vw,26px); letter-spacing:-.01em; transition:color .2s; }
+  .tabs button sup { font-size:12px; margin-left:3px; }
+  .tabs button.on { color:var(--ink); }
+  .chap { font-family:var(--fd); font-size:clamp(28px,2.4vw,40px); letter-spacing:-.02em; line-height:1; margin:0 0 14px; }
+  .chap small { display:block; font-family:var(--fl); font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .more { position:fixed; right:var(--pad); bottom:var(--pad); z-index:6; display:none; }
+  html[data-g="strip"] .more { display:block; }
+  .more .h { display:flex; justify-content:space-between; gap:24px; margin-bottom:10px; color:var(--muted); }
+  .more .h a { color:var(--ink); }
+  .more .row { display:flex; gap:8px; }
+  .more .row a { width:96px; display:block; }
+  .more .row img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; filter:grayscale(1); opacity:.75; transition:filter .3s, opacity .3s; }
+  .more .row a:hover img { filter:none; opacity:1; }
+  .more .row span { display:block; margin-top:6px; font-size:12px; letter-spacing:.04em; text-transform:uppercase; }
+  .card.sep .ph { background:#141414; color:#fff2d8; display:flex; flex-direction:column; justify-content:space-between; padding:26px; }
+  .card.sep b { font-family:var(--fd); font-weight:400; font-size:clamp(34px,3.4vw,58px); letter-spacing:-.02em; line-height:.9; }
+  .card.sep span { font-family:var(--fl); font-size:13px; letter-spacing:.05em; text-transform:uppercase; opacity:.7; }
+  /* --- type treatments --- */
+  .stage { z-index:1; }
+  .bgword { position:fixed; left:0; right:0; top:50%; z-index:0; text-align:center; pointer-events:none; overflow:hidden; display:none; }
+  html[data-ty="bg"] .bgword { display:block; }
+  .bgword span { display:block; font-family:var(--fd); font-weight:400; font-size:21vw; letter-spacing:-.02em; line-height:.8; color:#f2f1ed; text-transform:uppercase; transform:translateY(-50%); transition:transform .7s cubic-bezier(.7,0,.2,1), opacity .5s; }
+  .bgword span.out { transform:translateY(-120%); opacity:0; } .bgword span.in { transform:translateY(40%); opacity:0; }
+  html[data-ty="bg"] .bottom { bottom:0; overflow:hidden; }
+  html[data-ty="bg"] .bottom .word { transform:translateY(24%); }
+  .word { position:relative; }
+  .word .fill { position:absolute; inset:0; clip-path:inset(0 100% 0 0); color:var(--ink); }
+  html[data-ty="fill"] .bottom .word { color:transparent; -webkit-text-stroke:1.4px var(--ink); }
+  html[data-ty="fill"] .bottom .word .fill { -webkit-text-stroke:0; }
+  html[data-ty="fill"] .tabs button { color:transparent; -webkit-text-stroke:1px #9d9b95; }
+  html[data-ty="fill"] .tabs button.on { color:var(--ink); -webkit-text-stroke:0; }
+  html[data-ty="fill"] .tabs button sup { -webkit-text-stroke:0; color:var(--muted); }
+  html:not([data-ty="fill"]) .word .fill { display:none; }
+  .bottom { right:var(--pad); } .bottom .word { white-space:nowrap; }
+  /* --- type systems v2 --- */
+  .serif { font-family:"Cormorant Garamond", serif; font-style:italic; font-weight:500; text-transform:none; letter-spacing:-.01em; }
+  .top .who b { font-weight:400; }
+  /* 1 / contrast */
+  html[data-ty="mix"] .top .who i { font-size:19px; margin-left:6px; }
+  html[data-ty="mix"] .word em { font-family:"Cormorant Garamond", serif; font-style:italic; font-weight:500; text-transform:none; letter-spacing:-.03em; font-size:1.12em; }
+  html[data-ty="mix"] .tabs button span { text-transform:uppercase; }
+  html[data-ty="mix"] .tabs button.on span { font-family:"Cormorant Garamond", serif; font-style:italic; font-weight:500; text-transform:none; font-size:1.35em; letter-spacing:-.01em; }
+  /* 2 / vertical */
+  html[data-ty="vert"] .bottom { left:var(--pad); right:auto; top:var(--pad); bottom:var(--pad); align-items:flex-end; }
+  html[data-ty="vert"] .bottom .word { writing-mode:vertical-rl; transform:rotate(180deg); line-height:.8; }
+  html[data-ty="vert"] .lst { left:calc(var(--pad) + var(--wordw, 0px) + 40px); }
+  html[data-ty="vert"] .top { left:calc(var(--pad) + var(--wordw, 0px) + 40px); }
+  html[data-ty="vert"] .tabs button span::before { content:attr(data-r) ". "; }
+  /* 3 / ticker */
+  html[data-ty="tick"] .top { top:0; left:0; right:0; height:42px; align-items:center; background:var(--ink); color:#fff; overflow:hidden; }
+  html[data-ty="tick"] .top .who { display:none; }
+  .ticker { display:none; flex:1; overflow:hidden; white-space:nowrap; }
+  html[data-ty="tick"] .ticker { display:block; }
+  .ticker span { display:inline-block; padding-left:100%; animation:tick 26s linear infinite; }
+  @keyframes tick { to { transform:translateX(-100%); } }
+  html[data-ty="tick"] .top nav { background:var(--ink); padding:0 var(--pad) 0 28px; height:100%; align-items:center; box-shadow:-24px 0 24px var(--ink); }
+  html[data-ty="tick"] .tabs button sup { display:none; } html[data-ty="tick"] .tabs button span::after { content:" (" attr(data-n) ")"; color:var(--muted); }
+  .word .fill { display:none !important; }
+  html[data-ty="mix"] .bottom .word { line-height:1; padding-bottom:.06em; }
+  html[data-ty="tick"] .switch { top:54px !important; }
+  /* --- minimal --- */
+  .switch { display:none !important; }
+  .top { display:grid !important; grid-template-columns:1fr auto 1fr; align-items:baseline; background:none !important; color:var(--ink) !important; height:auto !important; top:var(--pad) !important; left:var(--pad) !important; right:var(--pad) !important; }
+  .top > span:last-child { justify-self:end; }
+  .top .mid { display:flex; gap:.5em; }
+  .ticker, .bgword { display:none !important; }
+  .bottom { left:var(--pad) !important; right:var(--pad) !important; top:auto !important; bottom:var(--pad) !important; display:flex !important; justify-content:space-between; align-items:baseline !important; overflow:visible !important; }
+  .lst { left:var(--pad) !important; }
+  /* list: no leaders, year right after the title */
+  .l-toc .row { grid-template-columns:2.2em auto auto 1fr !important; gap:0 14px !important; }
+  .l-toc .row .lead { display:none; }
+  .l-toc .row .ar { justify-self:start; }
+  /* --- identity chapter: inverted screen --- */
+  html, body, .top, .bottom, .info, .lst, .tabs button, .l-toc .row { transition:background-color .6s ease, color .6s ease; }
+  html.dark { --bg:#0f0f0f; --ink:#f4f3ef; --muted:#85837d; }
+  html.dark body { background:var(--bg); color:var(--ink); }
+  html.dark .l-toc .row, html.dark .tabs button { color:#55534f; }
+  html.dark .l-toc .row.on, html.dark .tabs button.on { color:var(--ink); }
+  html.dark .l-toc .row:hover { color:#9a9892; }
+  html.dark .cur .in { color:#0f0f0f; }
+  html.dark .card .ph { box-shadow:0 1px 0 rgba(255,255,255,.04), 0 22px 44px rgba(0,0,0,.5); }
+  /* --- phone: the stack on top, swiped sideways; the current work underneath; «напиши мне» pinned to the bottom --- */
+  .mdots, .info .go, .mwrite, .marr, .sarr { display:none; }
+  .mrow { display:contents; }
+  @media (max-width:900px){
+    :root { --pad:16px; }
+    html, body { height:auto; overflow:visible; }
+    /* a sideways swipe on the stack shouldn't turn into «back» in Chrome on Android */
+    html, body { overscroll-behavior-x:none; }
+    body { display:flex; flex-direction:column; min-height:100svh; padding-bottom:110px; }
+    .top { position:relative !important; top:auto !important; left:auto !important; right:auto !important; order:1; padding:calc(var(--pad) + env(safe-area-inset-top)) var(--pad) 0; grid-template-columns:1fr auto; grid-template-areas:"name nav" "role nav"; }
+    .top > span:first-child { grid-area:role; color:var(--muted); }
+    .top > span:last-child { grid-area:name; justify-self:start; }
+    .top .mid { grid-area:nav; }
+    .top .mid .wk, .top .mid .sl { display:none; }
+    .top .mid a { text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.2em; }
+    .stage { position:relative; inset:auto; order:2; height:46svh; min-height:300px; perspective:1200px; touch-action:pan-y; }
+    html[data-l="toc"] .lst.l-toc { position:relative; left:auto !important; top:auto; transform:none; order:3; width:auto; display:flex; justify-content:space-between; align-items:baseline; padding:0 var(--pad); margin:14px 0 18px; }
+    /* the stack is cut at the top and the sides only: shadows and the outgoing covers may hang below, under the tabs */
+    .stage { overflow:visible; overflow-x:clip; clip-path:inset(0 0 -200px 0); }
+    /* covers flying off sideways must not widen the page (the contacts card measured itself off-screen) */
+    html, body { overflow-x:clip; }
+    .lst, .info { position:relative; z-index:6; }
+    .l-toc #toc { display:none; }
+    .tabs { margin:0; }
+    .tabs button { font-size:28px; }
+    .tabs button sup { font-size:13.5px; }
+    .mrow { display:flex; justify-content:space-between; align-items:center; }
+    .mdots { display:flex; gap:6px; }
+    /* arrows, three placements to compare (?arr=a|b|c): a — around the dots, b — on the stack sides, c — instead of the dots */
+    .mnav { display:flex; align-items:center; gap:12px; }
+    .marr, .sarr { all:unset; box-sizing:border-box; display:none; place-items:center; width:40px; height:40px; border:1px solid var(--ink); border-radius:50%; color:var(--ink); background:var(--bg); cursor:pointer; transition:opacity .2s, background-color .6s, color .6s, border-color .6s; }
+    .marr svg, .sarr svg { width:20px; height:20px; display:block; }
+    .marr.off, .sarr.off { opacity:.2; pointer-events:none; }
+    html[data-arr="a"] .marr, html[data-arr="c"] .marr { display:grid; }
+    html[data-arr="c"] .mdots { display:none; }
+    html[data-arr="b"] .sarr { display:grid; position:absolute; top:45%; margin-top:-20px; z-index:300; border-color:transparent; box-shadow:0 4px 14px rgba(0,0,0,.18); }
+    .sarr[data-d="-1"] { left:10px; } .sarr[data-d="1"] { right:10px; }
+    .mdots i { width:6px; height:6px; border-radius:50%; background:#bdbbb5; transition:background .3s; }
+    .mdots i.on { background:var(--ink); }
+    html.dark .mdots i { background:#55534f; } html.dark .mdots i.on { background:var(--ink); }
+    .info { position:relative; top:auto; right:auto; transform:none; order:4; width:auto; padding:0 var(--pad); }
+    html.narrow .info .t { font-size:46px; margin:8px 0 12px; }
+    .info .go { display:inline-block; margin-top:14px; font-size:19px; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.2em; }
+    .bottom, .bgword, .more { display:none !important; }
+    .mwrite { display:inline-flex; position:fixed; left:50%; bottom:calc(16px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:20; margin:0; box-shadow:0 10px 30px rgba(0,0,0,.18); }
+    html.dark .mwrite { background:#f4f3ef; color:#0f0f0f; border-color:#f4f3ef; }
+  }
+  /* short phones (iPhone SE): a lower stack, so «Смотреть кейс» stays above the pill */
+  @media (max-width:900px) and (max-height:720px){
+    .stage { height:39svh; min-height:240px; }
+    html[data-l="toc"] .lst.l-toc { margin:8px 0 6px; }
+    .tabs button { font-size:26px; }
+    .marr { width:34px; height:34px; } .marr svg { width:18px; height:18px; }
+    html.narrow .info .t { font-size:42px; margin:4px 0 8px; }
+    .info .go { margin-top:10px; }
+    body { padding-bottom:84px; }
+  }
+</style></Fragment>
+<div class="top mono"><span>UX/UI-дизайнер</span><nav class="mid"><a href="#" class="wk">Работы</a><span class="sl">/</span><a href="/about/">Обо&nbsp;мне</a></nav><span>Александра Зянчурина</span></div>
+<div class="bgword" aria-hidden="true"><span id="bgw">UX/UI</span></div>
+<div class="stage" id="stage"></div>
+<div class="info" data-native><div class="mrow"><div class="n mono" id="in"></div><div class="mnav"><button class="marr" type="button" data-d="-1" aria-label="предыдущая работа"></button><div class="mdots" id="mdots"></div><button class="marr" type="button" data-d="1" aria-label="следующая работа"></button></div></div><div class="t" id="it"></div><div class="d" id="id"></div><div class="g mono" id="ig"></div><a class="go" id="igo" href="#">Смотреть кейс&nbsp;→</a></div>
+<div class="lst l-toc" data-native><div id="tochead"></div><div id="toc"></div></div>
+<div class="bottom mono"><span>Портфолио</span><span>2026</span></div>
+<button class="write-btn mwrite" id="mwrite" type="button"><span class="star">✶</span><span class="t">напиши мне</span></button>
+<Fragment slot="scripts"><script is:inline>
+const root=document.documentElement; root.dataset.l="toc"; root.dataset.f="ptn"; root.classList.add("narrow");
+const ph = (t, bg, fg) => "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900"><rect width="100%" height="100%" fill="${bg}"/><text x="60" y="820" font-family="PT Sans Narrow, Arial Narrow, sans-serif" font-size="150" font-weight="700" fill="${fg}" letter-spacing="-4">${t}</text><text x="64" y="110" font-family="PT Sans Narrow, sans-serif" font-size="34" fill="${fg}" opacity=".6">ОБЛОЖКА-ЗАГЛУШКА</text></svg>`);
+const GROUPS = { prod:"UX/UI", id:"Айдентика и графика" };
+const ALL = [
+  { grp:"prod", t:"Напоказ", d:"Дневник культурного опыта: от 8 интервью до живого сервиса", g:"Продукт / UX/UI — 2026", cover:"/img/home/napokaz-cov.webp", ui:"/img/home/napokaz-x.webp", ar:1920/1234, href:"/napokaz/" },
+  { grp:"prod", t:"The Rose Girl", d:"Сайт фанатской манги на пяти языках", g:"UX/UI / разработка — 2026", cover:"/img/home/manga-cov.webp", ui:"/img/home/manga-x.webp", ar:1272/1146, href:"/manga/" },
+  { grp:"prod", t:"Praktika.school", d:"iOS-приложение онлайн-школы", g:"UX/UI / EdTech — 2024", cover:"/img/b1.jpg", ui:"/img/home/praktika-x.webp", ar:808/632, href:"/praktika/" },
+  { grp:"prod", t:"Слепок", d:"Лендинг керамической студии: от исследования и бренда до живого сайта", g:"UX/UI / бренд — 2026", cover:"/img/b2.jpg", ui:"/img/home/slepok-x.webp", ar:808/632, href:"/slepok/" },
+  { grp:"id", t:"Кино и кофе", d:"Айдентика кофейни-кинотеатра / визуальная основа сервиса «Напоказ»", g:"Айдентика / web — 2026", cover:"/img/b3.jpg", ui:"/img/home/kino-x.webp", ar:808/632, href:"/kino/" },
+  { grp:"id", t:"Чердак Бардак", d:"Визуал соцсетей творческой мастерской в Нови-Саде", g:"SMM-дизайн / гайд — 2026", cover:"/img/home/cherdak-cov.webp", ui:"/img/home/cherdak-x.webp", ar:1, href:"/cherdak/" },
+  { grp:"id", t:"alё", d:"Айдентика собственного бренда вязаных вещей", g:"Айдентика / бренд — 2024", cover:"/img/home/ale-cov.webp", ui:"/img/ale/grid.webp", ar:2675/1920, href:"/ale/" },
+  { grp:"id", t:"Коммуналка", d:"Две концепции визуала для книжного фестиваля", g:"Айдентика / соцсети — 2025", cover:"/img/komm/k1-poster.webp", ui:"/img/komm/k2-poster1.webp", ar:1206/1589, href:"/kommunalka/" },
+];
+const year = p => (p.g.split("— ")[1]||"—");
+const byGrp = g => ALL.filter(p=>p.grp===g);
+const LIST = ALL;
+const stage=document.getElementById("stage"), toc=document.getElementById("toc"), tochead=document.getElementById("tochead");
+let ty="board", cards=[], rows=[], pos=0, target=0, shown=-1, idle=0, curGrp=null;
+
+// split-flap: letters run through random glyphs and settle left to right
+const GLYPHS="АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ0123456789";
+function flip(el, text, dur=520){
+  if(ty!=="board"){ el.textContent=text; return; }
+  const t0=performance.now(); cancelAnimationFrame(el._f);
+  const step=now=>{ const k=Math.min(1,(now-t0)/dur);
+    el.textContent=[...text].map((c,i)=> c===" " || i/text.length < k ? c : GLYPHS[Math.random()*GLYPHS.length|0]).join("");
+    if(k<1) el._f=requestAnimationFrame(step); };
+  el._f=requestAnimationFrame(step);
+}
+const M=matchMedia("(max-width:900px)");
+cards=LIST.map((p,i)=>{ const c=document.createElement("div"); c.className="card"; c.innerHTML=cover(p);
+  c.onclick=()=>{ if(window.__dragged) return; if(Math.round(pos)!==i) target=i; else if(p.href) location.href=p.href; else toast(`Здесь откроется кейс «${p.t}»`); }; stage.append(c); return c; });
+
+function drawList(g){
+  curGrp=g; root.classList.toggle("dark", g==="id");
+  tochead.innerHTML=`<div class="tabs mono">${["prod","id"].map(x=>`<button data-t="${x}" class="${x===g?"on":""}"><span data-r="${x==="prod"?"I":"II"}" data-n="${byGrp(x).length}">${x==="prod"?"UX/UI":(ty==="mix"&&x===g?"айдентика":"Айдентика")}</span><sup>${byGrp(x).length}</sup></button>`).join("")}</div>`;
+  tochead.querySelectorAll("button").forEach(b=>b.onclick=()=>{ target=LIST.findIndex(p=>p.grp===b.dataset.t); });
+  const active=tochead.querySelector("button.on span"); flip(active, active.textContent, 420);
+  const items=LIST.map((p,i)=>({p,i})).filter(o=>o.p.grp===g);
+  toc.innerHTML=items.map(({p,i},n)=>`<div class="row" data-i="${i}"><span class="no">${String(n+1).padStart(2,"0")}</span><span>${p.t}</span><span class="lead"></span><span class="yr">${year(p)}</span><span class="ar">→</span></div>`).join("");
+  rows=[...toc.querySelectorAll(".row")]; rows.forEach(r=>r.onclick=()=>target=+r.dataset.i);
+  // background word slides out / in
+  const bw=document.getElementById("bgw"), next=g==="prod"?"UX/UI":"Айдентика";
+  if(bw.textContent!==next){ bw.classList.add("out"); setTimeout(()=>{ bw.textContent=next; bw.classList.remove("out"); bw.classList.add("in"); requestAnimationFrame(()=>requestAnimationFrame(()=>bw.classList.remove("in"))); },380); }
+}
+const H=()=>Math.min(innerHeight*.5, 480, innerWidth*.26);
+// on a phone each cover fits the stage on its own: wide ones by width, tall ones by height
+const hOf=i=>M.matches ? Math.min(stage.clientHeight*.78, stage.clientWidth*.86/LIST[i].ar) : H();
+function size(){ cards.forEach((c,i)=>{ const h=hOf(i), w=h*LIST[i].ar; c.style.height=h+"px"; c.style.width=w+"px"; c.style.marginLeft=(-w/2)+"px"; c.style.marginTop=(-h/2)+"px"; }); }
+size(); addEventListener("resize",size); M.addEventListener("change",()=>shown=-1);
+// on a narrow screen the page itself scrolls, so the wheel flips works only over the stack
+addEventListener("wheel",e=>{ if(M.matches && !e.target.closest(".stage")) return; e.preventDefault(); target+=e.deltaY/420; idle=0; },{passive:false});
+addEventListener("keydown",e=>{ if(e.key==="ArrowDown"||e.key==="ArrowRight") target++; if(e.key==="ArrowUp"||e.key==="ArrowLeft") target--; });
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function diag(o){ if(M.matches) return diagPhone(o); const a=Math.abs(o), m=Math.min(a,1), s=Math.sign(o), step=26;
+  const x=o*step*.7 + s*m*innerWidth*.07, y=-o*step*.75 - s*m*innerHeight*.15;
+  return { tf:`translate3d(${x}px,${y}px,${-a*40+(1-m)*60}px) rotateY(${-38*m*s}deg) rotateX(${12*m}deg) rotateZ(${-6*m*s}deg) scale(${1-m*.32})`, z:100-Math.round(a*10), op:a>7?0:1 }; }
+// the same diagonal, measured by the stage instead of the window
+function diagPhone(o){ const a=Math.abs(o), m=Math.min(a,1), s=Math.sign(o), sw=stage.clientWidth, sh=stage.clientHeight;
+  // the whole stack sits a bit high, and past covers drop less than the next ones rise, so less hangs over the tabs
+  const x=o*14+s*m*sw*.16, y=-o*12-s*m*sh*(s>0?.2:.13)-sh*.03;
+  return { tf:`translate3d(${x}px,${y}px,${-a*30+(1-m)*40}px) rotateY(${-34*m*s}deg) rotateX(${10*m}deg) rotateZ(${-6*m*s}deg) scale(${1-m*.34})`, z:100-Math.round(a*10), op:a>5?0:1 }; }
+// phone: swipe left = next work; a swipe doesn't count as a tap on a cover.
+// The direction is decided after the first few pixels: clearly sideways (under ~40° from horizontal) — the stack moves
+// and the page stays put; down or diagonal — the page scrolls and the stack doesn't budge
+let drag=null;
+const SIDEWAYS=1.2;
+function dragStart(x,y){ if(M.matches) drag={x,y,t:target,axis:null}; }
+function dragMove(x,y,e){ if(!drag) return;
+  const dx=x-drag.x, dy=y-drag.y;
+  if(!drag.axis){ if(Math.hypot(dx,dy)<10) return; drag.axis=Math.abs(dx)>Math.abs(dy)*SIDEWAYS?"x":"y"; }
+  if(drag.axis!=="x") return;
+  if(e && e.cancelable) e.preventDefault();
+  window.__dragged=true; target=drag.t-dx/(stage.clientWidth*.5); idle=0; }
+function dragEnd(){ if(!drag) return;
+  // even a short confident swipe turns one work; a tiny one springs back
+  if(drag.axis==="x"){ const d=target-drag.t; target=drag.t+(Math.abs(d)>.12 ? Math.sign(d)*Math.max(1,Math.round(Math.abs(d))) : 0); }
+  drag=null; setTimeout(()=>window.__dragged=false,350); }
+stage.addEventListener("touchstart",e=>{ if(e.touches.length>1){ drag=null; return; } const t=e.touches[0]; dragStart(t.clientX,t.clientY); },{passive:true});
+stage.addEventListener("touchmove",e=>{ const t=e.touches[0]; dragMove(t.clientX,t.clientY,e); },{passive:false});
+stage.addEventListener("touchend",dragEnd); stage.addEventListener("touchcancel",dragEnd);
+// a mouse in a narrow desktop window drags the same way
+stage.addEventListener("pointerdown",e=>{ if(e.pointerType==="mouse") dragStart(e.clientX,e.clientY); });
+addEventListener("pointermove",e=>{ if(e.pointerType==="mouse") dragMove(e.clientX,e.clientY); });
+addEventListener("pointerup",e=>{ if(e.pointerType==="mouse") dragEnd(); });
+const dots=document.getElementById("mdots"); dots.innerHTML=LIST.map(()=>"<i></i>").join("");
+// arrows, so it's obvious the stack turns; chosen: c — arrows only, no dots (the tabs already say how many); a and b kept for comparison
+root.dataset.arr=new URLSearchParams(location.search).get("arr")||"c";
+const arrow=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d<0?"M19 12H5M11 6l-6 6 6 6":"M5 12h14M13 6l6 6-6 6"}"/></svg>`;
+stage.insertAdjacentHTML("beforeend",`<button class="sarr" type="button" data-d="-1" aria-label="предыдущая работа"></button><button class="sarr" type="button" data-d="1" aria-label="следующая работа"></button>`);
+const arrows=[...document.querySelectorAll(".marr,.sarr")];
+arrows.forEach(b=>{ b.innerHTML=arrow(+b.dataset.d); b.onclick=e=>{ e.stopPropagation(); target=clamp(Math.round(target)+ +b.dataset.d,0,LIST.length-1); idle=0; }; });
+document.getElementById("mwrite").onclick=e=>{ const r=e.currentTarget.getBoundingClientRect(); openContacts(r.left+100, r.top+19); };
+const wfill=document.getElementById("wfill");
+(function loop(){
+  target=clamp(target,0,LIST.length-1); if(++idle>18){ const r=Math.round(target); target+=(r-target)*.2; }
+  pos+=(target-pos)*.1;
+  cards.forEach((c,i)=>{ const r=diag(i-pos); c.style.transform=r.tf; c.style.zIndex=r.z; c.style.opacity=r.op; });
+  const k=Math.round(pos); if(k!==shown){ shown=k; const p=LIST[k];
+    if(p.grp!==curGrp) drawList(p.grp);
+    const n=LIST.filter((q,j)=>j<=k && q.grp===p.grp).length;
+    // on a phone the group is already in the tabs right above, so the counter shows «01 / 04»
+    document.getElementById("in").textContent=`${String(n).padStart(2,"0")} / ${M.matches ? String(byGrp(p.grp).length).padStart(2,"0") : GROUPS[p.grp]}`;
+    flip(document.getElementById("it"), p.t); document.getElementById("id").textContent=p.d; document.getElementById("ig").textContent=p.g;
+    document.getElementById("igo").href=p.href;
+    dots.querySelectorAll("i").forEach((d,j)=>d.classList.toggle("on",j===k));
+    arrows.forEach(b=>b.classList.toggle("off", +b.dataset.d<0 ? k===0 : k===LIST.length-1));
+    rows.forEach(r=>r.classList.toggle("on",+r.dataset.i===k)); }
+  requestAnimationFrame(loop); })();
+function setTy(t){ ty=t; root.dataset.ty=t; if(curGrp) drawList(curGrp); shown=-1; }
+document.querySelectorAll(".switch a[data-ty]").forEach(a=>a.onclick=e=>{ e.preventDefault(); setTy(a.dataset.ty); });
+setTy("min");
+</script></Fragment>
+</Base>

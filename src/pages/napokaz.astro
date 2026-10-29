@@ -1,0 +1,391 @@
+---
+import Base from '../layouts/Base.astro';
+import '@fontsource/wix-madefor-text/400.css';
+import '@fontsource/wix-madefor-text/500.css';
+---
+<Base title={'Напоказ — кейс · Александра Зянчурина'} description={'Дневник культурного опыта: от 8 интервью до живого сервиса'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --n950:#141414; --n900:#1b1a18; --n800:#2a2824; --cream:#fff2d8; --taupe:#898376; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; }
+  .cover .pic { width:100%; height:auto; display:block; background:var(--n950); }
+  .cover .art { background:var(--n950); color:var(--cream); aspect-ratio:21/9; display:grid; place-items:center; align-content:center; gap:28px; }
+  .cover .art img { width:min(62%,900px); height:auto; display:block; }
+  .cover .art .lab { color:var(--cream); opacity:.85; font-family:"Wix Madefor Text"; letter-spacing:.08em; font-size:clamp(12px,1.1vw,16px); }
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt + .txt { margin-top:16px; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+
+  /* tables */
+  table { width:100%; border-collapse:collapse; margin-top:28px; font-size:18px; }
+  th { text-align:left; font-weight:400; padding:0 16px 12px 0; vertical-align:bottom; }
+  td { padding:13px 16px 13px 0; border-top:1px solid var(--line); vertical-align:top; line-height:1.3; }
+  td:first-child { color:var(--muted); }
+  tr.hl td { color:var(--ink); background:#f6f5f2; } tr.hl td:first-child { color:var(--ink); padding-left:10px; }
+  .y { font-size:18px; } .no-v { color:#c9c7c0; }
+
+  /* segments / hypotheses */
+  .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:8px; }
+  .card { border:1px solid var(--line); padding:20px 20px 24px; display:flex; flex-direction:column; gap:12px; min-height:340px; }
+  .card.core { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .card b { font-weight:400; font-size:clamp(22px,1.7vw,26px); letter-spacing:-.02em; line-height:1; }
+  .card .share { font-weight:400; font-size:40px; letter-spacing:-.02em; line-height:.9; }
+  .card p { font-size:18px; line-height:1.35; }
+  .card .need { margin-top:auto; color:var(--muted); line-height:1.35; }
+  .card.core .need, .card.core .lab.mut { color:#9a9a9a; }
+  .pill { display:inline-block; width:max-content; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; padding:3px 10px 5px; border:1px solid var(--ink); border-radius:999px; white-space:nowrap; }
+  .pill.on { background:var(--ink); color:#fff; } .pill.off { border-color:#c9c7c0; color:var(--muted); }
+  .hyps { margin-top:8px; }
+  .hyp { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:baseline; padding:18px 0 20px; border-top:1px solid var(--line); }
+  .hyp .n { grid-column:1 / 2; } .hyp p { grid-column:2 / 7; font-size:clamp(22px,1.7vw,26px); line-height:1.25; }
+  .hyp .r { grid-column:7 / 10; display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .cols3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .cols3 ul { list-style:none; margin-top:16px; } .cols3 li { font-size:clamp(19px,1.35vw,22px); line-height:1.5; }
+  .have { list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--gap); margin-top:20px; }
+  .have li { padding:12px 0 14px; border-top:1px solid var(--line); font-size:clamp(19px,1.35vw,22px); line-height:1.35; }
+
+  /* dark panels: wireframes, palette, components */
+  .panel { background:var(--n950); color:var(--cream); padding:clamp(24px,3vw,48px); margin-top:28px; }
+  .wfs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.4vw,40px) clamp(16px,2vw,32px); }
+  .wfs figure img { width:100%; height:auto; display:block; }
+  .wfs figcaption { margin-top:14px; } .wfs figcaption b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:4px; }
+  .wfs figcaption span { font-size:16px; line-height:1.3; color:#b9b3a6; display:block; }
+  .variants { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .variants figure img { width:100%; display:block; }
+  .variants figcaption { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:12px; font-size:18px; }
+  .variants figure.pick img { outline:2px solid var(--ink); outline-offset:6px; }
+  .variants figure:not(.pick) img { opacity:.55; }
+
+  /* scenario */
+  .flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin-top:8px; align-items:start; }
+  .flow .shot { aspect-ratio:400/869; display:flex; align-items:center; justify-content:center; }
+  .flow .shot img { width:100%; height:100%; object-fit:contain; display:block; }
+  .flow .shot.go { background:#f6f5f2; flex-direction:column; gap:10px; }
+  .flow .go span { font-size:15px; letter-spacing:.04em; text-transform:uppercase; padding:4px 10px 6px; border-radius:999px; color:var(--n950); }
+  .flow .st-n { font-weight:400; font-size:40px; letter-spacing:-.02em; margin-top:18px; line-height:1; }
+  .flow b { display:block; font-weight:400; font-size:24px; margin:6px 0 6px; }
+  .flow p { font-size:18px; line-height:1.35; }
+  .vids { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:40px; }
+  .vid { aspect-ratio:16/10; background:#f6f5f2; display:grid; place-items:center; color:var(--muted); }
+  .desk { margin-top:40px; } .desk img { width:100%; display:block; } .desk figcaption { margin-top:12px; }
+
+  /* design system */
+  /* where the visual came from: identity vs service */
+  /* identity → service: one scale for both columns, live samples (only Formular is a picture: the font is paid) */
+  .origin { background:var(--n950); color:var(--cream); margin-top:8px; padding:clamp(20px,3vw,40px); }
+  .origin .lab { color:#b9b3a6; }
+  .o-hd, .o-row { display:grid; grid-template-columns:6em minmax(0,1fr) 28px minmax(0,1.3fr) minmax(0,.8fr); gap:20px; align-items:center; }
+  .o-hd { padding-bottom:12px; }
+  .o-row { padding:18px 0; border-top:1px solid #3a3731; }
+  .o-s { min-height:64px; display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+  .o-s .m { display:none; }
+  .o-arr { font-size:28px; line-height:1; color:#b9b3a6; }
+  .o-why { font-size:15px; line-height:1.35; color:#b9b3a6; }
+  .o-formular { width:200px; height:56px; overflow:hidden; display:block; } .o-formular img { width:100%; display:block; }
+  .o-wix { font-family:"Wix Madefor Text"; font-size:30px; line-height:1; text-transform:uppercase; }
+  .o-ell, .o-pill { display:inline-flex; align-items:center; justify-content:center; font-family:"Wix Madefor Text"; font-size:12px; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap; }
+  .o-ell { width:104px; height:34px; border-radius:50%; border:1px solid var(--cream); }
+  .o-ell.f { background:var(--cream); color:var(--n950); } .o-ell.p { box-shadow:0 0 0 4px var(--cream); font-weight:500; }
+  .o-pill { width:112px; height:40px; border-radius:999px; background:var(--cream); color:var(--n950); }
+  .o-pill.p { font-weight:500; -webkit-text-stroke:.4px var(--n950); }
+  .o-sw { display:flex; gap:4px; align-items:center; } .o-sw i { width:22px; height:22px; display:block; } .o-sw i.ink { background:var(--n950); box-shadow:inset 0 0 0 1px #4a463f; } .o-sw b { width:4px; }
+  .o-note { margin-top:18px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; font-size:16px; color:#b9b3a6; } .o-note img { width:96px; display:block; }
+  .band { display:grid; grid-template-columns:5fr 2fr 1.6fr 1.6fr 1.3fr; height:180px; margin-top:8px; }
+  .band div { padding:14px; display:flex; flex-direction:column; justify-content:flex-end; font-family:"Wix Madefor Text"; font-size:13px; line-height:1.35; }
+  .band div small { opacity:.65; font-size:11px; letter-spacing:.05em; text-transform:uppercase; }
+  .cats { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); gap:8px; margin-top:8px; }
+  .cats div { height:140px; padding:12px; display:flex; flex-direction:column; justify-content:flex-end; color:var(--n950); font-family:"Wix Madefor Text"; font-size:13px; text-transform:uppercase; letter-spacing:.03em; }
+  .cats small { font-size:10.5px; opacity:.6; text-transform:uppercase; letter-spacing:.05em; }
+  .type { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-top:8px; font-family:"Wix Madefor Text"; }
+  .type .aa { grid-column:1 / 4; font-size:clamp(120px,12vw,200px); line-height:.85; letter-spacing:-.04em; }
+  .type .rows { grid-column:4 / 10; }
+  .type .rows div { display:grid; grid-template-columns:7em 1fr; align-items:baseline; gap:16px; padding:10px 0; border-top:1px solid var(--line); }
+  .type .rows .k { font-family:"PT Sans Narrow"; font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+  .comps { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:start; }
+  .comps .ui { grid-column:1 / 6; display:flex; flex-direction:column; gap:22px; font-family:"Wix Madefor Text"; }
+  .comps .card-img { grid-column:6 / 10; } .comps .card-img img { width:100%; display:block; }
+  .ui .row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  /* components as in the service: button 48px, chip/tab 40px, icon button 44px, Lucide icons */
+  .ui .btn { display:inline-flex; align-items:center; justify-content:center; height:48px; width:min(240px,100%); border-radius:999px; font-size:15px; letter-spacing:.02em; text-transform:uppercase; border:1px solid var(--cream); }
+  .ui .btn.f { background:var(--cream); color:var(--n950); }
+  .ui .chip { display:inline-flex; align-items:center; gap:6px; height:40px; padding:0 18px; border-radius:999px; font-size:13px; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--cream); }
+  .ui .chip.f { background:var(--cream); color:var(--n950); }
+  .ui .chip svg { width:16px; height:16px; flex:none; }
+  .ui .chip.tab { padding:0 26px; }
+  .ui .ib { display:inline-flex; align-items:center; justify-content:center; gap:6px; height:44px; min-width:44px; padding:0 10px; border-radius:999px; font-size:14px; }
+  .ui .ib svg { width:20px; height:20px; }
+  .ui .ib.on svg { fill:#ff6b57; color:#ff6b57; } .ui .ib.pin svg { fill:currentColor; }
+  .ui .ib.prim { background:var(--cream); color:var(--n950); }
+  .ui .field { border:1px solid #4a463f; padding:13px 14px; font-size:14px; color:#8d877b; }
+  .ui .lab { color:#b9b3a6; font-family:"PT Sans Narrow"; }
+  .ui .lab.cap { display:block; margin-bottom:10px; }
+  .ui .stars { display:flex; gap:4px; } .ui .stars i, .ui .stars svg { width:22px; height:22px; display:block; } .ui .stars .fill svg { fill:currentColor; }
+  .cats svg { width:18px; height:18px; margin-bottom:auto; }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .cards,.wfs,.variants,.flow{grid-template-columns:1fr 1fr} .cats{grid-template-columns:repeat(3,1fr)} .kv dt,.kv dd{grid-column:1/10} .have{grid-template-columns:1fr} }
+  /* scenarios */
+  .scn { margin-top:72px; } .scn:first-of-type { margin-top:0; }
+  .scn-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:28px; }
+  .scn-h .lab { grid-column:1 / 10; }
+  .scn-h h4 { grid-column:1 / 7; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.025em; line-height:1; margin:8px 0 10px; }
+  .scn-h p { grid-column:1 / 7; font-size:clamp(19px,1.35vw,22px); line-height:1.35; color:var(--muted); }
+  .scn-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); align-items:start; }
+  /* phone screens at full width and one scale; 390:763 trims the safe area under the tab bar */
+  .scn-row img, .vslot { width:100%; aspect-ratio:390/763; object-fit:cover; object-position:top; display:block; border-radius:14px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); }
+  .scn-row video.clip { width:100%; aspect-ratio:390/763; object-fit:cover; object-position:top; display:block; border-radius:14px; background:#141414; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); }
+  .lvid video.clip { width:100%; aspect-ratio:1440/922; display:block; border-radius:12px; background:#141414; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); }
+  .vslot { box-shadow:none; background:#f4f3f0; border:1px dashed #cfccc4; display:grid; place-items:center; text-align:center; color:var(--muted); line-height:1.5; }
+  .scn-row figcaption { margin-top:16px; font-size:18px; line-height:1.3; }
+  .scn-row figcaption .lab { display:block; margin-bottom:6px; }
+  .desk { margin-top:96px; } .desk img { width:100%; display:block; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08); } .desk figcaption { margin-top:14px; }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">01 / 08</div>
+  <div class="main">
+    <h1>Напоказ</h1>
+    <p class="lead">Дневник культурного опыта: от&nbsp;8&nbsp;интервью до&nbsp;живого сервиса</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>Автор идеи, продуктовый дизайнер</div>
+      <div><span class="lab mut">Год</span>2026</div>
+      <div><span class="lab mut">Инструменты</span>Figma, Claude Code</div>
+      <div><span class="lab mut">Сайт</span><a class="inl" href="https://nenapokaz.ru" target="_blank" rel="noopener">nenapokaz.ru&nbsp;↗</a></div>
+    </div>
+  </div>
+  <div class="full cover"><img class="pic" src="/img/case/cover.webp" width="1760" height="887" alt="Обложка «Напоказ»: логотип-эллипс с фотографией города внутри, по краям «Впечатления (на) показ» и «Дневник культурного опыта»"></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Веб-сервис, где записывают впечатления от&nbsp;культуры и&nbsp;находят, куда сходить, по&nbsp;советам друзей и&nbsp;знакомых.</p></div>
+    <p class="txt big">Дневник культурного опыта&nbsp;— для&nbsp;тех, у&nbsp;кого культура&nbsp;— часть повседневности. В&nbsp;дневник записывают впечатления от&nbsp;спектаклей, концертов, выставок, лекций, книг, кино, музыки и&nbsp;другого. Достаточно добавить название, оценку и&nbsp;пару строк.</p>
+    <p class="txt" style="margin-top:20px">Ироничное название сбивает снобизм и&nbsp;пафос, делая бренд дружелюбнее. «Записывай для&nbsp;себя. Остальное&nbsp;— напоказ».</p>
+    <dl class="kv"><dt class="lab">Цель</dt><dd>Спроектировать и&nbsp;запустить сервис, в&nbsp;котором можно быстро записать впечатление и&nbsp;легко найти, куда сходить, по&nbsp;советам людей, чьему вкусу доверяешь.</dd>
+      <dt class="lab">Моя роль</dt><dd>Автор идеи и&nbsp;продуктовый дизайнер: исследование, продуктовые решения, UX/UI, дизайн-система, лендинг, тексты. Код по&nbsp;моим задачам писал AI-агент Claude Code; постановка, решения и&nbsp;приёмка&nbsp;— мои.</dd></dl>
+  </section>
+
+  <section class="ch" id="research" data-t="Исследование">
+    <div class="ch-h"><h2><span class="n">02</span>Исследование</h2><p>8&nbsp;интервью и&nbsp;разбор пяти сервисов, где люди сейчас хранят впечатления.</p></div>
+    <p class="txt">Полуструктурированные интервью по&nbsp;гайду из&nbsp;10&nbsp;вопросов: как&nbsp;люди запоминают увиденное, где записывают, чем делятся и&nbsp;где хранят «посмотреть позже». Участники&nbsp;— знакомые из&nbsp;разных сфер.</p>
+    <h3>Конкуренты</h3>
+    <table>
+      <tr><th></th><th class="lab mut">Что&nbsp;записывают</th><th class="lab mut">Оценка</th><th class="lab mut">Каталог</th><th class="lab mut">Друзья</th><th class="lab mut">На&nbsp;потом</th></tr>
+      <tr><td>Letterboxd</td><td>Кино</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td>Watchlist</td></tr>
+      <tr><td>Кинопоиск</td><td>Кино и&nbsp;сериалы</td><td class="y">✓</td><td class="y">✓</td><td>Частично</td><td>«Буду смотреть»</td></tr>
+      <tr><td>LiveLib</td><td>Книги</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td>«Хочу прочитать»</td></tr>
+      <tr><td>Instagram</td><td>Что&nbsp;угодно, без&nbsp;структуры</td><td class="no-v">—</td><td class="no-v">—</td><td class="y">✓</td><td>Сохранённое</td></tr>
+      <tr><td>Заметки</td><td>Что&nbsp;угодно, без&nbsp;структуры</td><td class="no-v">—</td><td class="no-v">—</td><td class="no-v">—</td><td>Вручную</td></tr>
+      <tr class="hl"><td>Напоказ</td><td>Спектакли, концерты, выставки, лекции, книги, кино, музыка, места и&nbsp;свои категории</td><td>0,5–⁠5</td><td class="y">✓</td><td class="y">✓</td><td>«Планы»</td></tr>
+    </table>
+    <p class="txt" style="margin-top:28px">Каждый сервис закрывает одну категорию или&nbsp;не&nbsp;даёт структуры. Свободная ниша&nbsp;— один дневник на&nbsp;всю культурную жизнь.</p>
+  </section>
+
+  <section class="ch" id="segments" data-t="Сегменты">
+    <div class="ch-h"><h2><span class="n">03</span>Сегменты</h2><p>Делю людей по&nbsp;тому, записывают&nbsp;ли они впечатления уже сейчас и&nbsp;где.</p></div>
+    <div class="cards">
+      <div class="card core"><span class="lab mut">Ядро аудитории</span><span class="share">4/8</span><b>Хронисты</b><p>Уже ведут записи, но&nbsp;в&nbsp;разных местах: Telegram-канал, Notion, заметки, сервисы для&nbsp;кино.</p><span class="need lab">Важно: всё в&nbsp;одном месте, текст с&nbsp;фото, уровни приватности</span></div>
+      <div class="card"><span class="lab mut">Потребность скрытая</span><span class="share">1/8</span><b>Чат-хронисты</b><p>Пишут обо&nbsp;всём подругам и&nbsp;ищут нужное в&nbsp;переписке. Дискомфорта не&nbsp;чувствуют.</p><span class="need lab">Важно: перечитать свои мысли</span></div>
+      <div class="card"><span class="lab mut">Низкий порог входа</span><span class="share">1/8</span><b>Хотят, но&nbsp;не&nbsp;доходят</b><p>Бросают записи: заметка требует полчаса, мешает перфекционизм.</p><span class="need lab">Важно: запись за&nbsp;минуту, дописать позже</span></div>
+      <div class="card"><span class="lab mut">Не&nbsp;ЦА</span><span class="share">2/8</span><b>Потребители</b><p>Смотрят кино и&nbsp;ходят на&nbsp;концерты, но&nbsp;ничего не&nbsp;фиксируют и&nbsp;не&nbsp;жалеют об&nbsp;этом.</p><span class="need lab">На&nbsp;этом этапе не&nbsp;целевая аудитория</span></div>
+    </div>
+  </section>
+
+  <section class="ch" id="hypotheses" data-t="Гипотезы и выводы">
+    <div class="ch-h"><h2><span class="n">04</span>Гипотезы и&nbsp;выводы</h2><p>Шесть гипотез: четыре подтвердились, две&nbsp;— частично.</p></div>
+    <div class="hyps">
+      <div class="hyp"><span class="n lab mut">01</span><p>Записи разбросаны по&nbsp;разным местам, и&nbsp;людям нужен один дневник</p><span class="r"><span class="pill on">Подтвердилась</span><span class="lab mut">У&nbsp;5&nbsp;из&nbsp;8</span></span></div>
+      <div class="hyp"><span class="n lab mut">02</span><p>Хватит короткой формы: название, тип и&nbsp;оценка</p><span class="r"><span class="pill">Частично</span><span class="lab mut">Нужно и&nbsp;кратко, и&nbsp;подробно</span></span></div>
+      <div class="hyp"><span class="n lab mut">03</span><p>Дневник ведут для&nbsp;себя, публичность вторична</p><span class="r"><span class="pill">Частично</span><span class="lab mut">И&nbsp;для&nbsp;себя, и&nbsp;для&nbsp;других</span></span></div>
+      <div class="hyp"><span class="n lab mut">04</span><p>Советы людей важнее алгоритмов</p><span class="r"><span class="pill on">Подтвердилась</span><span class="lab mut">У&nbsp;6&nbsp;из&nbsp;8</span></span></div>
+      <div class="hyp"><span class="n lab mut">05</span><p>Людям нужны ретроспектива и&nbsp;статистика</p><span class="r"><span class="pill on">Подтвердилась</span><span class="lab mut">У&nbsp;4&nbsp;из&nbsp;8</span></span></div>
+      <div class="hyp"><span class="n lab mut">06</span><p>Люди готовы записывать задним числом</p><span class="r"><span class="pill on">Подтвердилась</span><span class="lab mut">У&nbsp;4&nbsp;из&nbsp;8</span></span></div>
+    </div>
+    <h3>Что&nbsp;из&nbsp;этого есть в&nbsp;продукте</h3>
+    <div class="hyps">
+      <div class="hyp"><span class="n lab mut">01</span><p>Единый культурный дневник</p><span class="r"><span class="pill on">Реализовано</span></span></div>
+      <div class="hyp"><span class="n lab mut">02</span><p>Можно оставить отзыв и&nbsp;кратко, и&nbsp;подробно</p><span class="r"><span class="pill on">Реализовано</span></span></div>
+      <div class="hyp"><span class="n lab mut">03</span><p>Разная приватность и&nbsp;для&nbsp;отзывов, и&nbsp;для&nbsp;профиля</p><span class="r"><span class="pill on">Реализовано</span></span></div>
+      <div class="hyp"><span class="n lab mut">04</span><p>Впечатления друзей и&nbsp;возможность добавить в&nbsp;свои «Планы»</p><span class="r"><span class="pill on">Реализовано</span></span></div>
+      <div class="hyp"><span class="n lab mut">05</span><p>Статистика по&nbsp;месяцам и&nbsp;годам</p><span class="r"><span class="pill on">Реализовано</span></span></div>
+      <div class="hyp"><span class="n lab mut">06</span><p>Можно записать давнее событие</p><span class="r"><span class="pill on">Реализовано</span></span></div>
+    </div>
+    <h3>Юзабилити-тестирование</h3>
+    <p class="txt">После запуска проверила сервис на&nbsp;живых пользователях. Что&nbsp;добавила по&nbsp;итогам:</p>
+    <div class="hyps fixes">
+      <div class="hyp"><span class="n lab mut">01</span><p>Категория «Другое»: пользователи заводят свои, например «Видеоигры»</p></div>
+      <div class="hyp"><span class="n lab mut">02</span><p>Категория «Музыка» для&nbsp;альбомов и&nbsp;песен: о&nbsp;ней попросили трое участников, оценивать музыку им&nbsp;сейчас негде</p></div>
+      <div class="hyp"><span class="n lab mut">03</span><p>Кнопка «Добавить своё» прямо в&nbsp;карточке друга: впечатление о&nbsp;том&nbsp;же событии в&nbsp;одно касание</p></div>
+    </div>
+    <h3>Назвали на&nbsp;интервью, но&nbsp;пока нет</h3>
+    <ul class="have">
+      <li>Запись без&nbsp;оценки</li>
+      <li>Напомнить о&nbsp;событиях в&nbsp;«Планах»</li>
+      <li>Подключение внешних афиш для&nbsp;будущих мероприятий</li>
+      <li>Импорт каталога из&nbsp;других сервисов</li>
+    </ul>
+  </section>
+
+  <section class="ch" id="thinking" data-t="Вайерфреймы">
+    <div class="ch-h"><h2><span class="n">05</span>Вайерфреймы</h2><p>Сначала логика экранов и&nbsp;вайерфреймы, потом визуал.</p></div>
+    <p class="txt">До&nbsp;визуального дизайна набросала логику экранов: какие экраны есть, что&nbsp;на&nbsp;каждом и&nbsp;куда ведёт каждое действие. По&nbsp;этой карте собрала вайерфреймы&nbsp;— вот восемь ключевых экранов.</p>
+    <div class="panel"><div class="wfs" id="wfs"></div></div>
+  </section>
+
+  <section class="ch" id="scenario" data-t="Сценарии">
+    <div class="ch-h"><h2><span class="n">06</span>Сценарии</h2><p>Три главных сценария&nbsp;— от&nbsp;«хочу записать» до&nbsp;«хочу поделиться своим вкусом».</p></div>
+
+    <div class="scn">
+      <div class="scn-h"><span class="lab mut">Сценарий 1</span><h4>Записать впечатление</h4><p>Вернулась со&nbsp;спектакля и&nbsp;хочу записать, пока свежо,&nbsp;— за&nbsp;минуту, с&nbsp;телефона.</p></div>
+      <div class="scn-row">
+        <figure><img src="/img/case/s-new.jpg?v=3" alt=""><figcaption><span class="lab mut">01</span>Выбираю, что&nbsp;это было: тип, объект из&nbsp;каталога, оценку и&nbsp;дату</figcaption></figure>
+        <figure><video class="clip" src="/videos/create.mp4?v=3" poster="/videos/create.jpg?v=3" muted loop playsinline preload="none" data-auto aria-label="Запись нового впечатления, видео"></video><figcaption><span class="lab mut">02</span>Добавляю фото и&nbsp;пару строк&nbsp;— поля открываются по&nbsp;шагам</figcaption></figure>
+        <figure><img src="/img/case/s-card-modern.jpg?v=3" alt=""><figcaption><span class="lab mut">03</span>Готова карточка: фото, оценка, дата и&nbsp;текст</figcaption></figure>
+        <figure><img src="/img/case/s-diary-modern.jpg?v=3" alt=""><figcaption><span class="lab mut">04</span>Запись попадает в&nbsp;дневник с&nbsp;фильтром по&nbsp;типам</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="scn">
+      <div class="scn-h"><span class="lab mut">Сценарий 2</span><h4>Отложить совет в&nbsp;«Планы»</h4><p>Подруга сходила на&nbsp;концерт и&nbsp;написала о&nbsp;нём&nbsp;— хочу тоже сходить и&nbsp;не&nbsp;забыть.</p></div>
+      <div class="scn-row">
+        <figure><video class="clip" src="/videos/post.mp4?v=3" poster="/videos/post.jpg?v=3" muted loop playsinline preload="none" data-auto aria-label="Лайк, комментарий и «В планы» у поста друга, видео"></video><figcaption><span class="lab mut">01</span>В&nbsp;ленте ставлю лайк, пишу комментарий и&nbsp;откладываю впечатление друга в&nbsp;«Планы»</figcaption></figure>
+        <figure><img src="/img/case/s-object-aigel.jpg?v=3" alt=""><figcaption><span class="lab mut">02</span>На&nbsp;странице объекта&nbsp;— средняя оценка, отзывы и&nbsp;«В&nbsp;планы»</figcaption></figure>
+        <figure><img src="/img/case/s-plans-aigel.jpg?v=3" alt=""><figcaption><span class="lab mut">03</span>В&nbsp;«Планах» видно, от&nbsp;кого совет и&nbsp;когда добавлен</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="scn">
+      <div class="scn-h"><span class="lab mut">Сценарий 3</span><h4>Поделиться вкусом</h4><p>Друзья спрашивают, что&nbsp;посмотреть,&nbsp;— отправляю одну ссылку.</p></div>
+      <div class="scn-row">
+        <figure><img src="/img/case/s-collections-croatia.jpg?v=3" alt=""><figcaption><span class="lab mut">01</span>Собираю впечатления в&nbsp;подборку в&nbsp;своём профиле</figcaption></figure>
+        <figure><img src="/img/case/s-collection-croatia.jpg?v=3" alt=""><figcaption><span class="lab mut">02</span>Подборка открывается по&nbsp;ссылке, на&nbsp;неё подписываются отдельно от&nbsp;автора</figcaption></figure>
+      </div>
+    </div>
+
+    <figure class="desk"><img src="/img/case/desk.jpg" alt=""><figcaption class="lab mut">Тот&nbsp;же дневник на&nbsp;компьютере</figcaption></figure>
+  </section>
+
+  <section class="ch" id="system" data-t="Дизайн-система">
+    <div class="ch-h"><h2><span class="n">07</span>Дизайн-система</h2><p>Тёмный фон, кремовый текст и&nbsp;тонкие линии. Цвет есть только у&nbsp;категорий.</p></div>
+    <p class="txt big">Визуал вырос из&nbsp;моей айдентики кофейни-кинотеатра&nbsp;— <a class="inl" href="/kino/">«Кино и&nbsp;кофе» →</a> Сервис назван в&nbsp;её&nbsp;честь. Логотип, палитру и&nbsp;сетку я&nbsp;перенесла как&nbsp;есть, а&nbsp;шрифт и&nbsp;кнопки пришлось переделать под&nbsp;интерфейс.</p>
+    <span class="lab mut" style="display:block;margin-top:40px">Айдентика и&nbsp;сервис</span>
+    <div class="origin">
+      <div class="o-hd"><span></span><span class="lab">Айдентика</span><span></span><span class="lab">Сервис</span><span class="lab">Почему</span></div>
+      <div class="o-row"><span class="lab o-k">Шрифт</span><div class="o-s"><span class="lab m">Айдентика</span><span class="o-formular"><img src="/img/kino/font.webp" alt="Formular"></span></div><span class="o-arr" aria-hidden="true">→</span><div class="o-s"><span class="lab m">Сервис</span><span class="o-wix">Wix Madefor</span></div><p class="o-why">Formular платный, Wix Madefor&nbsp;— бесплатный, с&nbsp;кириллицей</p></div>
+      <div class="o-row"><span class="lab o-k">Кнопки</span><div class="o-s"><span class="lab m">Айдентика</span><span class="o-ell f">Default</span><span class="o-ell p">Pressed</span></div><span class="o-arr" aria-hidden="true">→</span><div class="o-s"><span class="lab m">Сервис</span><span class="o-pill f">Default</span><span class="o-pill p">Pressed</span></div><p class="o-why">В&nbsp;ряду эллипсы сливались; нажатие&nbsp;— жирный текст вместо кольца</p></div>
+      <div class="o-row"><span class="lab o-k">Цвета</span><div class="o-s"><span class="lab m">Айдентика</span><span class="o-sw"><i class="ink"></i><i style="background:#fff2d8"></i></span></div><span class="o-arr" aria-hidden="true">→</span><div class="o-s"><span class="lab m">Сервис</span><span class="o-sw"><i class="ink"></i><i class="ink" style="background:#1b1a18"></i><i class="ink" style="background:#2a2824"></i><i style="background:#fff2d8"></i><i style="background:#898376"></i><b></b><i style="background:#ff6b57"></i><i style="background:#ffb547"></i><i style="background:#8fd49b"></i><i style="background:#b4a2ff"></i></span></div><p class="o-why">Интерфейсу нужны ступени фона, отключённое и&nbsp;цвета категорий</p></div>
+      <div class="o-note"><img src="/img/kino/logo-cream.svg" alt="Напоказ"><span>Логотип, сетка из&nbsp;линий и&nbsp;два основных цвета перешли без&nbsp;изменений</span></div>
+    </div>
+    <span class="lab mut" style="display:block;margin-top:56px">Основа</span>
+    <div class="band">
+      <div style="background:#141414;color:#fff2d8">Фон<small>ink-950 / #141414</small></div>
+      <div style="background:#1b1a18;color:#fff2d8">Подложка<small>ink-900</small></div>
+      <div style="background:#2a2824;color:#fff2d8">Выделение<small>ink-800</small></div>
+      <div style="background:#fff2d8;color:#141414;box-shadow:inset 0 0 0 1px #ece3cf">Текст и&nbsp;линии<small>cream-100</small></div>
+      <div style="background:#898376;color:#141414">Вторичный<small>taupe-500</small></div>
+    </div>
+    <span class="lab mut" style="display:block;margin-top:32px">Категории</span>
+    <div class="cats" id="cats"></div>
+    <h3>Шрифт</h3>
+    <div class="type"><div class="aa">Аа</div><div class="rows">
+      <div><span class="k">Wix Madefor Text</span><span style="font-size:15px">Regular 400 / Medium 500</span></div>
+      <div><span class="k">Display / 64</span><span style="font-size:clamp(34px,3vw,52px);text-transform:uppercase;letter-spacing:-.02em">Дневник</span></div>
+      <div><span class="k">Headline / 40</span><span style="font-size:clamp(24px,2vw,34px);text-transform:uppercase">Новое впечатление</span></div>
+      <div><span class="k">Title / 24</span><span style="font-size:20px;text-transform:uppercase">Сербия глазами иностранца</span></div>
+      <div><span class="k">Body / 16</span><span style="font-size:16px">Фотовыставка русского эмигранта в&nbsp;Нови-Саде.</span></div>
+      <div><span class="k">Label / 12</span><span style="font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:500">Выставка</span></div>
+    </div></div>
+    <h3>Компоненты</h3>
+    <div class="panel"><div class="comps">
+      <div class="ui">
+        <div><span class="lab cap">Кнопки</span><div class="row"><span class="btn f">Начать дневник</span><span class="btn">Войти</span></div></div>
+        <div><span class="lab cap">Чипсы категорий</span><div class="row" id="chips"></div></div>
+        <div><span class="lab cap">Вкладки</span><div class="row"><span class="chip tab f">Впечатления</span><span class="chip tab">Подборки</span><span class="chip tab">Планы</span></div></div>
+        <div><span class="lab cap">Кнопки-иконки</span><div class="row acts"><span class="ib" data-ico="heart">12</span><span class="ib on" data-ico="heart"></span><span class="ib" data-ico="message-circle">4</span><span class="ib" data-ico="bookmark"></span><span class="ib pin" data-ico="bookmark"></span><span class="ib prim" data-ico="plus"></span></div></div>
+        <div><span class="lab cap">Название</span><div class="field">Спектакль, книга, место…</div></div>
+        <div><span class="lab cap">Оценка</span><span class="stars"><i data-ico="star" class="fill"></i><i data-ico="star" class="fill"></i><i data-ico="star" class="fill"></i><i data-ico="star" class="fill"></i><i data-ico="star"></i></span></div>
+      </div>
+      <div class="card-img"><img src="/img/case/c-card.png" alt=""></div>
+    </div></div>
+  </section>
+
+  <section class="ch" id="landing" data-t="Лендинг">
+    <div class="ch-h"><h2><span class="n">08</span>Лендинг</h2><p>Презентационная страница: объясняет идею сервиса и&nbsp;ведёт в&nbsp;дневник.</p></div>
+    <p class="txt">Перед входом в&nbsp;сервис&nbsp;— лендинг на&nbsp;<a class="inl" href="https://nenapokaz.ru" target="_blank" rel="noopener">nenapokaz.ru&nbsp;↗</a> Перелёт сквозь букву, галерея слов, главы и&nbsp;лента фото&nbsp;— так страница выглядит при&nbsp;прокрутке. Для&nbsp;тех, кто выключил движение в&nbsp;системе, есть спокойная версия без&nbsp;анимации.</p>
+    <figure class="desk lvid" style="margin-top:40px"><video class="clip" src="/videos/landing.mp4" poster="/videos/landing.jpg" muted loop playsinline preload="none" data-auto aria-label="Прокрутка лендинга nenapokaz.ru, видео"></video><figcaption class="lab mut">Лендинг nenapokaz.ru в&nbsp;движении</figcaption></figure>
+  </section>
+
+  <section class="ch" id="result" data-t="Итог">
+    <div class="ch-h"><h2><span class="n">09</span>Итог</h2><p>Сервис и&nbsp;лендинг работают. Уже есть первые&nbsp;~20&nbsp;живых пользователей и&nbsp;~50&nbsp;записей.</p></div>
+    <dl class="kv" style="margin-top:0"><dt class="lab">Сервис</dt><dd><a class="inl" href="https://nenapokaz.ru/app" target="_blank" rel="noopener">nenapokaz.ru/app&nbsp;↗</a> Регистрация и&nbsp;вход по&nbsp;почте, дневник, лента, подборки, планы, уведомления, модерация, статистика. Ставится как&nbsp;PWA.</dd>
+      <dt class="lab">Лендинг</dt><dd><a class="inl" href="https://nenapokaz.ru" target="_blank" rel="noopener">nenapokaz.ru&nbsp;↗</a> Анимация на&nbsp;прокрутке и&nbsp;спокойная версия, SEO, юридические документы, согласие на&nbsp;cookie.</dd>
+      <dt class="lab">Что&nbsp;дальше</dt><dd>Интеграция с&nbsp;внешними каталогами событий, фильмов и&nbsp;книг; уведомления о&nbsp;мероприятиях из&nbsp;«Планов»; видео в&nbsp;записях, а&nbsp;не&nbsp;только фото; новые разделы под&nbsp;потребности пользователей&nbsp;— рестораны, видеоигры и&nbsp;т.&nbsp;п.</dd></dl>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/manga/"><div class="t"><div class="lab mut">Следующий кейс / 02</div><div>The Rose Girl →</div></div><img src="/img/home/manga-cov.webp" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const WF=[["feed","Лента","Автор над фото, «В планы» прямо из карточки"],["post","Пост друга","Лайк, комментарии, «В планы»"],["object","Страница объекта","Средняя оценка, отзывы друзей первыми"],["plans","Планы","Видно, от кого совет"],["new","Новое впечатление","Объект, оценка, дата, фото, текст"],["diary","Дневник","Сетка с фильтром и сортировкой"],["explore","Обзор","Поиск и популярное"],["collection","Подборка","Подписка отдельно от автора"]];
+document.getElementById("wfs").innerHTML = WF.map(([k,t,d])=>`<figure><img src="/img/case/wf-${k}.png" alt=""><figcaption><b>${t}</b><span>${d}</span></figcaption></figure>`).join("");
+const IC={"drama": "<path d=\"M10 11h.01\"/><path d=\"M14 6h.01\"/><path d=\"M18 6h.01\"/><path d=\"M6.5 13.1h.01\"/><path d=\"M22 5c0 9-4 12-6 12s-6-3-6-12c0-2 2-3 6-3s6 1 6 3\"/><path d=\"M17.4 9.9c-.8.8-2 .8-2.8 0\"/><path d=\"M10.1 7.1C9 7.2 7.7 7.7 6 8.6c-3.5 2-4.7 3.9-3.7 5.6 4.5 7.8 9.5 8.4 11.2 7.4.9-.5 1.9-2.1 1.9-4.7\"/><path d=\"M9.1 16.5c.3-1.1 1.4-1.7 2.4-1.4\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "landmark": "<path d=\"M10 18v-7\"/><path d=\"M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z\"/><path d=\"M14 18v-7\"/><path d=\"M18 18v-7\"/><path d=\"M3 22h18\"/><path d=\"M6 18v-7\"/>", "presentation": "<path d=\"M2 3h20\"/><path d=\"M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3\"/><path d=\"m7 21 5-5 5 5\"/>", "book-open": "<path d=\"M12 5v16\"/><path d=\"M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z\"/>", "clapperboard": "<path d=\"m12.296 3.464 3.02 3.956\"/><path d=\"M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z\"/><path d=\"M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><path d=\"m6.18 5.276 3.1 3.899\"/>", "map-pin": "<path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>", "headphones": "<path d=\"M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3\"/>", "shapes": "<path d=\"M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"3.5\"/>", "heart": "<path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\"/>", "message-circle": "<path d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\"/>", "bookmark": "<path d=\"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z\"/>", "plus": "<path d=\"M5 12h14\"/><path d=\"M12 5v14\"/>", "star": "<path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\"/>"};
+const ico=(n,c)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"${c?` style="color:${c}"`:""}>${IC[n]}</svg>`;
+const CATS=[["Спектакль","#FF6B57","drama"],["Концерт","#FFB547","music"],["Выставка","#8FD49B","landmark"],["Лекция","#B4A2FF","presentation"],["Книга","#E9CF6E","book-open"],["Кино","#6FC2EE","clapperboard"],["Локация","#F09AC6","map-pin"],["Музыка","#58E3DC","headphones"],["Другое","#FFF2D8","shapes"]];
+document.getElementById("cats").innerHTML = CATS.map(([n,c,i])=>`<div style="background:${c}${c==="#FFF2D8"?";box-shadow:inset 0 0 0 1px #ece3cf":""}">${ico(i)}${n}<small>${c}</small></div>`).join("");
+document.getElementById("chips").innerHTML = `<span class="chip f">Все</span>` + CATS.map(([n,c,i])=>`<span class="chip">${ico(i,c)}${n}</span>`).join("");
+document.querySelectorAll("[data-ico]").forEach(el=>el.insertAdjacentHTML("afterbegin",ico(el.dataset.ico)));
+// contents + progress
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

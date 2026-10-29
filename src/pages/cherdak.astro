@@ -1,0 +1,169 @@
+---
+import Base from '../layouts/Base.astro';
+
+---
+<Base title={'Чердак Бардак — кейс · Александра Зянчурина'} description={'Визуал соцсетей творческой мастерской в Нови-Саде и гайд, по которому студия ведёт аккаунт сама'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --s-milk:#fffef9; --s-ink:#101010; --s-lime:#e2e881; --s-coral:#f86d4e; --s-blue:#a8bcff; --s-peach:#fce5d7; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; } 
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+
+
+  .strip { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+  .strip img { width:100%; aspect-ratio:1; object-fit:cover; display:block; }
+  .note { margin-top:14px; font-size:18px; line-height:1.38; color:var(--muted); max-width:40em; }
+  .cap { margin-top:12px; font-size:18px; line-height:1.3; } .cap .lab { display:block; margin-bottom:4px; color:var(--muted); }
+
+  /* profile next to the text */
+  .prof { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,4fr); gap:var(--gap); align-items:start; margin-top:8px; }
+  .prof .ph { background:#f4f3ef; padding:clamp(16px,2vw,28px); }
+  .prof .ph img { width:100%; display:block; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .prof ul { list-style:none; } .prof li { padding:14px 0; border-top:1px solid var(--line); font-size:18px; line-height:1.38; }
+  .prof li b { display:block; font-weight:400; font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+
+  /* rules: live type scale in Roboto Condensed */
+  .rc { font-family:"Roboto Condensed", sans-serif; }
+  .scale { margin-top:8px; }
+  .scale > div { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:baseline; padding:16px 0 18px; border-top:1px solid var(--line); }
+  .scale .k { grid-column:1 / 3; } .scale .v { grid-column:3 / 10; line-height:1.05; }
+  .scale .k span { display:block; font-size:15px; color:var(--muted); margin-top:4px; }
+  .pal { display:flex; gap:12px; align-items:center; margin-top:8px; flex-wrap:wrap; }
+  .pal i { width:84px; height:84px; border-radius:50%; display:block; border:1px solid #ddd; }
+  .pal .acc { display:flex; gap:6px; } .pal .acc i { width:36px; height:36px; border:0; }
+  .pal p { font-size:18px; line-height:1.35; color:var(--muted); max-width:22em; margin-left:12px; }
+  .dodont { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .dodont .pair2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dodont img { width:100%; display:block; }
+  .tag { display:inline-block; font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; padding:3px 10px 5px; border-radius:999px; margin-bottom:12px; border:1px solid var(--ink); }
+  .tag.no { border-color:#d24b3c; color:#d24b3c; }
+
+  /* templates */
+  .tpl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:8px; max-width:66%; }
+  .tpl img { width:100%; display:block; }
+  .row4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:8px; }
+  .row3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:8px; }
+  .row4 img, .row3 img { width:100%; display:block; }
+
+  /* carousels: swipe like in the feed */
+  .car { display:flex; gap:10px; overflow-x:auto; margin-top:8px; padding-bottom:12px; scroll-snap-type:x mandatory; scrollbar-width:thin; }
+  .car img { flex:none; width:clamp(220px,24vw,340px); aspect-ratio:1; display:block; scroll-snap-align:start; }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .prof,.dodont,.tpl{grid-template-columns:1fr} .row4,.strip{grid-template-columns:1fr 1fr} .kv dt,.kv dd{grid-column:1/10} .scale .k,.scale .v{grid-column:1/10} }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">06 / 08</div>
+  <div class="main">
+    <h1>Чердак Бардак</h1>
+    <p class="lead">Визуал соцсетей творческой мастерской в&nbsp;Нови-Саде и&nbsp;гайд, по&nbsp;которому студия ведёт аккаунт сама</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>Дизайнер, проект для&nbsp;студии</div>
+      <div><span class="lab mut">Год</span>2026</div>
+      <div><span class="lab mut">Инструменты</span>Figma</div>
+      <div><span class="lab mut">Что&nbsp;сделано</span>Визуал, шаблоны постов, гайд</div>
+    </div>
+  </div>
+  <div class="main cover strip"><img src="/img/cherdak/a1.webp" alt=""><img src="/img/cherdak/cov-9.webp" alt=""><img src="/img/cherdak/kto.webp" alt=""><img src="/img/cherdak/cov-14.webp" alt=""><img src="/img/cherdak/ann-13.webp" alt=""></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Открытые творческие мастерские в&nbsp;Нови-Саде: керамика, рисование, украшения.</p></div>
+    <p class="txt big">Визуал я&nbsp;придумала из&nbsp;сути мастерской. Здесь делают разные вещи в&nbsp;разных техниках&nbsp;— керамику, обвесы, коллажи,&nbsp;— и&nbsp;это отлично ложится на&nbsp;такой&nbsp;же коллажный метод: игру с&nbsp;текстурами и&nbsp;вырезанными объектами на&nbsp;минималистичном фоне. Визуал я&nbsp;собрала в&nbsp;гайд с&nbsp;шаблонами, по&nbsp;которому студия теперь ведёт соцсети.</p>
+  </section>
+
+  <section class="ch" id="profile" data-t="Профиль">
+    <div class="ch-h"><h2><span class="n">02</span>Профиль</h2><p>Разные посты, но&nbsp;лента выглядит одним целым.</p></div>
+    <div class="prof">
+      <div class="ph"><img src="/img/cherdak/profile.webp" alt="Макет профиля cherdakbardak.ns" loading="lazy"></div>
+      <ul>
+        <li><b>Аватар</b>«ЧБ» из&nbsp;вырезанных букв, как&nbsp;в&nbsp;заголовках постов</li>
+        <li><b>Лента</b>Расписание, анонсы, объявления и&nbsp;фото чередуются, чтобы сетка не&nbsp;сливалась</li>
+        <li><b>Основа</b>Один шрифт, четыре размера, чёрное на&nbsp;белом; цвет приносят фото и&nbsp;вырезки</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ch" id="post" data-t="Пост-знакомство">
+    <div class="ch-h"><h2><span class="n">03</span>Пост-знакомство</h2><p>Карусель из&nbsp;шести слайдов: что&nbsp;такое открытая мастерская и&nbsp;как&nbsp;всё устроено.</p></div>
+    <div class="row3"><img src="/img/cherdak/a1.webp" alt="" loading="lazy"><img src="/img/cherdak/a2.webp" alt="" loading="lazy"><img src="/img/cherdak/a3.webp" alt="" loading="lazy"><img src="/img/cherdak/a4.webp" alt="" loading="lazy"><img src="/img/cherdak/a5.webp" alt="" loading="lazy"><img src="/img/cherdak/a6.webp" alt="" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="templates" data-t="Шаблоны">
+    <div class="ch-h"><h2><span class="n">04</span>Шаблоны</h2><p>Под&nbsp;каждый тип поста&nbsp;— заготовка: меняешь текст и&nbsp;фото.</p></div>
+    <span class="lab mut">Расписание на&nbsp;месяц / два варианта</span>
+    <div class="tpl"><img src="/img/cherdak/cal-a.webp" alt="" loading="lazy"><img src="/img/cherdak/cal-b.webp" alt="" loading="lazy"></div>
+    <span class="lab mut" style="display:block;margin-top:48px">Анонс мастер-класса / обложка и&nbsp;подробности</span>
+    <div class="row4"><img src="/img/cherdak/cov-9.webp" alt="" loading="lazy"><img src="/img/cherdak/cov-10.webp" alt="" loading="lazy"><img src="/img/cherdak/cov-14.webp" alt="" loading="lazy"><img src="/img/cherdak/cov-15.webp" alt="" loading="lazy"></div>
+    <span class="lab mut" style="display:block;margin-top:48px">Объявления / в&nbsp;рамках, листах и&nbsp;вырезках</span>
+    <div class="row3"><img src="/img/cherdak/ann-11.webp" alt="" loading="lazy"><img src="/img/cherdak/ann-13.webp" alt="" loading="lazy"><img src="/img/cherdak/ann-12.webp" alt="" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="result" data-t="Итог">
+    <div class="ch-h"><h2><span class="n">05</span>Итог</h2><p>Студия ведёт аккаунт сама&nbsp;— по&nbsp;гайду и&nbsp;шаблонам.</p></div>
+    <p class="txt">Правила, шаблоны и&nbsp;пример ленты собраны в&nbsp;одном файле Figma, с&nbsp;пометками прямо на&nbsp;макетах и&nbsp;пошаговой инструкцией, как&nbsp;выгрузить пост. Дизайнер для&nbsp;каждой публикации не&nbsp;нужен, а&nbsp;лента остаётся цельной, даже когда посты делают разные люди.</p>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/ale/"><div class="t"><div class="lab mut">Следующий кейс / 07</div><div>alё →</div></div><img src="/img/home/ale-cov.webp" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

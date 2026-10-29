@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import '@fontsource/inter/600.css';
+---
+<Base title={'Коммуналка — кейс · Александра Зянчурина'} description={'Две концепции визуала для книжного фестиваля: афиша, анонсы и посты для соцсетей'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --s-milk:#fffef9; --s-ink:#101010; --s-lime:#e2e881; --s-coral:#f86d4e; --s-blue:#a8bcff; --s-peach:#fce5d7; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; } 
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+
+
+  .cover.duo { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .cover.duo img { width:100%; display:block; aspect-ratio:4/5; object-fit:cover; }
+  .note { margin-top:12px; font-size:18px; line-height:1.38; color:var(--muted); max-width:40em; }
+  /* a caption belongs to the pictures above it: the next group of pictures starts after a bigger gap */
+  .note + .pair, .note + .row3, .note + .row5, .note + .wide { margin-top:56px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+  .pair img, .row3 img, .row5 img, .wide img { width:100%; display:block; }
+  .row3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:10px; }
+  .row5 { display:grid; grid-template-columns:1fr 1fr 1fr .8fr .8fr; align-items:start; gap:10px; margin-top:10px; }
+  .wide { margin-top:10px; }
+  .idea { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin:0 0 32px; }
+  .idea div { border-top:1px solid var(--ink); padding-top:12px; font-size:18px; line-height:1.38; }
+  .idea .lab { display:block; color:var(--muted); margin-bottom:6px; }
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .idea,.row5{grid-template-columns:1fr 1fr} .kv dt,.kv dd{grid-column:1/10} }
+  /* collab ribbon from alё: light blue tape with the joint mark */
+  .ribbon { display:flex; gap:2.2em; overflow:hidden; white-space:nowrap; background:#b9e1f0; color:#1d1d1d; font-family:"Inter",sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,28px); padding:.5em 0; margin-top:48px; }
+  .ribbon span { flex:none; padding-left:1.1em; }
+  .collab { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:10px; }
+  .collab img { width:100%; aspect-ratio:4/5; object-fit:cover; display:block; }
+  @media (max-width:900px){ .collab{grid-template-columns:1fr 1fr} }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">08 / 08</div>
+  <div class="main">
+    <h1>Коммуналка</h1>
+    <p class="lead">Две концепции визуала для&nbsp;книжного фестиваля: афиша, анонсы и&nbsp;посты для&nbsp;соцсетей</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>Дизайнер</div>
+      <div><span class="lab mut">Год</span>2025</div>
+      <div><span class="lab mut">Инструменты</span>Figma</div>
+      <div><span class="lab mut">Что&nbsp;сделано</span>2&nbsp;концепции, афиши, посты, сторис</div>
+    </div>
+  </div>
+  <div class="main cover duo"><img src="/img/komm/k1-poster.webp" alt="Концепция 1: афиша-книга"><img src="/img/komm/k2-poster1.webp" alt="Концепция 2: афиша с авоськой"></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Нижний книжный фестиваль независимых издательств: маркет, гаражная распродажа и&nbsp;лекторий.</p></div>
+    <p class="txt big">Идея фестиваля&nbsp;— книжное сообщество в&nbsp;атмосфере петербургской коммуналки: соседи, друзья и&nbsp;разговоры на&nbsp;кухне. Я&nbsp;предложила два способа рассказать об&nbsp;этом визуально.</p>
+    <dl class="kv"><dt class="lab">Задача</dt><dd>Визуал, афиша и&nbsp;мерч к&nbsp;срокам фестиваля, 26–⁠27&nbsp;июля 2025.</dd></dl>
+  </section>
+
+  <section class="ch" id="c1" data-t="Концепция 1 / Книга">
+    <div class="ch-h"><h2><span class="n">02</span>Концепция 1 / Книга</h2><p>Название, собранное из&nbsp;корешков издательств-участников.</p></div>
+    <div class="idea">
+      <div><span class="lab">Образ</span>Фестиваль как&nbsp;большая книга, а&nbsp;участники&nbsp;— закладки и&nbsp;корешки, вставленные между буквами</div>
+      <div><span class="lab">Шрифт</span>Крупный жирный гротеск, название по&nbsp;слогам: КОМ / МУ / НА / ЛКА</div>
+      <div><span class="lab">Цвет</span>Чёрный, белый и&nbsp;серый шум; яркие акценты дают обложки издательств</div>
+    </div>
+    <div class="pair"><img src="/img/komm/k1-poster.webp" alt="" loading="lazy"><img src="/img/komm/k1-members.webp" alt="" loading="lazy"></div>
+    <div class="wide"><img src="/img/komm/k1-carousel.webp" alt="Карусель «Участники»" loading="lazy"></div>
+    <p class="note">Карусель «Участники»: название тянется через все слайды, а&nbsp;корешки издательств встают в&nbsp;буквы.</p>
+    <div class="row3"><img src="/img/komm/k1-sale.webp?v=2" alt="" loading="lazy"><img src="/img/komm/k1-fest.webp" alt="" loading="lazy"><img src="/img/komm/k1-lect.webp" alt="" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="c2" data-t="Концепция 2 / Кухня">
+    <div class="ch-h"><h2><span class="n">03</span>Концепция 2 / Кухня</h2><p>Быт коммуналки, нарисованный от&nbsp;руки.</p></div>
+    <div class="idea">
+      <div><span class="lab">Образ</span>Предметы общей кухни и&nbsp;комнаты: авоська, лампа, кресло, диван&nbsp;— нарисованы кистью</div>
+      <div><span class="lab">Шрифт</span>Узкий капс с&nbsp;широкой разрядкой, как&nbsp;на&nbsp;старых афишах и&nbsp;вывесках</div>
+      <div><span class="lab">Цвет</span>Синий, молочный и&nbsp;чёрный, рваный край бумаги</div>
+    </div>
+    <div class="pair"><img src="/img/komm/k2-poster1.webp" alt="" loading="lazy"><img src="/img/komm/k2-poster2.webp" alt="" loading="lazy"></div>
+    <p class="note">Печатные афиши фестиваля: светлая и&nbsp;тёмная версии.</p>
+    <div class="row5"><img src="/img/komm/k2-fest.webp" alt="" loading="lazy"><img src="/img/komm/k2-program.webp?v=2" alt="" loading="lazy"><img src="/img/komm/k2-sale.webp" alt="" loading="lazy"><img src="/img/komm/k2-partners.webp" alt="" loading="lazy"><img src="/img/komm/k2-members.webp" alt="" loading="lazy"></div>
+    <p class="note">Посты: анонс, программа лектория, гаражная распродажа, партнёры и&nbsp;участники.</p>
+  </section>
+
+  <section class="ch" id="result" data-t="Итог">
+    <div class="ch-h"><h2><span class="n">04</span>Итог</h2><p>Две разные идеи под&nbsp;один бриф и&nbsp;мерч-коллаборация.</p></div>
+    <dl class="kv" style="margin-top:0"><dt class="lab">Что показывает</dt><dd>Одну и&nbsp;ту&nbsp;же идею&nbsp;— книжное сообщество как&nbsp;коммуналка&nbsp;— можно рассказать двумя разными языками: через типографику и&nbsp;корешки издательств или&nbsp;через рисованный быт. Обе концепции собраны в&nbsp;систему: афиша, анонсы, карусель и&nbsp;сторис.</dd>
+      <dt class="lab">Коллаборация</dt><dd>Для&nbsp;фестиваля мой вязаный бренд <a class="inl" href="/ale/">alё&nbsp;→</a> сделал авоськи и&nbsp;брелки с&nbsp;общей лентой «alё&nbsp;x&nbsp;КОММУНАЛКА».</dd></dl>
+    <div class="ribbon" aria-label="Лента alё × Коммуналка"><span>alё x КОММУНАЛКА</span><span>alё x КОММУНАЛКА</span><span>alё x КОММУНАЛКА</span><span>alё x КОММУНАЛКА</span></div>
+    <div class="collab"><img src="/img/ale/collab-bag.webp" alt="Синяя авоська с&nbsp;лентой alё × Коммуналка" loading="lazy"><img src="/img/ale/collab-key.webp" alt="Брелок с&nbsp;карабином и&nbsp;лентой" loading="lazy"><img src="/img/ale/collab-pile.webp" alt="Брелки для&nbsp;фестиваля" loading="lazy"><img src="/img/ale/collab-phone.webp" alt="Авоськи, ленты и&nbsp;старый телефон" loading="lazy"></div>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/napokaz/"><div class="t"><div class="lab mut">Следующий кейс / 01</div><div>Напоказ →</div></div><img src="/img/home/napokaz-cov.webp" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

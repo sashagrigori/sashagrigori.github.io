@@ -1,0 +1,47 @@
+---
+// One shell for every page: meta, shared styles, the shared script.
+// Page styles go into the "head" slot (between common.css and mobile.css, as in the prototype),
+// page scripts into the "scripts" slot (after common.js).
+import '@fontsource/pt-sans-narrow/400.css';
+import '@fontsource/pt-sans-narrow/700.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  // the home page has its own phone layout and doesn't use mobile.css
+  mobile?: boolean;
+}
+const { title, description, image = '/og.jpg', mobile = true } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Александра Зянчурина">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/common.css">
+<slot name="head" />
+{mobile && <link rel="stylesheet" href="/css/mobile.css">}
+</head>
+<body>
+<slot />
+<script is:inline src="/js/common.js"></script>
+<slot name="scripts" />
+</body>
+</html>

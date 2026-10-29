@@ -1,0 +1,344 @@
+---
+import Base from '../layouts/Base.astro';
+
+---
+<Base title={'Слепок — кейс · Александра Зянчурина'} description={'Бренд и лендинг для гончарной студии, которая хочет выделяться на фоне конкурентов'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --s-milk:#fffef9; --s-ink:#101010; --s-lime:#e2e881; --s-coral:#f86d4e; --s-blue:#a8bcff; --s-peach:#fce5d7; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; } .cover img { width:100%; display:block; background:#ffefe5; }
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+
+  /* tasks, segments */
+  .feat { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px var(--gap); margin-top:8px; }
+  .feat > div { border-top:1px solid var(--ink); padding-top:14px; }
+  .feat .no { font-size:clamp(34px,2.8vw,48px); line-height:1; letter-spacing:-.03em; display:block; margin-bottom:10px; }
+  .feat b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:6px; }
+  .feat p { font-size:18px; line-height:1.38; }
+  .segs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .segs b { display:block; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; line-height:1; margin:6px 0 10px; }
+  .segs p { font-size:18px; line-height:1.38; }
+  .segs q { display:block; quotes:none; font-size:18px; line-height:1.35; padding:14px 0 0; margin-top:14px; border-top:1px solid var(--line); }
+  .vs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:48px; }
+  .vs > div { padding:28px; min-height:240px; display:flex; flex-direction:column; justify-content:space-between; gap:28px; }
+  .vs .them { background:#f4f3ef; } .vs .us { background:var(--s-lime); color:var(--s-ink); }
+  .vs ul { list-style:none; } .vs li { font-size:clamp(22px,1.7vw,26px); line-height:1.4; }
+
+  /* brand: name, mood, logo, mascot */
+  .feat.two { grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:32px; }
+  .mood { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:32px; max-width:46em; }
+  .mood ul { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+  .mood li { border:1.5px solid #c3c1ba; color:var(--muted); border-radius:999px; padding:10px 0 12px; text-align:center; font-size:clamp(22px,1.7vw,26px); }
+  .mood .us li { background:var(--s-ink); border-color:var(--s-ink); color:var(--s-milk); }
+  .logo-s { background:var(--s-milk); border:1.5px solid var(--line); padding:clamp(40px,6vw,96px) clamp(24px,4vw,64px); margin-top:32px; }
+  .logo-s img { width:100%; max-width:820px; display:block; }
+  /* both cups trimmed to their edges and set to one height, so they sit on the same line */
+  .mascot { --cup:clamp(200px,22vw,340px); display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:var(--gap); align-items:start; margin-top:40px; }
+  .mascot img { height:var(--cup); width:auto; max-width:100%; object-fit:contain; display:block; margin:0 auto; }
+  .mascot .arr { height:var(--cup); display:flex; align-items:center; font-size:clamp(46px,4.4vw,74px); line-height:1; }
+  .mascot figcaption { text-align:center; }
+  .mascot figcaption { margin-top:16px; font-size:18px; line-height:1.38; } .mascot figcaption .lab { display:block; margin-bottom:4px; }
+
+  /* structure */
+  .map { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 var(--gap); margin-top:8px; list-style:none; counter-reset:m; }
+  .map li { counter-increment:m; display:grid; grid-template-columns:2.4em 1fr; padding:11px 0; border-top:1px solid var(--line); font-size:clamp(19px,1.35vw,22px); line-height:1.3; }
+  .map li::before { content:counter(m,decimal-leading-zero); font-size:13.5px; letter-spacing:.05em; color:var(--muted); padding-top:5px; }
+  .map li small { grid-column:2; color:var(--muted); font-size:16px; }
+  .wfgrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:40px; background:#f4f4f4; padding:clamp(20px,3vw,44px); }
+  .wfgrid img { width:100%; display:block; border-radius:14px; background:#fff; }
+
+  /* design system — live, in the studio's own colours */
+  .ds { background:var(--s-milk); color:var(--s-ink); padding:clamp(24px,3vw,44px); margin-top:8px; font-family:"Arial Narrow","PT Sans Narrow",sans-serif; }
+  .ds + .ds { margin-top:var(--gap); }
+  .ds .lab { font-family:"PT Sans Narrow",sans-serif; color:#8a877d; display:block; margin-bottom:18px; }
+  .type-s { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); align-items:end; }
+  .type-s img { width:100%; max-width:520px; display:block; mix-blend-mode:multiply; }
+  .type-s .aa { font-size:clamp(110px,10vw,170px); line-height:.8; letter-spacing:-.02em; }
+  .type-s p { font-size:18px; line-height:1.4; margin-top:16px; color:#55534c; font-family:"PT Sans Narrow",sans-serif; }
+  .sw { display:grid; grid-template-columns:2fr 2fr 1fr 1fr 1fr 1fr; gap:8px; margin-top:var(--gap); }
+  .sw div { height:150px; padding:12px; border-radius:16px; border:1.5px solid var(--s-ink); display:flex; flex-direction:column; justify-content:flex-end; font-size:17px; line-height:1.25; }
+  .sw small { font-size:13px; opacity:.7; }
+  .kit { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:44px var(--gap); }
+  .kit .wide { grid-column:1 / -1; }
+  .states { display:grid; grid-template-columns:5em repeat(3,auto); gap:12px 14px; align-items:center; justify-content:start; font-size:16px; }
+  .states .k { color:#8a877d; }
+  .btn { border:1.5px solid var(--s-ink); border-radius:999px; padding:8px 26px 10px; font-size:17px; text-align:center; background:var(--s-milk); box-shadow:0 4px 0 var(--s-ink); white-space:nowrap; }
+  .btn.c { background:var(--s-coral); } .btn.b { background:var(--s-blue); }
+  .btn.h { box-shadow:0 4px 0 var(--s-coral); border-color:var(--s-coral); color:var(--s-coral); background:var(--s-milk); }
+  .btn.b.h { box-shadow:0 4px 0 var(--s-blue); border-color:var(--s-blue); color:var(--s-blue); }
+  .btn.o.h { background:var(--s-coral); border-color:var(--s-coral); color:var(--s-ink); box-shadow:none; }
+  .btn.p { box-shadow:none; transform:translateY(4px); }
+  .btn.d { opacity:.5; }
+  .ticker { overflow:hidden; border:1.5px solid var(--s-ink); background:var(--s-lime); white-space:nowrap; font-size:18px; padding:8px 0 10px; }
+  .ticker span { display:inline-block; animation:tk 18s linear infinite; }
+  @keyframes tk { to { transform:translateX(-50%); } }
+  .tags { display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-top:var(--gap); }
+  .burst { display:grid; place-items:center; width:92px; aspect-ratio:1; background:var(--s-ink); font-size:16px; }
+  .burst i { grid-area:1/1; width:100%; height:100%; background:var(--s-lime); transform:scale(.94); }
+  .burst span { grid-area:1/1; position:relative; }
+  .burst.b i { background:var(--s-blue); } .burst.lg { width:128px; font-size:20px; }
+  .dd { border:1.5px solid var(--s-ink); border-radius:22px; overflow:hidden; font-size:19px; max-width:360px; background:var(--s-milk); }
+  .dd div { padding:10px 18px 12px; border-top:1.5px solid var(--s-ink); } .dd div:first-child { border-top:0; display:flex; justify-content:space-between; }
+  .gridshow { display:grid; grid-template-columns:minmax(0,3.6fr) minmax(0,1fr); gap:var(--gap); margin-top:40px; align-items:start; }
+  .gridshow img { width:100%; display:block; border-radius:10px; border:1.5px solid var(--s-ink); }
+  .gridshow figcaption { margin-top:12px; font-size:18px; line-height:1.3; } .gridshow figcaption .lab { display:block; margin-bottom:4px; }
+  .fig { display:flex; flex-direction:column; gap:12px; margin-top:16px; align-items:flex-start; } .fig img { display:block; height:auto; }
+  .fig.row { flex-direction:row; align-items:center; gap:14px; }
+  .kit .lab { display:block; }
+  figure.f { margin-top:var(--gap); } figure.f img { width:100%; display:block; } figure.f figcaption { margin-top:14px; }
+
+  /* landing: the whole page scrolls inside its own window */
+  .page { background:#f4f3ef; padding:clamp(20px,3vw,44px); margin-top:8px; display:grid; grid-template-columns:minmax(0,1fr) 15em; gap:var(--gap); align-items:start; }
+  .page .win { height:min(82vh,860px); overflow-y:auto; border-radius:14px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); scrollbar-width:thin; overscroll-behavior:contain; }
+  .page .win img { width:100%; display:block; }
+  /* the live site is rendered at its desktop width (1440) and scaled down to the window */
+  .page .win.live { overflow:hidden; position:relative; background:#e2e881 url(/img/slepok/poster.webp) center top / 100% auto no-repeat; } .page .win iframe { position:absolute; left:0; top:0; width:1440px; border:0; display:block; transform-origin:0 0; }
+  .page aside .open { display:inline-block; padding:6px 14px 8px; border:1px solid var(--ink); border-radius:999px; margin-bottom:10px; }
+  .page aside .open:hover { background:var(--ink); color:#fff; }
+  .page aside { position:sticky; top:0; font-size:18px; line-height:1.35; }
+  .page aside p + p { margin-top:14px; }
+  .pair { display:grid; grid-template-columns:5fr 6fr; gap:var(--gap); margin-top:40px; align-items:center; }
+  .pair img { width:100%; display:block; }
+  .kitimg { margin-top:40px; } .kitimg img { width:100%; display:block; border-radius:16px; }
+  .cap { margin-top:14px; font-size:18px; line-height:1.3; }
+
+  /* mobile screens */
+  .screens { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:44px var(--gap); margin-top:8px; align-items:start; }
+  .screens img { width:100%; display:block; border-radius:26px; border:1.5px solid var(--s-ink); box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .screens figcaption { margin-top:14px; font-size:18px; line-height:1.3; } .screens figcaption .lab { display:block; margin-bottom:4px; }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .feat,.segs,.vs,.map,.wfgrid,.type-s,.kit,.pair,.page,.feat.two,.mascot{grid-template-columns:1fr} .mascot .arr{height:auto;transform:rotate(90deg);justify-self:center} .screens{grid-template-columns:1fr 1fr} .sw{grid-template-columns:repeat(3,1fr)} .kv dt,.kv dd{grid-column:1/10} }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">04 / 08</div>
+  <div class="main">
+    <h1>Слепок</h1>
+    <p class="lead">Бренд и&nbsp;лендинг для&nbsp;гончарной студии, которая хочет выделяться на&nbsp;фоне конкурентов</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>Бренд, UX/UI-дизайн</div>
+      <div><span class="lab mut">Год</span>2026</div>
+      <div><span class="lab mut">Инструменты</span>Figma, ChatGPT, Nano Banana</div>
+      <div><span class="lab mut">Сайт</span><a class="inl" href="https://sashagrigori.github.io/slepok/" target="_blank" rel="noopener">открыть сайт&nbsp;↗</a></div>
+    </div>
+  </div>
+  <div class="full cover"><img src="/img/slepok/illus.jpg" alt="Объёмные иллюстрации студии: кружка в очках-звёздах, ваза, пиалы"></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Гончарная студия экспериментальной керамики.</p></div>
+    <p class="txt big">«Слепок» противопоставляет себя аккуратному минимализму и&nbsp;поощряет яркое экспрессивное творчество. Студию я&nbsp;придумала целиком, от&nbsp;названия до&nbsp;маскота. Сайт должен говорить так&nbsp;же громко, как&nbsp;сама студия, и&nbsp;при&nbsp;этом быстро довести человека до&nbsp;записи.</p>
+    <dl class="kv"><dt class="lab">Цель</dt><dd>Придумать бренд гончарной студии и&nbsp;спроектировать для&nbsp;неё лендинг, который визуально отражает концепцию и&nbsp;остаётся удобным и&nbsp;понятным.</dd></dl>
+    <h3>Три задачи</h3>
+    <div class="feat">
+      <div><span class="no">01</span><b>Удобство</b><p>Понятный интуитивный дизайн: от&nbsp;первого экрана до&nbsp;заявки в&nbsp;пару шагов.</p></div>
+      <div><span class="no">02</span><b>Уникальность</b><p>Свой бренд, который выделяется на&nbsp;фоне других студий керамики: название, логотип, маскот.</p></div>
+      <div><span class="no">03</span><b>Яркость</b><p>Характер бренда в&nbsp;визуале лендинга: шрифт, цвет, иллюстрации.</p></div>
+    </div>
+    <h3>Этапы</h3>
+    <div class="entry"><span>Исследование</span>→<span>Бренд</span>→<span>Вайерфреймы</span>→<span>Дизайн</span>→<span>Прототип</span></div>
+  </section>
+
+  <section class="ch" id="audience" data-t="Аудитория">
+    <div class="ch-h"><h2><span class="n">02</span>Аудитория</h2><p>7&nbsp;интервью с&nbsp;женщинами 16–⁠40&nbsp;лет / три подгруппы / JTBD.</p></div>
+    <p class="txt">Для&nbsp;первой задачи, удобства, провела 7&nbsp;интервью с&nbsp;представителями целевой аудитории. По&nbsp;итогам разделила её&nbsp;на&nbsp;три подгруппы и&nbsp;для&nbsp;каждой сформулировала jobs to be done: они подсказали сценарии и&nbsp;блоки для&nbsp;вайерфреймов.</p>
+    <div class="segs" style="margin-top:48px">
+      <div><span class="lab mut">16–⁠30&nbsp;лет</span><b>Творческие личности</b><p>Хотят заниматься керамикой как&nbsp;интересным досугом или&nbsp;развить это в&nbsp;хобби и&nbsp;профессию.</p>
+        <q>Когда я&nbsp;устаю от&nbsp;рутины, я&nbsp;хочу поработать руками с&nbsp;живым материалом, чтобы замедлиться и&nbsp;почувствовать радость от&nbsp;создания реальной вещи.</q>
+        <q>Когда я&nbsp;хочу сменить офис на&nbsp;творчество, я&nbsp;хочу освоить профессиональные техники, чтобы создавать изделия высокого качества.</q></div>
+      <div><span class="lab mut">20–⁠30&nbsp;лет</span><b>Парочки</b><p>Ищут интересный совместный досуг, идеи для&nbsp;свиданий или&nbsp;необычный подарок друг другу.</p>
+        <q>Когда привычные свидания надоели, я&nbsp;хочу найти занятие, где мы&nbsp;разделим новый опыт и&nbsp;оставим вещь на&nbsp;память.</q>
+        <q>Когда нужно придумать подарок другу, у&nbsp;которого всё есть, я&nbsp;хочу подарить необычный опыт, чтобы он попробовал то, на&nbsp;что&nbsp;сам&nbsp;бы не&nbsp;решился.</q></div>
+      <div><span class="lab mut">25–⁠40&nbsp;лет</span><b>Активные родители</b><p>Развивают ребёнка творчеством и&nbsp;хотят организовать полезный совместный досуг.</p>
+        <q>Когда мне нужна альтернатива гаджетам, я&nbsp;хочу предложить ребёнку творчество, чтобы он переключился на&nbsp;реальный мир.</q>
+        <q>Когда мне нужно организовать праздник, я&nbsp;хочу провести творческий вечер, чтобы мы&nbsp;сохранили память об&nbsp;этом дне в&nbsp;вещах.</q></div>
+    </div>
+  </section>
+
+  <section class="ch" id="rivals" data-t="Конкуренты">
+    <div class="ch-h"><h2><span class="n">03</span>Конкуренты</h2><p>10&nbsp;сайтов студий керамики в&nbsp;Санкт-Петербурге и&nbsp;Москве.</p></div>
+    <p class="txt">Для&nbsp;второй задачи, уникальности, посмотрела, как&nbsp;выглядят сайты других студий. Почти все говорят одним языком, поэтому «Слепок» пошёл от&nbsp;противного.</p>
+    <div class="vs">
+      <div class="them"><span class="lab mut">У&nbsp;конкурентов</span><ul><li>Минимализм</li><li>Светлая приглушённая палитра</li><li>Спокойная типографика</li></ul></div>
+      <div class="us"><span class="lab">У&nbsp;«Слепка»</span><ul><li>Насыщенные лайм, коралл и&nbsp;голубой</li><li>Широкий жирный гротеск в&nbsp;заголовках</li><li>Объёмные иллюстрации и&nbsp;бегущие строки</li></ul></div>
+    </div>
+  </section>
+
+  <section class="ch" id="brand" data-t="Бренд">
+    <div class="ch-h"><h2><span class="n">04</span>Бренд</h2><p>Для&nbsp;второй задачи, уникальности: название, настроение, логотип и&nbsp;маскот.</p></div>
+    <p class="txt big">Бренд вырос из&nbsp;анализа конкурентов. Раз почти все студии говорят тихо и&nbsp;аккуратно, «Слепок» говорит громко.</p>
+    <h3>Название</h3>
+    <p class="txt">«Слепок»&nbsp;— от&nbsp;«слепить». В&nbsp;слове сразу два смысла:</p>
+    <div class="feat two">
+      <div><b>Лепить</b><p>Руками, из&nbsp;глины: то, ради чего приходят в&nbsp;студию.</p></div>
+      <div><b>Ослеплять</b><p>Ярким смелым визуалом на&nbsp;фоне спокойных конкурентов.</p></div>
+    </div>
+    <h3>Настроение</h3>
+    <p class="txt">Озорное и&nbsp;смелое. Я&nbsp;собрала его в&nbsp;три слова и&nbsp;поставила напротив трёх слов о&nbsp;конкурентах.</p>
+    <div class="mood">
+      <div><span class="lab mut">У&nbsp;конкурентов</span><ul><li>Минималистично</li><li>Дружелюбно</li><li>Нейтрально</li></ul></div>
+      <div class="us"><span class="lab">У&nbsp;«Слепка»</span><ul><li>Смело</li><li>Весело</li><li>Ярко</li></ul></div>
+    </div>
+    <h3>Логотип</h3>
+    <p class="txt">Надпись широким жирным гротеском Druk Text Wide: такая&nbsp;же громкая, как&nbsp;сама студия.</p>
+    <div class="logo-s"><img src="/img/slepok/logo.svg" alt="Логотип «Слепок»"></div>
+    <h3>Маскот</h3>
+    <p class="txt">Кружка в&nbsp;очках-звёздах. Сначала эскиз, где у&nbsp;каждой детали свой смысл, потом генерация: объём и&nbsp;фактура чуть мятой ручной керамики.</p>
+    <div class="mascot">
+      <figure><img src="/img/slepok/mascot-sketch.webp" alt="Эскиз маскота: розовая кружка в&nbsp;очках-звёздах с&nbsp;серёжкой" loading="lazy"><figcaption><span class="lab mut">Эскиз</span>Керамика&nbsp;= кружка<br>Ослеплять&nbsp;= очки и&nbsp;звёзды<br>Озорство&nbsp;= серёжка</figcaption></figure>
+      <span class="arr" aria-hidden="true">→</span>
+      <figure><img src="/img/slepok/mascot-cup.webp" alt="Маскот: объёмная пластилиновая кружка в&nbsp;очках-звёздах" loading="lazy"><figcaption><span class="lab mut">Генерация</span>ChatGPT и&nbsp;Nano Banana</figcaption></figure>
+    </div>
+    <p class="txt" style="margin-top:40px">Кружка стала лицом студии: она встречает на&nbsp;первом экране и&nbsp;после заявки, а&nbsp;по&nbsp;её&nbsp;образцу собраны остальные иллюстрации.</p>
+  </section>
+
+  <section class="ch" id="structure" data-t="Структура">
+    <div class="ch-h"><h2><span class="n">05</span>Структура</h2><p>Блоки лендинга выросли из&nbsp;сценариев трёх подгрупп.</p></div>
+    <ol class="map">
+      <li>Первый экран<small>Кто мы, адрес, ближайшие мастер-классы и&nbsp;запись</small></li>
+      <li>О&nbsp;студии<small>Процесс, мастера, слепки, место</small></li>
+      <li>Мастер-классы<small>Групповые и&nbsp;индивидуальные, свидание для&nbsp;двоих</small></li>
+      <li>Курсы<small>Базовый и&nbsp;PRO для&nbsp;тех, кто идёт в&nbsp;профессию</small></li>
+      <li>Праздник<small>День рождения, девичник, корпоратив</small></li>
+      <li>Сертификат<small>Подарок на&nbsp;любой мастер-класс или&nbsp;курс</small></li>
+      <li>Отзывы<small>По&nbsp;одному на&nbsp;каждый формат</small></li>
+      <li>Призыв<small>«Хочешь так&nbsp;же? Давай слепим вместе»</small></li>
+      <li>Где мы&nbsp;лепим<small>Карта, график, контакты</small></li>
+      <li>Подвал<small>Навигация, соцсети, запись</small></li>
+    </ol>
+    <div class="wfgrid"><img src="/img/slepok/wf2-1.webp" alt="" loading="lazy"><img src="/img/slepok/wf2-2.webp" alt="" loading="lazy"><img src="/img/slepok/wf2-3.webp" alt="" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="system" data-t="Дизайн-система">
+    <div class="ch-h"><h2><span class="n">06</span>Дизайн-система</h2><p>Для&nbsp;третьей задачи, яркости: характер бренда в&nbsp;шрифте, цвете и&nbsp;пластилиновой керамике.</p></div>
+    <div class="ds">
+      <div class="type-s">
+        <div><span class="lab">Заголовки</span><img src="/img/slepok/wordmark.png" alt="Слепок"><p>Druk Text Wide / bold, обводка 3 / десктоп 120 / мобильный 44</p></div>
+        <div><span class="lab">Основной текст</span><div class="aa">Аа</div><p>Arial Narrow / regular / десктоп 38&nbsp;и&nbsp;28 / мобильный 20&nbsp;и&nbsp;18</p></div>
+      </div>
+      <div class="sw">
+        <div style="background:var(--s-milk)">Молоко<small>fffef9 / фон</small></div>
+        <div style="background:var(--s-ink);color:#fff">Чёрный<small>101010 / текст, обводки</small></div>
+        <div style="background:var(--s-lime)">Лайм<small>e2e881</small></div>
+        <div style="background:var(--s-coral)">Коралл<small>f86d4e</small></div>
+        <div style="background:var(--s-blue)">Голубой<small>a8bcff</small></div>
+        <div style="background:var(--s-peach)">Персик<small>fce5d7</small></div>
+      </div>
+      <div class="gridshow">
+        <figure><img src="/img/slepok/grid-d.webp" alt="Первый экран с&nbsp;сеткой колонок" loading="lazy"><figcaption><span class="lab">Десктоп 1440</span>12&nbsp;колонок / поля 24 / gutter 20</figcaption></figure>
+        <figure><img src="/img/slepok/grid-m.webp" alt="Первый экран телефона с&nbsp;сеткой колонок" loading="lazy"><figcaption><span class="lab">Мобильный 375</span>4&nbsp;колонки / поля&nbsp;16 / gutter&nbsp;16</figcaption></figure>
+      </div>
+    </div>
+    <figure class="kitimg"><img src="/img/slepok/kit.webp" alt="UI-kit: кнопки и ссылки, бегущая строка, звёзды-бейджи, раскрывающийся список, карточки, подзаголовки категорий" loading="lazy"></figure>
+  </section>
+
+  <section class="ch" id="landing" data-t="Лендинг">
+    <div class="ch-h"><h2><span class="n">07</span>Лендинг</h2><p>Лендинг свёрстан и&nbsp;живёт на&nbsp;GitHub Pages: листай прямо в&nbsp;окне.</p></div>
+    <div class="page">
+      <div class="win live" data-native><iframe src="https://sashagrigori.github.io/slepok/?v=2" title="Лендинг студии «Слепок»" loading="lazy"></iframe></div>
+      <aside>
+        <p><a class="open" href="https://sashagrigori.github.io/slepok/" target="_blank" rel="noopener">Открыть сайт ↗</a></p>
+        <p>Запись есть на&nbsp;каждом экране: в&nbsp;шапке, в&nbsp;карточках и&nbsp;в&nbsp;конце каждого блока.</p>
+        <p>Бегущие строки делят страницу на&nbsp;главы и&nbsp;держат ритм.</p>
+        <p>Отзывы и&nbsp;праздник собраны как&nbsp;разбросанные по&nbsp;столу карточки.</p>
+      </aside>
+    </div>
+    <div class="pair">
+      <figure><img src="/img/slepok/form2.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab mut">Заявка</span><br>Вид услуги из&nbsp;списка, имя, телефон и&nbsp;почта</figcaption></figure>
+      <figure><img src="/img/slepok/thanks2.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab mut">Готово</span><br>Обещание перезвонить за&nbsp;15&nbsp;минут</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="mobile" data-t="Адаптив">
+    <div class="ch-h"><h2><span class="n">08</span>Адаптив</h2><p>Тот&nbsp;же лендинг на&nbsp;телефоне: карточки в&nbsp;две колонки и&nbsp;горизонтальные ленты. Экраны сняты с&nbsp;живого сайта.</p></div>
+    <div class="screens">
+      <figure><img src="/img/slepok/mob-1.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Первый экран</span>Меню списком и&nbsp;запись под&nbsp;рукой</figcaption></figure>
+      <figure><img src="/img/slepok/mob-2.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Ближайшие</span>Мастер-классы и&nbsp;фото студии</figcaption></figure>
+      <figure><img src="/img/slepok/mob-3.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Мастер-классы</span>Групповые и&nbsp;индивидуальные</figcaption></figure>
+      <figure><img src="/img/slepok/mob-4.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Курсы</span>База и&nbsp;PRO с&nbsp;ценой за&nbsp;месяц</figcaption></figure>
+      <figure><img src="/img/slepok/mob-5.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Праздник</span>Что&nbsp;входит и&nbsp;сертификат</figcaption></figure>
+      <figure><img src="/img/slepok/mob-6.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Отзывы</span>И&nbsp;призыв слепить вместе</figcaption></figure>
+      <figure><img src="/img/slepok/mob-7.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Где мы&nbsp;лепим</span>Карта, график и&nbsp;контакты</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="result" data-t="Итог">
+    <div class="ch-h"><h2><span class="n">09</span>Итог</h2><p>Как&nbsp;бренд и&nbsp;лендинг отвечают на&nbsp;три задачи.</p></div>
+    <dl class="kv" style="margin-top:0"><dt class="lab">Удобство</dt><dd>Блоки идут за&nbsp;сценариями трёх подгрупп, запись доступна с&nbsp;любого экрана, форма&nbsp;— четыре поля.</dd>
+      <dt class="lab">Уникальность</dt><dd>У&nbsp;студии свой характер: название с&nbsp;двойным смыслом, громкий логотип и&nbsp;маскот-кружка. Там, где у&nbsp;других студий минимализм и&nbsp;пастель, у&nbsp;«Слепка» широкий шрифт, насыщенные цвета и&nbsp;бегущие строки.</dd>
+      <dt class="lab">Яркость</dt><dd>Характер бренда дошёл до&nbsp;интерфейса: пластилиновые иллюстрации по&nbsp;образцу маскота, бегущие строки, анимации первого экрана и&nbsp;праздника.</dd>
+      <dt class="lab">Сделано</dt><dd>Учебный проект от&nbsp;идеи до&nbsp;запуска: исследование, бренд (название, логотип, маскот), вайерфреймы, UI-кит, десктоп, адаптив, состояния и&nbsp;анимации переходов в&nbsp;прототипе.</dd>
+      <dt class="lab">Запуск</dt><dd>Лендинг свёрстан по&nbsp;макетам и&nbsp;опубликован: <a class="inl" href="https://sashagrigori.github.io/slepok/" target="_blank" rel="noopener">sashagrigori.github.io/slepok&nbsp;↗</a> Работают запись через форму, анимации первого экрана и&nbsp;праздника, адаптив под&nbsp;телефон.</dd></dl>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/kino/"><div class="t"><div class="lab mut">Следующий кейс / 05</div><div>Кино и&nbsp;кофе →</div></div><img src="/img/b3.jpg" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+// starburst tags: 16-point star polygon
+const star = (n=16, r=.5, ri=.36) => "polygon(" + Array.from({length:n*2},(_,k)=>{ const a=Math.PI*k/n, rr=k%2?ri:r; return `${50+Math.cos(a)*rr*100}% ${50+Math.sin(a)*rr*100}%`; }).join(",") + ")";
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+// scale the 1440-wide live site down to the window; on a phone show the site's own phone version at full size
+const win=document.querySelector(".win.live"), frame=win.querySelector("iframe");
+function fitFrame(){
+  if (matchMedia("(max-width:900px)").matches) { frame.style.width=win.clientWidth+"px"; frame.style.transform="none"; frame.style.height=win.clientHeight+"px"; return; }
+  const s=win.clientWidth/1440; frame.style.width="1440px"; frame.style.transform=`scale(${s})`; frame.style.height=(win.clientHeight/s)+"px"; }
+addEventListener("resize",fitFrame); fitFrame();
+</script></Fragment>
+</Base>

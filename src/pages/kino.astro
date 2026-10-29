@@ -1,0 +1,208 @@
+---
+import Base from '../layouts/Base.astro';
+
+---
+<Base title={'Кино и кофе — кейс · Александра Зянчурина'} description={'Айдентика и сайт кофейни с камерным кинотеатром. Отсюда вырос визуальный язык сервиса «Напоказ»'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --k-ink:#141414; --k-cream:#fff2d8; --k-taupe:#898376; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; } .cover .art { background:var(--k-ink); padding:clamp(32px,5vw,88px) clamp(16px,4vw,72px); display:flex; flex-direction:column; align-items:center; gap:clamp(16px,2vw,28px); }
+  .cover .art .lab { color:var(--k-cream); font-size:clamp(13px,1.3vw,20px); }
+  .cover .art img { width:100%; max-width:1200px; display:block; }
+  .cover .pic { width:100%; height:auto; display:block; background:var(--k-ink); }
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+
+
+  /* identity: logo tiles, palette, carriers */
+  .tiles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:8px; }
+  .tiles > div { aspect-ratio:4/3; display:grid; place-items:center; }
+  .tiles img { width:62%; display:block; }
+  .tiles .dark { background:var(--k-ink); } .tiles .light { background:var(--k-cream); }
+  .note { margin-top:14px; font-size:18px; line-height:1.38; color:var(--muted); max-width:40em; }
+  .fp { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:8px; }
+  .fp img { width:100%; display:block; }
+  .sw { display:grid; grid-template-rows:1fr 1fr .42fr; }
+  .sw .sys { padding:10px 16px; font-size:12px; }
+  .sw div { padding:16px; display:flex; flex-direction:column; justify-content:flex-end; font-size:15px; letter-spacing:.04em; text-transform:uppercase; }
+  .sw small { font-size:13px; opacity:.7; letter-spacing:0; text-transform:none; margin-top:4px; }
+  .grid2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .grid2 img, .wide img { width:100%; display:block; }
+  .wide { margin-top:var(--gap); }
+  .cap { margin-top:12px; font-size:18px; line-height:1.3; } .cap .lab { display:block; margin-bottom:4px; color:var(--muted); }
+
+  /* site: the desktop scrolls inside its window, phones beside it */
+  /* desktop window across the top, the five phone screens in one row under it */
+  .site { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); row-gap:calc(var(--gap) * 1.5); gap:var(--gap); margin-top:8px; align-items:start; background:#f4f3ef; padding:clamp(20px,3vw,44px); }
+  .site .win { grid-column:1 / -1; height:min(78vh,820px); overflow-y:auto; border-radius:10px; background:var(--k-ink); scrollbar-width:thin; overscroll-behavior:contain; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .site .win img { width:100%; display:block; }
+  .site .ph img { width:100%; aspect-ratio:828/1793; object-fit:cover; object-position:top; display:block; border-radius:26px; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .site figcaption { margin-top:12px; font-size:16px; line-height:1.3; color:var(--muted); }
+  .panel { background:var(--k-ink); padding:clamp(16px,2vw,32px) 0; margin-top:8px; }
+  .panel img { width:100%; display:block; }
+  .gridk { display:grid; grid-template-columns:minmax(0,977fr) minmax(0,366fr); gap:var(--gap); margin-top:40px; align-items:start; background:var(--k-ink); padding:clamp(20px,3vw,44px); }
+  .gridk img { width:100%; display:block; }
+  .gridk figcaption { margin-top:14px; font-size:18px; line-height:1.3; color:var(--k-cream); } .gridk figcaption .lab { display:block; margin-bottom:4px; opacity:.7; }
+  .specs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:28px; }
+  .specs div { border-top:1px solid var(--ink); padding-top:12px; font-size:19px; line-height:1.35; }
+  .specs .lab { display:block; color:var(--muted); margin-bottom:6px; }
+
+  /* what came next */
+  .then { background:var(--k-ink); color:var(--k-cream); padding:clamp(28px,4vw,56px); margin-top:8px; }
+  .then .txt { color:var(--k-cream); }
+  .moved { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px var(--gap); margin-top:36px; }
+  .moved > div { border-top:1px solid rgba(255,242,216,.35); padding-top:14px; }
+  .moved .lab { color:var(--k-taupe); display:block; margin-bottom:8px; }
+  .moved ul { list-style:none; } .moved li { font-size:18px; line-height:1.45; }
+  .go { display:inline-flex; align-items:center; gap:10px; margin-top:40px; padding:10px 22px 12px; border:1px solid var(--k-cream); border-radius:999px; font-size:19px; color:var(--k-cream); transition:background .2s, color .2s; }
+  .gos { display:flex; flex-wrap:wrap; gap:12px; margin-top:40px; } .gos .go { margin-top:0; }
+  .go:hover { background:var(--k-cream); color:var(--k-ink); }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .tiles,.fp,.grid2,.moved,.specs{grid-template-columns:1fr} .site{grid-template-columns:1fr 1fr} .site .win{grid-column:1/-1} .kv dt,.kv dd{grid-column:1/10} }
+</style></Fragment>
+<div class="top lab"><a href="/">← Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">05 / 08</div>
+  <div class="main">
+    <h1>Кино и&nbsp;кофе</h1>
+    <p class="lead">Айдентика и&nbsp;сайт кофейни с&nbsp;камерным кинотеатром. Отсюда вырос визуальный язык сервиса «Напоказ»</p>
+    <div class="meta">
+      <div><span class="lab mut">Роль</span>Дизайнер</div>
+      <div><span class="lab mut">Год</span>2026</div>
+      <div><span class="lab mut">Инструменты</span>Figma</div>
+      <div><span class="lab mut">Что&nbsp;сделано</span>Айдентика, носители, сайт и&nbsp;адаптив</div>
+    </div>
+  </div>
+  <div class="full cover"><img class="pic" src="/img/kino/cover.webp" width="1920" height="733" alt="Обложка «Кино и кофе»: логотип-эллипс, сквозь буквы виден кадр из фильма"></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Содержание</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/" class="all lab mut">← все работы</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="О проекте">
+    <div class="ch-h"><h2><span class="n">01</span>О&nbsp;проекте</h2><p>Спешелти-кофейня и&nbsp;камерный киноклуб под&nbsp;одной крышей. Проект для&nbsp;себя.</p></div>
+    <p class="txt big">Концепция бренда строится на&nbsp;контрасте: интеллектуальная камерная эстетика ценителей авторского кино и&nbsp;хороший кофе&nbsp;— и&nbsp;ироничное название, которое сбивает пафос и&nbsp;делает место дружелюбнее.</p>
+    <dl class="kv"><dt class="lab">Цель</dt><dd>Целостный визуальный стиль и&nbsp;цифровой опыт для&nbsp;кинокофейни: образ уютного локального места для&nbsp;тех, кто любит кофе и&nbsp;кино.</dd>
+      <dt class="lab">Задачи</dt><dd>Концепция бренда, логотип и&nbsp;система айдентики; брендинг носителей; сайт и&nbsp;его мобильная версия.</dd></dl>
+  </section>
+
+  <section class="ch" id="logo" data-t="Логотип">
+    <div class="ch-h"><h2><span class="n">02</span>Логотип</h2><p>Слово в&nbsp;эллипсе, буквы выгнуты, как&nbsp;в&nbsp;линзе.</p></div>
+    <div class="tiles"><div class="dark"><img src="/img/kino/logo-cream.svg" alt="Логотип на тёмном"></div><div class="light"><img src="/img/kino/logo-ink.svg" alt="Логотип на кремовом"></div></div>
+    <p class="note">Эллипс читается сразу как&nbsp;глаз, объектив и&nbsp;как&nbsp;поверхность кружки. На&nbsp;обложке и&nbsp;на&nbsp;сайте сквозь просветы между буквами виден кадр из&nbsp;фильма.</p>
+  </section>
+
+  <section class="ch" id="type" data-t="Шрифт и палитра">
+    <div class="ch-h"><h2><span class="n">03</span>Шрифт и&nbsp;палитра</h2><p>Два цвета и&nbsp;один гротеск, всё капсом&nbsp;— как&nbsp;афиша кинотеатра.</p></div>
+    <div class="fp">
+      <img src="/img/kino/font.webp" alt="Шрифт Formular">
+      <div class="sw"><div style="background:var(--k-ink);color:var(--k-cream)">Чернила<small>#141414 / фон</small></div><div style="background:var(--k-cream);color:var(--k-ink)">Крем<small>#FFF2D8 / текст, линии, заливки</small></div><div class="sys" style="background:#898376;color:var(--k-ink)">Служебный: отключённое<small>#898376&nbsp;= крем на&nbsp;50% поверх чернил</small></div></div>
+    </div>
+    <p class="note">Formular&nbsp;— плотный гротеск с&nbsp;кириллицей. Тонкие кремовые линии 1&nbsp;px собирают всё в&nbsp;модульную сетку из&nbsp;ячеек.</p>
+  </section>
+
+  <section class="ch" id="carriers" data-t="Носители">
+    <div class="ch-h"><h2><span class="n">04</span>Носители</h2><p>Вывеска, меню, мерч и&nbsp;афиша показов.</p></div>
+    <div class="grid2">
+      <figure><img src="/img/kino/window.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab">Вывеска</span>Логотип и&nbsp;часы работы на&nbsp;стекле двери</figcaption></figure>
+      <figure><img src="/img/kino/menu-poster.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab">Меню на&nbsp;стене</span>Луч проектора ведёт к&nbsp;логотипу</figcaption></figure>
+    </div>
+    <div class="grid2" style="margin-top:var(--gap)">
+      <img src="/img/kino/bag-black.webp" alt="" loading="lazy"><img src="/img/kino/cup.webp" alt="" loading="lazy">
+      <img src="/img/kino/iced.webp" alt="" loading="lazy"><img src="/img/kino/bag-white.webp" alt="" loading="lazy">
+    </div>
+    <figure class="wide"><img src="/img/kino/poster.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab">Афиша недели</span>Дни, время и&nbsp;кадры из&nbsp;фильмов в&nbsp;сетке ячеек</figcaption></figure>
+    <figure class="wide"><img src="/img/kino/menu.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab">Меню</span>Кино-снеки, сэндвичи, десерты и&nbsp;напитки; лучи проектора по&nbsp;краям</figcaption></figure>
+  </section>
+
+  <section class="ch" id="site" data-t="Сайт и адаптив">
+    <div class="ch-h"><h2><span class="n">05</span>Сайт и&nbsp;адаптив</h2><p>Расписание показов, меню, о&nbsp;нас и&nbsp;контакты.<span class="desk-only"> Листай десктоп внутри окна.</span></p></div>
+    <figure class="wide" style="margin-top:0"><img src="/img/kino/laptop.webp" alt="" loading="lazy"></figure>
+    <div class="site" style="margin-top:var(--gap)">
+      <div class="win" data-native><img src="/img/kino/site.webp" alt="Сайт кинокофейни, десктоп" loading="lazy"></div>
+      <figure class="ph"><img src="/img/kino/m1.webp" alt="" loading="lazy"><figcaption>Первый экран: логотип, «Билеты» и&nbsp;«Меню»</figcaption></figure>
+      <figure class="ph"><img src="/img/kino/m2.webp" alt="" loading="lazy"><figcaption>О&nbsp;нас: кофейня и&nbsp;камерный кинотеатр</figcaption></figure>
+      <figure class="ph"><img src="/img/kino/m3.webp?v=2" alt="" loading="lazy"><figcaption>Показы: неделя, сеансы и&nbsp;«Купить билет»</figcaption></figure>
+      <figure class="ph"><img src="/img/kino/m4.webp?v=2" alt="" loading="lazy"><figcaption>Меню: напитки, закуски и&nbsp;десерты</figcaption></figure>
+      <figure class="ph"><img src="/img/kino/m5.webp?v=2" alt="" loading="lazy"><figcaption>Контакты: билеты через чат-бот, часы и&nbsp;адрес</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="kit" data-t="Кнопки и сетка">
+    <div class="ch-h"><h2><span class="n">06</span>Кнопки и&nbsp;сетка</h2><p>Кнопки-эллипсы, как&nbsp;логотип, и&nbsp;ячейки сеансов.</p></div>
+    <div class="panel"><img src="/img/kino/btn-pills.webp" alt="Кнопки-эллипсы: default, hover, pressed, disabled" loading="lazy"><img src="/img/kino/btn-cells.webp" alt="Ячейка сеанса в четырёх состояниях" loading="lazy"></div>
+    <p class="note">Залитая кнопка при&nbsp;наведении становится контуром, контурная заливается, нажатая получает кольцо, отключённая&nbsp;— серо-бежевая.</p>
+    <div class="gridk"><figure><img src="/img/kino/grid-gd.webp" alt="Блок «Контакты» с&nbsp;сеткой колонок на&nbsp;десктопе" loading="lazy"><figcaption><span class="lab">Десктоп</span>12&nbsp;колонок / поля 80 / без&nbsp;отступов между колонками</figcaption></figure><figure><img src="/img/kino/grid-gm.webp" alt="Тот&nbsp;же блок на&nbsp;телефоне" loading="lazy"><figcaption><span class="lab">Телефон</span>2&nbsp;колонки / поля&nbsp;16 / без&nbsp;отступов</figcaption></figure></div>
+  </section>
+
+  <section class="ch" id="next" data-t="Что было дальше">
+    <div class="ch-h"><h2><span class="n">07</span>Что&nbsp;было дальше</h2><p>Айдентика переехала в&nbsp;сервис «Напоказ»&nbsp;— <a class="inl" href="https://nenapokaz.ru" target="_blank" rel="noopener">nenapokaz.ru&nbsp;↗</a></p></div>
+    <div class="then">
+      <p class="txt big">Потом я&nbsp;придумала сервис-дневник культурных впечатлений и&nbsp;назвала его в&nbsp;честь этой кофейни. Визуал переехал в&nbsp;интерфейс, но&nbsp;не&nbsp;один в&nbsp;один: айдентике пришлось стать дизайн-системой.</p>
+      <div class="moved">
+        <div><span class="lab">Перешло как&nbsp;есть</span><ul><li>Логотип в&nbsp;эллипсе-линзе</li><li>Два цвета: #141414 и&nbsp;#FFF2D8</li><li>Модульная сетка с&nbsp;кремовыми линиями</li><li>Капс и&nbsp;логика кнопок: заливка ↔ контур</li></ul></div>
+        <div><span class="lab">Поменялось для&nbsp;продукта</span><ul><li>Formular → Wix Madefor Text: бесплатный шрифт с&nbsp;кириллицей для&nbsp;веба</li><li>Эллипсы → пилюли: в&nbsp;ряду эллипсы сливались</li><li>Нажатие&nbsp;— жирный текст вместо кольца</li><li>Добавлены тёмные ступени, цвета ошибки и&nbsp;успеха, 9&nbsp;цветов категорий</li></ul></div>
+      </div>
+      <div class="gos"><a class="go" href="/napokaz/">Подробнее: кейс о&nbsp;сервисе →</a></div>
+    </div>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/cherdak/"><div class="t"><div class="lab mut">Следующий кейс / 06</div><div>Чердак Бардак →</div></div><img src="/img/home/cherdak-cov.webp" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

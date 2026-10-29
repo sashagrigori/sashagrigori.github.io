@@ -1,0 +1,119 @@
+---
+import Base from '../layouts/Base.astro';
+
+---
+<Base title={'Обо мне — Александра Зянчурина'} description={'UX/UI-дизайнер с образованием социолога и четырьмя годами в рекрутинге. Санкт-Петербург, удалённо, открыта к работе.'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px; --head:72px; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; } .mut { color:var(--muted); }
+  img { display:block; width:100%; height:auto; }
+
+  /* header: plain white bar, no blending → no repaint lag */
+  .top { position:fixed; inset:0 0 auto 0; height:var(--head); z-index:20; display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); align-items:center; padding:0 var(--pad); background:var(--bg); transition:background .3s, color .3s; }
+  .top .nm { grid-column:1 / 4; } .top nav { grid-column:4 / 13; display:flex; justify-content:flex-end; gap:22px; }
+  html[data-v="c"] .top:not(.solid) { background:transparent; color:#fff; }
+
+  /* one grid for the whole page — same as the case page */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; }
+  .sub { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); }
+
+  .word { font-weight:400; letter-spacing:-.02em; line-height:.82; }
+  .intro { font-size:clamp(26px,2.3vw,38px); line-height:1.06; letter-spacing:-.018em; }
+  .facts { display:flex; flex-wrap:wrap; margin-top:28px; }
+  .facts { gap:0; }
+  .facts span + span::before { content:"/"; margin:0 .7em; }
+
+  /* hero A — portrait | text, both the same height */
+  .hero-a { padding-top:calc(var(--head) + 48px); }
+  .hero-a .ph { grid-column:1 / 6; } .hero-a .ph img { aspect-ratio:4/5; object-fit:cover; object-position:50% 28%; max-height:calc(100vh - var(--head) - 96px); }
+  .hero-a .tx { grid-column:7 / 13; display:flex; flex-direction:column; justify-content:space-between; }
+  .hero-a .word { font-size:clamp(100px,14vw,240px); }
+  /* hero B — name across, intro + small portrait */
+  .hero-b { padding-top:calc(var(--head) + 48px); row-gap:40px; }
+  .hero-b .word { grid-column:1 / 13; font-size:clamp(100px,14vw,240px); }
+  .hero-b .tx { grid-column:1 / 8; }
+  .hero-b .ph { grid-column:10 / 13; } .hero-b .ph img { aspect-ratio:3/4; object-fit:cover; object-position:50% 28%; }
+  /* hero C — full-bleed film frame */
+  .hero-c { position:relative; height:100vh; color:#fff; isolation:isolate; align-content:end; padding-bottom:calc(var(--pad) + 16px); }
+  .hero-c > img { position:absolute; inset:0; height:100%; object-fit:cover; z-index:-1; filter:brightness(.7); }
+  .hero-c .word { grid-column:1 / 13; font-size:clamp(100px,14vw,240px); margin-bottom:32px; }
+  .hero-c .tx { grid-column:1 / 9; }
+
+  /* sections */
+  section { margin-top:clamp(120px,14vh,180px); }
+  .side h2 { font-weight:400; font-size:clamp(34px,3vw,50px); letter-spacing:-.025em; line-height:.95; display:flex; gap:.35em; }
+  .side h2 .n { color:#c3c1ba; }
+  .path .row { padding:0 0 36px; align-items:baseline; }
+  .path .y { grid-column:1 / 3; font-size:clamp(19px,1.35vw,22px); }
+  .path .w { grid-column:3 / 6; font-size:clamp(22px,1.7vw,26px); letter-spacing:-.01em; line-height:1.1; }
+  .path .w small { display:block; font-size:16px; color:var(--muted); margin-top:6px; letter-spacing:0; line-height:1.3; }
+  .path .d { grid-column:6 / 10; font-size:18px; line-height:1.4; }
+  .how .st { grid-column:span 3; }
+  .how b { display:block; font-weight:400; font-size:44px; letter-spacing:-.02em; line-height:.9; }
+  .how h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); margin:14px 0 8px; }
+  .how p { font-size:18px; line-height:1.4; }
+  .how .tools { margin-top:14px; color:var(--muted); }
+  .free p { font-size:clamp(22px,1.7vw,28px); line-height:1.15; max-width:26em; }
+
+  /* film: always inside the content columns */
+  .film { margin-top:40px; display:grid; grid-template-columns:1fr 1fr; gap:var(--gap); align-items:start; }
+  .film-a { display:flex; gap:var(--gap); overflow-x:auto; padding-bottom:10px; scroll-snap-type:x mandatory; scrollbar-width:thin; }
+  .film-a img { height:clamp(300px,46vh,460px); width:auto; flex:none; scroll-snap-align:start; }
+  .film-b { columns:2; column-gap:var(--gap); } .film-b img { margin-bottom:var(--gap); break-inside:avoid; }
+  .film-c { display:flex; flex-direction:column; gap:var(--gap); }
+
+  /* contacts */
+  .contact { margin-top:clamp(140px,16vh,200px); background:var(--ink); color:#fff; padding-top:72px; padding-bottom:var(--pad); row-gap:72px; align-items:end; }
+  .contact h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.8; }
+  .contact .ln { grid-column:7 / 13; }
+  .contact .ln a { display:flex; justify-content:space-between; font-size:clamp(22px,1.7vw,28px); padding:8px 0; }
+  .contact .ln a:hover { color:#bdbdbd; }
+  .contact .pc { grid-column:1 / 4; display:none; } html[data-v="c"] .contact .pc { display:block; }
+  .contact .pc img { aspect-ratio:3/4; object-fit:cover; object-position:50% 28%; }
+  .contact .foot { grid-column:1 / 13; display:flex; justify-content:space-between; color:#8a8a8a; }
+  @media (max-width:900px){ .side,.main,.hero-a .ph,.hero-a .tx,.hero-b .tx,.hero-b .ph,.hero-c .tx,.contact h2,.contact .ln{grid-column:1/13} .how .st{grid-column:1/10} .film-b{columns:1} }
+</style></Fragment>
+<header class="top lab"><a class="nm" href="/">Александра&nbsp;Зянчурина</a><nav><a href="/">работы</a><a href="/about/">обо&nbsp;мне</a></nav></header>
+<div id="hero"></div>
+
+<section class="g">
+  <div class="side"><h2><span class="n">01</span>Путь</h2></div>
+  <div class="main path" data-native>
+    <div class="row sub"><span class="y">2021</span><span class="w">СПбГУ<small>социология, бакалавр</small></span><span class="d">Количественные и&nbsp;качественные исследования для&nbsp;реальных заказчиков в&nbsp;Социологической клинике прикладных исследований СПбГУ.</span></div>
+    <div class="row sub"><span class="y">2021–⁠2025</span><span class="w">Рекрутинг<small>Skyeng, HIVE, Яндекс Крауд, Zoon</small></span><span class="d">Сотни интервью, в&nbsp;том числе на&nbsp;английском; опросы о&nbsp;найме и&nbsp;адаптации; аналитика воронки. Нанимала разработчиков, тестировщиков и&nbsp;продакт-менеджеров.</span></div>
+    <div class="row sub"><span class="y">2024&nbsp;— сейчас</span><span class="w">Фриланс<small>UX/UI и&nbsp;графический дизайнер</small></span><span class="d">«Напоказ»&nbsp;— свой сервис от&nbsp;интервью до&nbsp;запуска, сайт-читалка манги, лендинг студии керамики, айдентика и&nbsp;соцсети для&nbsp;студий и&nbsp;фестивалей. Проектирую в&nbsp;Figma и&nbsp;собираю вместе с&nbsp;AI-агентом. Учёба: Яндекс Практикум, WANNABE.</span></div>
+  </div>
+</section>
+
+<section class="g">
+  <div class="side"><h2><span class="n">02</span>Как&nbsp;я&nbsp;работаю</h2></div>
+  <div class="main sub how" data-native>
+    <div class="st"><b>01</b><h3>Исследую</h3><p>Интервью, опросы, разбор конкурентов. Сначала понимаю, кто эти люди и&nbsp;что&nbsp;они уже делают.</p><p class="tools lab">Интервью / опросы / JTBD</p></div>
+    <div class="st"><b>02</b><h3>Проектирую</h3><p>Сценарии, карта экранов, вайерфреймы, дизайн-система. У&nbsp;каждого решения есть причина.</p><p class="tools lab">Figma / прототипы / UI-кит</p></div>
+    <div class="st"><b>03</b><h3>Собираю</h3><p>Довожу до&nbsp;работающего продукта с&nbsp;AI-агентом: ставлю задачи, принимаю, смотрю на&nbsp;первых пользователей.</p><p class="tools lab">Claude Code / English C1</p></div>
+  </div>
+</section>
+
+<section class="g">
+  <div class="side"><h2><span class="n">03</span>Вне работы</h2></div>
+  <div class="main free" data-native><p>Снимаю на&nbsp;плёнку, смотрю много кино и&nbsp;хожу на&nbsp;выставки.</p><div class="film" id="film"></div></div>
+</section>
+
+<footer class="g contact">
+  <h2>Напиши<br>мне</h2>
+  <div class="ln lab"><a href="https://t.me/sashagrigori" target="_blank" rel="noopener">Telegram <span>↗</span></a><a href="mailto:grigoreva.asd@gmail.com">Почта <span>↗</span></a><a href="https://www.behance.net/sashagrigori" target="_blank" rel="noopener">Behance <span>↗</span></a><a href="https://hh.ru/resume/c519872bff0cb36c330039ed1f4a6f3376576b" target="_blank" rel="noopener">hh.ru&nbsp;— резюме <span>↗</span></a></div>
+  <div class="pc"><img src="/img/about/portrait.jpg" alt=""></div>
+  <div class="foot lab"><span>Санкт-Петербург / удалённо</span><span>© 2026&nbsp;Александра Зянчурина</span></div>
+</footer>
+<Fragment slot="scripts"><script is:inline>
+const INTRO=`Я Саша — UX/UI-дизайнер с образованием социолога. Начинаю с людей и довожу решение до работающего продукта: исследую, проектирую в Figma и собираю в коде вместе с AI.`;
+const FACTS=`<div class="facts lab"><span>Санкт-Петербург</span><span>Удалённо</span><span>Открыта к работе</span></div>`;
+document.getElementById("hero").className="g hero-a";
+document.getElementById("hero").innerHTML=`<figure class="ph"><img src="/img/about/portrait.jpg" alt="Саша"></figure><div class="tx"><div class="word">Обо мне</div><div><p class="intro">${INTRO}</p>${FACTS}</div></div>`;
+document.getElementById("film").innerHTML=["f-hand","f-road"].map(f=>`<div class="ph"><img src="/img/about/${f}.jpg" alt="" loading="lazy"></div>`).join("");
+</script></Fragment>
+</Base>
