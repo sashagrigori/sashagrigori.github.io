@@ -12,7 +12,7 @@ interface Props {
   // the home page has its own phone layout and doesn't use mobile.css
   mobile?: boolean;
 }
-const { title, description, image = '/og.jpg', mobile = true } = Astro.props;
+const { title, description, image = '/og.jpg?v=2', mobile = true } = Astro.props;
 const url = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
