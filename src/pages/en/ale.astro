@@ -1,0 +1,245 @@
+---
+import Base from '../../layouts/Base.astro';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
+---
+<Base title={'alё — case study · Aleksandra Zianchurina'} description={'Name, logo and visual language for a knitwear brand, from stories to tags and postcards'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --s-milk:#fffef9; --s-ink:#101010; --s-lime:#e2e881; --s-coral:#f86d4e; --s-blue:#a8bcff; --s-peach:#fce5d7; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; } 
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+
+
+  .note { margin-top:14px; font-size:18px; line-height:1.38; color:var(--muted); max-width:40em; }
+  .sub { display:block; margin:56px 0 12px; } .sub:first-of-type { margin-top:0; }
+
+  /* brand: Inter, lowercase, blurred blue headings — 12% of the font size in Figma = 6% as CSS blur */
+  :root { --a-blue:#8db0ec; --a-red:#eb5757; --a-ink:#050505; }
+  .inter { font-family:"Inter", sans-serif; }
+  .bl { font-family:"Inter", sans-serif; font-weight:700; color:var(--a-blue); filter:blur(.06em); letter-spacing:0; }
+  .duo { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .duo > * { aspect-ratio:4/5; }
+  .duo img { width:100%; height:100%; object-fit:cover; display:block; }
+  .panel { position:relative; background:#fff; border:1px solid var(--line); overflow:hidden; display:grid; place-items:center; }
+
+  .marks { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:8px; }
+  .mark { aspect-ratio:1; display:grid; place-items:center; overflow:hidden; background:#fff; border:1px solid var(--line); background-size:cover; background-position:center; }
+  .mark b { font-family:"Inter", sans-serif; font-weight:700; font-size:clamp(44px,5vw,88px); line-height:1; filter:blur(.06em); transition:filter .5s; }
+  .mark:hover b { filter:blur(0); }
+  .mark.big { aspect-ratio:4/5; }
+  .mark.big b { font-size:clamp(90px,10vw,170px); }
+  .mark.blue b { color:var(--a-blue); } .mark.photo b, .mark.dark b { color:#fff; } .mark.dark { background:var(--a-ink); border:0; }
+  .mark.sharp { background:#f5f5f5; border:0; } .mark.sharp b { color:var(--a-ink); filter:none; }
+  .caps4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; font-size:18px; line-height:1.3; color:var(--muted); }
+
+  /* ui-kit: colours as yarn swatches, type as big Aa */
+  .chips { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+  .chip { aspect-ratio:3/4; border-radius:18px; padding:18px; display:flex; flex-direction:column; justify-content:flex-end; font-family:"Inter",sans-serif; font-size:14px; line-height:1.35; }
+  .chip b { font-weight:700; font-size:18px; display:block; margin-bottom:2px; }
+  .chip.w { border:1px solid var(--line); }
+  .specs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .spec { border:1px solid var(--line); border-radius:18px; padding:28px; min-height:300px; display:flex; flex-direction:column; justify-content:space-between; }
+  .spec .big { font-size:clamp(100px,10vw,150px); line-height:.9; }
+  .spec .abc { font-family:"Inter",sans-serif; font-size:15px; line-height:1.5; color:var(--muted); margin-top:16px; }
+  .spec .abc span { color:var(--a-ink); }
+
+  .shapes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:8px; }
+  .shapes div { aspect-ratio:1; display:grid; place-items:center; }
+  .shapes svg { width:52%; overflow:visible; filter:blur(clamp(6px,1vw,14px)); }
+  .shapes .blob { width:70%; height:26%; background:var(--a-blue); border-radius:50%; filter:blur(clamp(16px,2.4vw,34px)); }
+
+  .row4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+  .row4 img { width:100%; aspect-ratio:9/16; display:block; outline:1px solid var(--line); outline-offset:-1px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .pair img { width:100%; display:block; border:1px solid var(--line); }
+  figcaption { margin-top:12px; font-size:18px; line-height:1.3; }
+  .feed { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); align-items:start; }
+  .feed img { grid-column:1 / 4; width:100%; display:block; }
+  .feed .txt { grid-column:4 / 9; }
+  /* print: front 4:3 and back ~3:2 share one height; business cards smaller */
+  .card2 { display:grid; grid-template-columns:1.333fr 1.483fr; gap:10px; }
+  .card2 img, .biz img { width:100%; display:block; border:1px solid var(--line); }
+  .biz { display:grid; grid-template-columns:repeat(2,minmax(0,220px)); gap:10px; margin-top:40px; }
+  /* collab ribbon, live: light blue tape with the joint mark */
+  .ribbon { display:flex; gap:2.2em; overflow:hidden; white-space:nowrap; background:#b9e1f0; color:#1d1d1d; font-family:"Inter",sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,28px); letter-spacing:.02em; padding:.45em 0 .5em; margin:32px 0 10px; }
+  .ribbon span { flex:none; padding-left:1.1em; }
+  .collab { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+  .collab img { width:100%; aspect-ratio:4/5; object-fit:cover; display:block; }
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .marks,.caps4,.chips,.shapes{grid-template-columns:1fr 1fr} .specs{grid-template-columns:1fr} .row4,.collab{grid-template-columns:1fr 1fr} .card2{grid-template-columns:1fr} .feed img{grid-column:1/7} .feed .txt{grid-column:1/10} .feed .txt{margin-top:24px} .kv dt,.kv dd{grid-column:1/10} }
+</style></Fragment>
+<div class="top lab"><a href="/en/">← Aleksandra&nbsp;Zianchurina</a><nav><a href="/en/">work</a><a href="/en/about/">about</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">07 / 08</div>
+  <div class="main">
+    <h1>alё</h1>
+    <p class="lead">Name, logo and visual language for a knitwear brand, from stories to tags and postcards</p>
+    <div class="meta">
+      <div><span class="lab mut">Role</span>Co-founder and designer</div>
+      <div><span class="lab mut">Year</span>2024–⁠2025</div>
+      <div><span class="lab mut">Tools</span>Figma</div>
+      <div><span class="lab mut">Deliverables</span>Name, logo, social media guide, tags, postcards, business cards</div>
+    </div>
+  </div>
+  <div class="main cover duo">
+    <div class="mark blue big" aria-label="alё logo"><b>alё</b></div>
+    <img src="/img/ale/photo.webp" alt="An alё bag made of yarn and denim">
+  </div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Contents</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/en/" class="all lab mut">← all work</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="About the project">
+    <div class="ch-h"><h2><span class="n">01</span>About the project</h2><p>A knitwear brand, a project by two friends.</p></div>
+    <p class="txt big">We knit bags, bonnets, mittens, scarves and made-to-order clothing; some pieces are upcycled from old clothes. The brand needed a name, a logo and a visual language so that the two of us could run social media quickly with templates, and every piece would arrive with recognizable tags and postcards.</p>
+    <dl class="kv">
+      <dt class="lab">Audience</dt><dd>Ages 25–⁠30, people who value handmade work and express themselves through clothing</dd>
+      <dt class="lab">Tone</dt><dd>Like talking to a friend, a little ironic, no shouting. Associations from the brief: coziness, softness, air, a telephone and an echo</dd>
+    </dl>
+  </section>
+
+  <section class="ch" id="mark" data-t="Name and logo">
+    <div class="ch-h"><h2><span class="n">02</span>Name and logo</h2><p>Two Aleksandras (Alya + Sasha) = alё. The two dots over the ё are the two founders.</p></div>
+    <p class="txt">“Alyo?” is also how Russians answer the phone (“hello?”): a brand that calls you up itself. The logo is set in Inter Bold and is always slightly out of focus: the blur is the echo of that “alyo”, the softness of yarn and the nearsightedness that comes from painstaking work. Hover over the logo and it comes into focus.</p>
+    <div class="marks" style="margin-top:40px">
+      <div class="mark blue"><b>alё</b></div>
+      <div class="mark photo" style="background-image:url(/img/ale/f04.webp)"><b>alё</b></div>
+      <div class="mark dark"><b>alё</b></div>
+      <div class="mark sharp"><b>alё</b></div>
+    </div>
+    <div class="caps4"><div>Primary / light blue on white</div><div>On photos / white</div><div>On dark / white</div><div>Tags and ribbons / sharp: blur can’t be printed on fabric</div></div>
+  </section>
+
+  <section class="ch" id="type" data-t="Color and type">
+    <div class="ch-h"><h2><span class="n">03</span>Color and type</h2><p>Four colors, one typeface and one blur rule.</p></div>
+    <div class="chips">
+      <div class="chip" style="background:#8db0ec;color:#fff"><b>light blue</b>#8db0ec<br>headings, blobs, print</div>
+      <div class="chip w"><b>white</b>#ffffff<br>background, lots of air</div>
+      <div class="chip" style="background:#050505;color:#fff"><b>black</b>#050505<br>body text</div>
+      <div class="chip" style="background:#eb5757;color:#fff"><b>red</b>#eb5757<br>accents</div>
+    </div>
+    <div class="specs">
+      <div class="spec"><span class="lab mut">Headings / Inter Bold, blur ≈ 12% of font size</span><div><div class="big bl">Aa</div><div class="abc"><span>abcdefghijklmnopqrstuvwxyz</span></div></div></div>
+      <div class="spec"><span class="lab mut">Text / Inter Regular, 35–⁠48&nbsp;px in stories</span><div><div class="big inter">Aa</div><div class="abc"><span>abcdefghijklmnopqrstuvwxyz</span></div></div></div>
+    </div>
+  </section>
+
+  <section class="ch" id="shapes" data-t="Shapes">
+    <div class="ch-h"><h2><span class="n">04</span>Shapes</h2><p>Anything that doesn’t need to be read is blurred.</p></div>
+    <div class="shapes">
+      <div><svg viewBox="0 0 587 430"><path fill="#8db0ec" d="M417.8 259.1H0v-88.2h417.8L309.2 62.3 371.5 0l215 215-215 215-62.3-62.3 108.6-108.6Z"/></svg></div>
+      <div><svg viewBox="0 0 433 431"><path fill="#eb5757" d="M210.7 5.1c.8-6.8 10.7-6.8 11.6 0l6.8 57.1c8.8 73.8 67.2 132 141.4 140.7l57.4 6.8c6.8.8 6.8 10.7 0 11.5l-57.4 6.8c-74.1 8.8-132.6 66.9-141.4 140.7l-6.8 57.1c-.8 6.8-10.7 6.8-11.6 0l-6.8-57.1c-8.8-73.8-67.2-131.9-141.4-140.7L5.1 221.2c-6.8-.8-6.8-10.7 0-11.5l57.4-6.8c74.1-8.8 132.6-66.9 141.4-140.7l6.8-57.1Z"/></svg></div>
+      <div><span class="blob"></span></div>
+    </div>
+    <p class="note">An arrow, a star and a cloud. The text next to them is always sharp, so the stories stay readable even though half the frame is out of focus.</p>
+  </section>
+
+  <section class="ch" id="stories" data-t="Stories">
+    <div class="ch-h"><h2><span class="n">05</span>Stories</h2><p>The main carrier of the visual style.</p></div>
+    <p class="txt">A white background, a blurred light blue heading, small sharp text and a single blob. This is how we explain ordering terms, lead times, delivery and care. In stories with products, the heading is white: it sits right on the photo or runs vertically along the edge, and the material, size and price are separated by slashes.</p>
+    <span class="lab mut sub" style="margin-top:48px">Announcements, terms and care</span>
+    <div class="row4"><img src="/img/ale/st1.webp" alt="" loading="lazy"><img src="/img/ale/st2.webp" alt="" loading="lazy"><img src="/img/ale/st3.webp" alt="" loading="lazy"><img src="/img/ale/st4.webp" alt="" loading="lazy"></div>
+    <span class="lab mut sub">Products in photos</span>
+    <div class="row4"><img src="/img/ale/st5.webp" alt="" loading="lazy"><img src="/img/ale/st6.webp" alt="" loading="lazy"><img src="/img/ale/st7.webp" alt="" loading="lazy"><img src="/img/ale/st8.webp" alt="" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="feed" data-t="Feed">
+    <div class="ch-h"><h2><span class="n">06</span>Feed</h2><p>The photos follow the brand’s style.</p></div>
+    <div class="feed">
+      <img src="/img/ale/grid.webp" alt="The ale.kiosk profile grid" loading="lazy">
+      <p class="txt">The grid has the same softness as the logo: blurred shots, light leaks, film grain. The piece is always in the center and there is almost no text, so the feed reads like a catalog but doesn’t look sterile.</p>
+    </div>
+  </section>
+
+  <section class="ch" id="tags" data-t="Tags">
+    <div class="ch-h"><h2><span class="n">07</span>Tags</h2><p>On the products, the logo is sharp.</p></div>
+    <p class="txt">The logo is black on white, with no blur, so it can be printed on silicone and ribbon. The silicone tag attaches with snaps, so it’s easy to take off before washing.</p>
+    <div class="pair" style="margin-top:40px">
+      <figure><img src="/img/ale/tag1.webp" alt="Mockup of a silicone snap-on tag, 45 × 15 mm" loading="lazy"><figcaption>Silicone tag</figcaption></figure>
+      <figure><img src="/img/ale/tag2.webp" alt="Mockup of a sew-in ribbon with the logo, 15 mm" loading="lazy"><figcaption>Ribbon with logo</figcaption></figure>
+    </div>
+    <span class="lab mut sub" style="margin-top:72px">Collaboration with Kommunalka</span>
+    <p class="txt">For the book festival <a class="inl" href="/en/kommunalka/">Kommunalka</a> we wove string bags and carabiner keychains. The joint logo is printed on a light blue ribbon in the same Inter as our tags: alё x КОММУНАЛКА.</p>
+    <div class="ribbon" aria-label="alё × Kommunalka ribbon"><span>alё x КОММУНАЛКА</span><span>alё x КОММУНАЛКА</span><span>alё x КОММУНАЛКА</span><span>alё x КОММУНАЛКА</span></div>
+    <div class="collab"><img src="/img/ale/collab-bag.webp" alt="Blue string bag with the alё × Kommunalka ribbon" loading="lazy"><img src="/img/ale/collab-key.webp" alt="Carabiner keychain with a ribbon" loading="lazy"><img src="/img/ale/collab-pile.webp" alt="Keychains for the festival" loading="lazy"><img src="/img/ale/collab-phone.webp" alt="String bags, ribbons and an old phone" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="print" data-t="Postcards and business cards">
+    <div class="ch-h"><h2><span class="n">08</span>Postcards and business cards</h2><p>The same language on paper.</p></div>
+    <p class="txt">On the New Year postcard, two friends are calling each other: “alё? Happy new year!” It’s the same call as in the name. On the back: care instructions, a space for a stamp and a thank you. The business card has the logo, the slogan “navyazyvaem krasotu” (a pun: “we knit beauty” and “we push beauty on you”) and the handle; on the back, a short care guide. On paper all the text is light blue and sharp; only the logo and the thank you are blurred.</p>
+    <div class="card2" style="margin-top:40px">
+      <figure><img src="/img/ale/card-front.webp" alt="New Year postcard: two friends talking on the phone, “alё? Happy new year!”" loading="lazy"><figcaption>Postcard / front</figcaption></figure>
+      <figure><img src="/img/ale/card-back.webp" alt="Back of the postcard: care instructions, a space for a stamp, thank you" loading="lazy"><figcaption>Back</figcaption></figure>
+    </div>
+    <div class="biz">
+      <figure><img src="/img/ale/biz-front.webp" alt="Business card: alё logo, “navyazyvaem krasotu”, @ale.kiosk" loading="lazy"><figcaption>Business card / front</figcaption></figure>
+      <figure><img src="/img/ale/biz-back.webp" alt="Back of the business card: care and thank you" loading="lazy"><figcaption>Back</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="result" data-t="Results">
+    <div class="ch-h"><h2><span class="n">09</span>Results</h2><p>One language, from stories to tags.</p></div>
+    <p class="txt">We run social media ourselves: the story templates live in Figma, next to a short guide on how to change the heading size without losing the softness of the blur and how to export a post. The same set (logo, light blue, Inter and the slash) works on tags, postcards, business cards and in the collaboration. On screen the logo is blurred; on the products it’s sharp.</p>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/en/kommunalka/"><div class="t"><div class="lab mut">Next case / 08</div><div>Kommunalka →</div></div><img src="/img/komm/k1-poster.webp" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+</script></Fragment>
+</Base>

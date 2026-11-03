@@ -13,27 +13,34 @@ interface Props {
   mobile?: boolean;
 }
 const { title, description, image = '/og.jpg?v=2', mobile = true } = Astro.props;
-const url = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname;
+const url = new URL(path, Astro.site);
 const ogImage = new URL(image, Astro.site);
+// the English version mirrors every page under /en/; each page links to its pair for search engines
+const en = /^\/en(\/|$)/.test(path);
+const ruPath = en ? path.replace(/^\/en/, '') || '/' : path;
+const enPath = '/en' + ruPath;
 ---
 <!doctype html>
-<html lang="ru">
+<html lang={en ? 'en' : 'ru'}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content={description}>
 <link rel="canonical" href={url}>
+<link rel="alternate" hreflang="ru" href={new URL(ruPath, Astro.site)}>
+<link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)}>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Александра Зянчурина">
+<meta property="og:site_name" content={en ? 'Aleksandra Zianchurina' : 'Александра Зянчурина'}>
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>
 <meta property="og:url" content={url}>
 <meta property="og:image" content={ogImage}>
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content={en ? 'en_US' : 'ru_RU'}>
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/css/common.css">
 <slot name="head" />

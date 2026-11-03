@@ -1,0 +1,344 @@
+---
+import Base from '../../layouts/Base.astro';
+
+---
+<Base title={'Slepok — case study · Aleksandra Zianchurina'} description={'Brand and landing page for a pottery studio that wants to stand out from its competitors'} mobile={true}>
+<Fragment slot="head"><style is:inline>
+  :root { --bg:#fff; --ink:#0f0f0f; --muted:#8b8b8b; --line:#e8e6e1; --pad:clamp(16px,2.2vw,32px); --gap:24px;
+          --s-milk:#fffef9; --s-ink:#101010; --s-lime:#e2e881; --s-coral:#f86d4e; --s-blue:#a8bcff; --s-peach:#fce5d7; }
+  html, body { overflow-x:clip; }
+  body, .cur .in { font-family:"PT Sans Narrow", system-ui, sans-serif; }
+  .cur .in { font-size:16px; }
+  .lab { font-size:13.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .mut { color:var(--muted); }
+  .top { position:fixed; top:var(--pad); left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:20; }
+  .top nav { display:flex; gap:22px; }
+  /* 12-column grid used everywhere */
+  .g { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:0 var(--pad); }
+  .side { grid-column:1 / 4; } .main { grid-column:4 / 13; } .full { grid-column:1 / 13; }
+
+  /* hero */
+  .hero { padding-top:calc(var(--pad) + 120px); row-gap:0; }
+  .hero h1 { font-weight:400; font-size:clamp(100px,14vw,240px); letter-spacing:-.02em; line-height:.8; margin-left:-.04em; }
+  .hero .lead { font-size:clamp(26px,2.3vw,38px); line-height:1.1; letter-spacing:-.015em; max-width:22em; margin-top:28px; }
+  .meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:var(--gap); margin-top:44px; padding-top:16px; border-top:1px solid var(--ink); }
+  .meta div { font-size:19px; line-height:1.25; } .meta .lab { display:block; margin-bottom:6px; }
+  .cover { margin-top:72px; } .cover img { width:100%; display:block; background:#ffefe5; }
+
+  /* layout with sticky contents */
+  .body { margin-top:120px; align-items:start; }
+  .toc { position:sticky; top:calc(var(--pad) + 64px); }
+  .toc .lab { display:block; margin-bottom:16px; }
+  .toc ol { list-style:none; }
+  .toc a { display:grid; grid-template-columns:2.4em 1fr; align-items:baseline; padding:4px 0; font-size:clamp(19px,1.45vw,24px); color:#c3c1ba; transition:color .2s; }
+  .toc a .n { font-size:13.5px; letter-spacing:.05em; }
+  .toc a.on { color:var(--ink); }
+  .toc .prog { height:2px; background:var(--line); margin-top:20px; width:80%; position:relative; } .toc .prog i { position:absolute; inset:0 auto 0 0; background:var(--ink); width:0; }
+  .toc a.all { display:inline-block; margin-top:28px; font-size:13.5px; color:var(--muted); }
+  .toc a.all:hover { color:var(--ink); }
+
+  section.ch { padding-bottom:160px; scroll-margin-top:calc(var(--pad) + 60px); }
+  .ch-h { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); margin-bottom:48px; }
+  .ch-h .n { grid-column:1 / 10; margin-bottom:12px; }
+  .ch-h h2 { grid-column:1 / 7; font-weight:400; font-size:clamp(46px,4.4vw,74px); letter-spacing:-.03em; line-height:.92; }
+  .ch-h p { grid-column:1 / 7; font-size:clamp(22px,1.7vw,28px); line-height:1.15; color:var(--muted); margin-top:16px; }
+  .txt { font-size:clamp(19px,1.35vw,22px); line-height:1.42; max-width:34em; }
+  .txt.big { font-size:clamp(24px,1.9vw,31px); line-height:1.22; letter-spacing:-.01em; max-width:28em; }
+  .kv { display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); column-gap:var(--gap); row-gap:28px; margin-top:48px; }
+  .kv dt { grid-column:1 / 3; padding-top:6px; color:var(--muted); }
+  .kv dd { grid-column:3 / 9; font-size:clamp(19px,1.35vw,22px); line-height:1.42; }
+  h3 { font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; margin:88px 0 18px; }
+  .entry { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:18px; color:var(--muted); }
+  .entry span { border:1px solid var(--line); border-radius:999px; padding:4px 12px 6px; color:var(--ink); }
+
+  /* tasks, segments */
+  .feat { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px var(--gap); margin-top:8px; }
+  .feat > div { border-top:1px solid var(--ink); padding-top:14px; }
+  .feat .no { font-size:clamp(34px,2.8vw,48px); line-height:1; letter-spacing:-.03em; display:block; margin-bottom:10px; }
+  .feat b { display:block; font-weight:400; font-size:clamp(22px,1.7vw,26px); margin-bottom:6px; }
+  .feat p { font-size:18px; line-height:1.38; }
+  .segs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:8px; }
+  .segs b { display:block; font-weight:400; font-size:clamp(28px,2.2vw,36px); letter-spacing:-.02em; line-height:1; margin:6px 0 10px; }
+  .segs p { font-size:18px; line-height:1.38; }
+  .segs q { display:block; quotes:none; font-size:18px; line-height:1.35; padding:14px 0 0; margin-top:14px; border-top:1px solid var(--line); }
+  .vs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:48px; }
+  .vs > div { padding:28px; min-height:240px; display:flex; flex-direction:column; justify-content:space-between; gap:28px; }
+  .vs .them { background:#f4f3ef; } .vs .us { background:var(--s-lime); color:var(--s-ink); }
+  .vs ul { list-style:none; } .vs li { font-size:clamp(22px,1.7vw,26px); line-height:1.4; }
+
+  /* brand: name, mood, logo, mascot */
+  .feat.two { grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:32px; }
+  .mood { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); margin-top:32px; max-width:46em; }
+  .mood ul { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+  .mood li { border:1.5px solid #c3c1ba; color:var(--muted); border-radius:999px; padding:10px 0 12px; text-align:center; font-size:clamp(22px,1.7vw,26px); }
+  .mood .us li { background:var(--s-ink); border-color:var(--s-ink); color:var(--s-milk); }
+  .logo-s { background:var(--s-milk); border:1.5px solid var(--line); padding:clamp(40px,6vw,96px) clamp(24px,4vw,64px); margin-top:32px; }
+  .logo-s img { width:100%; max-width:820px; display:block; }
+  /* both cups trimmed to their edges and set to one height, so they sit on the same line */
+  .mascot { --cup:clamp(200px,22vw,340px); display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:var(--gap); align-items:start; margin-top:40px; }
+  .mascot img { height:var(--cup); width:auto; max-width:100%; object-fit:contain; display:block; margin:0 auto; }
+  .mascot .arr { height:var(--cup); display:flex; align-items:center; font-size:clamp(46px,4.4vw,74px); line-height:1; }
+  .mascot figcaption { text-align:center; }
+  .mascot figcaption { margin-top:16px; font-size:18px; line-height:1.38; } .mascot figcaption .lab { display:block; margin-bottom:4px; }
+
+  /* structure */
+  .map { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 var(--gap); margin-top:8px; list-style:none; counter-reset:m; }
+  .map li { counter-increment:m; display:grid; grid-template-columns:2.4em 1fr; padding:11px 0; border-top:1px solid var(--line); font-size:clamp(19px,1.35vw,22px); line-height:1.3; }
+  .map li::before { content:counter(m,decimal-leading-zero); font-size:13.5px; letter-spacing:.05em; color:var(--muted); padding-top:5px; }
+  .map li small { grid-column:2; color:var(--muted); font-size:16px; }
+  .wfgrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); margin-top:40px; background:#f4f4f4; padding:clamp(20px,3vw,44px); }
+  .wfgrid img { width:100%; display:block; border-radius:14px; background:#fff; }
+
+  /* design system — live, in the studio's own colours */
+  .ds { background:var(--s-milk); color:var(--s-ink); padding:clamp(24px,3vw,44px); margin-top:8px; font-family:"Arial Narrow","PT Sans Narrow",sans-serif; }
+  .ds + .ds { margin-top:var(--gap); }
+  .ds .lab { font-family:"PT Sans Narrow",sans-serif; color:#8a877d; display:block; margin-bottom:18px; }
+  .type-s { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap); align-items:end; }
+  .type-s img { width:100%; max-width:520px; display:block; mix-blend-mode:multiply; }
+  .type-s .aa { font-size:clamp(110px,10vw,170px); line-height:.8; letter-spacing:-.02em; }
+  .type-s p { font-size:18px; line-height:1.4; margin-top:16px; color:#55534c; font-family:"PT Sans Narrow",sans-serif; }
+  .sw { display:grid; grid-template-columns:2fr 2fr 1fr 1fr 1fr 1fr; gap:8px; margin-top:var(--gap); }
+  .sw div { height:150px; padding:12px; border-radius:16px; border:1.5px solid var(--s-ink); display:flex; flex-direction:column; justify-content:flex-end; font-size:17px; line-height:1.25; }
+  .sw small { font-size:13px; opacity:.7; }
+  .kit { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:44px var(--gap); }
+  .kit .wide { grid-column:1 / -1; }
+  .states { display:grid; grid-template-columns:5em repeat(3,auto); gap:12px 14px; align-items:center; justify-content:start; font-size:16px; }
+  .states .k { color:#8a877d; }
+  .btn { border:1.5px solid var(--s-ink); border-radius:999px; padding:8px 26px 10px; font-size:17px; text-align:center; background:var(--s-milk); box-shadow:0 4px 0 var(--s-ink); white-space:nowrap; }
+  .btn.c { background:var(--s-coral); } .btn.b { background:var(--s-blue); }
+  .btn.h { box-shadow:0 4px 0 var(--s-coral); border-color:var(--s-coral); color:var(--s-coral); background:var(--s-milk); }
+  .btn.b.h { box-shadow:0 4px 0 var(--s-blue); border-color:var(--s-blue); color:var(--s-blue); }
+  .btn.o.h { background:var(--s-coral); border-color:var(--s-coral); color:var(--s-ink); box-shadow:none; }
+  .btn.p { box-shadow:none; transform:translateY(4px); }
+  .btn.d { opacity:.5; }
+  .ticker { overflow:hidden; border:1.5px solid var(--s-ink); background:var(--s-lime); white-space:nowrap; font-size:18px; padding:8px 0 10px; }
+  .ticker span { display:inline-block; animation:tk 18s linear infinite; }
+  @keyframes tk { to { transform:translateX(-50%); } }
+  .tags { display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-top:var(--gap); }
+  .burst { display:grid; place-items:center; width:92px; aspect-ratio:1; background:var(--s-ink); font-size:16px; }
+  .burst i { grid-area:1/1; width:100%; height:100%; background:var(--s-lime); transform:scale(.94); }
+  .burst span { grid-area:1/1; position:relative; }
+  .burst.b i { background:var(--s-blue); } .burst.lg { width:128px; font-size:20px; }
+  .dd { border:1.5px solid var(--s-ink); border-radius:22px; overflow:hidden; font-size:19px; max-width:360px; background:var(--s-milk); }
+  .dd div { padding:10px 18px 12px; border-top:1.5px solid var(--s-ink); } .dd div:first-child { border-top:0; display:flex; justify-content:space-between; }
+  .gridshow { display:grid; grid-template-columns:minmax(0,3.6fr) minmax(0,1fr); gap:var(--gap); margin-top:40px; align-items:start; }
+  .gridshow img { width:100%; display:block; border-radius:10px; border:1.5px solid var(--s-ink); }
+  .gridshow figcaption { margin-top:12px; font-size:18px; line-height:1.3; } .gridshow figcaption .lab { display:block; margin-bottom:4px; }
+  .fig { display:flex; flex-direction:column; gap:12px; margin-top:16px; align-items:flex-start; } .fig img { display:block; height:auto; }
+  .fig.row { flex-direction:row; align-items:center; gap:14px; }
+  .kit .lab { display:block; }
+  figure.f { margin-top:var(--gap); } figure.f img { width:100%; display:block; } figure.f figcaption { margin-top:14px; }
+
+  /* landing: the whole page scrolls inside its own window */
+  .page { background:#f4f3ef; padding:clamp(20px,3vw,44px); margin-top:8px; display:grid; grid-template-columns:minmax(0,1fr) 15em; gap:var(--gap); align-items:start; }
+  .page .win { height:min(82vh,860px); overflow-y:auto; border-radius:14px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); scrollbar-width:thin; overscroll-behavior:contain; }
+  .page .win img { width:100%; display:block; }
+  /* the live site is rendered at its desktop width (1440) and scaled down to the window */
+  .page .win.live { overflow:hidden; position:relative; background:#e2e881 url(/img/slepok/poster.webp) center top / 100% auto no-repeat; } .page .win iframe { position:absolute; left:0; top:0; width:1440px; border:0; display:block; transform-origin:0 0; }
+  .page aside .open { display:inline-block; padding:6px 14px 8px; border:1px solid var(--ink); border-radius:999px; margin-bottom:10px; }
+  .page aside .open:hover { background:var(--ink); color:#fff; }
+  .page aside { position:sticky; top:0; font-size:18px; line-height:1.35; }
+  .page aside p + p { margin-top:14px; }
+  .pair { display:grid; grid-template-columns:5fr 6fr; gap:var(--gap); margin-top:40px; align-items:center; }
+  .pair img { width:100%; display:block; }
+  .kitimg { margin-top:40px; } .kitimg img { width:100%; display:block; border-radius:16px; }
+  .cap { margin-top:14px; font-size:18px; line-height:1.3; }
+
+  /* mobile screens */
+  .screens { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:44px var(--gap); margin-top:8px; align-items:start; }
+  .screens img { width:100%; display:block; border-radius:26px; border:1.5px solid var(--s-ink); box-shadow:0 1px 2px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.10); }
+  .screens figcaption { margin-top:14px; font-size:18px; line-height:1.3; } .screens figcaption .lab { display:block; margin-bottom:4px; }
+
+  .next { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gap); padding:48px var(--pad) var(--pad); border-top:1px solid var(--ink); align-items:end; }
+  .next .t { grid-column:1 / 7; } .next .t div:last-child { font-weight:400; font-size:clamp(76px,9.5vw,160px); letter-spacing:-.02em; line-height:.82; margin-top:16px; }
+  .next img { grid-column:7 / 13; width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+  @media (max-width:900px){ .side{display:none} .main{grid-column:1/13} .feat,.segs,.vs,.map,.wfgrid,.type-s,.kit,.pair,.page,.feat.two,.mascot{grid-template-columns:1fr} .mascot .arr{height:auto;transform:rotate(90deg);justify-self:center} .screens{grid-template-columns:1fr 1fr} .sw{grid-template-columns:repeat(3,1fr)} .kv dt,.kv dd{grid-column:1/10} }
+</style></Fragment>
+<div class="top lab"><a href="/en/">← Aleksandra&nbsp;Zianchurina</a><nav><a href="/en/">work</a><a href="/en/about/">about</a></nav></div>
+
+<header class="g hero">
+  <div class="side lab mut">04 / 08</div>
+  <div class="main">
+    <h1>Slepok</h1>
+    <p class="lead">Brand and landing page for a pottery studio that wants to stand out from its competitors</p>
+    <div class="meta">
+      <div><span class="lab mut">Role</span>Brand, UI/UX design</div>
+      <div><span class="lab mut">Year</span>2026</div>
+      <div><span class="lab mut">Tools</span>Figma, ChatGPT, Nano Banana</div>
+      <div><span class="lab mut">Website</span><a class="inl" href="https://sashagrigori.github.io/slepok/" target="_blank" rel="noopener">open website&nbsp;↗</a></div>
+    </div>
+  </div>
+  <div class="full cover"><img src="/img/slepok/illus.jpg" alt="3D illustrations for the studio: a mug in star-shaped glasses, a vase, small bowls"></div>
+</header>
+
+<div class="g body">
+  <aside class="side toc" data-native><span class="lab mut">Contents</span><ol id="toc"></ol><div class="prog"><i id="prog"></i></div><a href="/en/" class="all lab mut">← all work</a></aside>
+  <main class="main" id="main" data-native>
+
+  <section class="ch" id="about" data-t="About the project">
+    <div class="ch-h"><h2><span class="n">01</span>About the project</h2><p>A pottery studio for experimental ceramics.</p></div>
+    <p class="txt big">Slepok (Russian for “cast”) sets itself against neat minimalism and encourages bright, expressive creativity. I came up with the whole studio, from the name to the mascot. The website has to speak as loudly as the studio itself and still get people to booking quickly.</p>
+    <dl class="kv"><dt class="lab">Goal</dt><dd>Create a brand for a pottery studio and design a landing page for it that visually reflects the concept and stays convenient and easy to understand.</dd></dl>
+    <h3>Three objectives</h3>
+    <div class="feat">
+      <div><span class="no">01</span><b>Ease of use</b><p>Clear, intuitive design: from the first screen to a booking in a couple of steps.</p></div>
+      <div><span class="no">02</span><b>Uniqueness</b><p>A brand of its own that stands out from other ceramics studios: name, logo, mascot.</p></div>
+      <div><span class="no">03</span><b>Vibrancy</b><p>The brand’s character in the landing page visuals: typeface, color, illustrations.</p></div>
+    </div>
+    <h3>Stages</h3>
+    <div class="entry"><span>Research</span>→<span>Brand</span>→<span>Wireframes</span>→<span>Design</span>→<span>Prototype</span></div>
+  </section>
+
+  <section class="ch" id="audience" data-t="Audience">
+    <div class="ch-h"><h2><span class="n">02</span>Audience</h2><p>7&nbsp;interviews with women aged 16–⁠40 / three subgroups / JTBD.</p></div>
+    <p class="txt">For the first objective, ease of use, I ran 7&nbsp;interviews with members of the target audience. Based on the results, I split it into three subgroups and wrote jobs to be done for each one: they suggested the scenarios and sections for the wireframes.</p>
+    <div class="segs" style="margin-top:48px">
+      <div><span class="lab mut">16–⁠30&nbsp;years</span><b>Creative people</b><p>Want to take up ceramics as an interesting pastime or grow it into a hobby and a profession.</p>
+        <q>When I get tired of routine, I want to work with my hands with a living material, so I can slow down and feel the joy of making a real object.</q>
+        <q>When I want to swap the office for creative work, I want to learn professional techniques so I can make high-quality pieces.</q></div>
+      <div><span class="lab mut">20–⁠30&nbsp;years</span><b>Couples</b><p>Looking for something interesting to do together, date ideas or an unusual gift for each other.</p>
+        <q>When the usual dates get boring, I want to find an activity where we share a new experience and keep something to remember it by.</q>
+        <q>When I need a gift for a friend who has everything, I want to give an unusual experience so they try something they wouldn’t have dared to on their own.</q></div>
+      <div><span class="lab mut">25–⁠40&nbsp;years</span><b>Active parents</b><p>Help their child grow through creativity and want to organize meaningful time together.</p>
+        <q>When I need an alternative to gadgets, I want to offer my child something creative so they switch to the real world.</q>
+        <q>When I need to throw a party, I want to host a creative evening so we keep the memory of that day in the things we made.</q></div>
+    </div>
+  </section>
+
+  <section class="ch" id="rivals" data-t="Competitors">
+    <div class="ch-h"><h2><span class="n">03</span>Competitors</h2><p>10&nbsp;websites of ceramics studios in Saint Petersburg and Moscow.</p></div>
+    <p class="txt">For the second objective, uniqueness, I looked at what other studios’ websites look like. Almost all of them speak the same language, so Slepok went the opposite way.</p>
+    <div class="vs">
+      <div class="them"><span class="lab mut">Competitors</span><ul><li>Minimalism</li><li>Light, muted palette</li><li>Calm typography</li></ul></div>
+      <div class="us"><span class="lab">Slepok</span><ul><li>Rich lime, coral and light blue</li><li>Wide bold grotesque in headings</li><li>3D illustrations and scrolling tickers</li></ul></div>
+    </div>
+  </section>
+
+  <section class="ch" id="brand" data-t="Brand">
+    <div class="ch-h"><h2><span class="n">04</span>Brand</h2><p>For the second objective, uniqueness: name, mood, logo and mascot.</p></div>
+    <p class="txt big">The brand grew out of the competitor analysis. Since almost every studio speaks quietly and neatly, Slepok speaks loudly.</p>
+    <h3>Name</h3>
+    <p class="txt">Slepok comes from slepit, a Russian verb with two meanings at once:</p>
+    <div class="feat two">
+      <div><b>To mold</b><p>By hand, from clay: what people come to the studio for.</p></div>
+      <div><b>To dazzle</b><p>With bright, bold visuals against calm competitors.</p></div>
+    </div>
+    <h3>Mood</h3>
+    <p class="txt">Mischievous and bold. I captured it in three words and set them against three words about the competitors.</p>
+    <div class="mood">
+      <div><span class="lab mut">Competitors</span><ul><li>Minimalist</li><li>Friendly</li><li>Neutral</li></ul></div>
+      <div class="us"><span class="lab">Slepok</span><ul><li>Bold</li><li>Fun</li><li>Bright</li></ul></div>
+    </div>
+    <h3>Logo</h3>
+    <p class="txt">A wordmark in Druk Text Wide, a wide bold grotesque: just as loud as the studio itself.</p>
+    <div class="logo-s"><img src="/img/slepok/logo.svg" alt="Slepok logo"></div>
+    <h3>Mascot</h3>
+    <p class="txt">A mug in star-shaped glasses. First a sketch where every detail has its own meaning, then generation: volume and the texture of slightly crumpled handmade ceramics.</p>
+    <div class="mascot">
+      <figure><img src="/img/slepok/mascot-sketch.webp" alt="Mascot sketch: a pink mug in star-shaped glasses with an earring" loading="lazy"><figcaption><span class="lab mut">Sketch</span>Ceramics = mug<br>Dazzle = glasses and stars<br>Mischief = earring</figcaption></figure>
+      <span class="arr" aria-hidden="true">→</span>
+      <figure><img src="/img/slepok/mascot-cup.webp" alt="Mascot: a 3D plasticine-style mug in star-shaped glasses" loading="lazy"><figcaption><span class="lab mut">Generation</span>ChatGPT and Nano Banana</figcaption></figure>
+    </div>
+    <p class="txt" style="margin-top:40px">The mug became the face of the studio: it greets visitors on the first screen and after they book, and the other illustrations are modeled on it.</p>
+  </section>
+
+  <section class="ch" id="structure" data-t="Structure">
+    <div class="ch-h"><h2><span class="n">05</span>Structure</h2><p>The landing page sections grew out of the three subgroups’ scenarios.</p></div>
+    <ol class="map">
+      <li>First screen<small>Who we are, address, upcoming workshops and booking</small></li>
+      <li>About the studio<small>Process, instructors, casts, the space</small></li>
+      <li>Workshops<small>Group and private, a date for two</small></li>
+      <li>Courses<small>Basic and PRO for those going into the profession</small></li>
+      <li>Parties<small>Birthday, bachelorette party, corporate event</small></li>
+      <li>Gift certificate<small>A gift for any workshop or course</small></li>
+      <li>Reviews<small>One for each format</small></li>
+      <li>Call to action<small>“Want one too? Let’s make it together”</small></li>
+      <li>Where we sculpt<small>Map, schedule, contacts</small></li>
+      <li>Footer<small>Navigation, social media, booking</small></li>
+    </ol>
+    <div class="wfgrid"><img src="/img/slepok/wf2-1.webp" alt="" loading="lazy"><img src="/img/slepok/wf2-2.webp" alt="" loading="lazy"><img src="/img/slepok/wf2-3.webp" alt="" loading="lazy"></div>
+  </section>
+
+  <section class="ch" id="system" data-t="Design system">
+    <div class="ch-h"><h2><span class="n">06</span>Design system</h2><p>For the third objective, vibrancy: the brand’s character in type, color and plasticine-style ceramics.</p></div>
+    <div class="ds">
+      <div class="type-s">
+        <div><span class="lab">Headings</span><img src="/img/slepok/wordmark.png" alt="Slepok"><p>Druk Text Wide / bold, stroke 3 / desktop 120 / mobile 44</p></div>
+        <div><span class="lab">Body text</span><div class="aa">Aa</div><p>Arial Narrow / regular / desktop 38 and 28 / mobile 20 and 18</p></div>
+      </div>
+      <div class="sw">
+        <div style="background:var(--s-milk)">Milk<small>fffef9 / background</small></div>
+        <div style="background:var(--s-ink);color:#fff">Black<small>101010 / text, outlines</small></div>
+        <div style="background:var(--s-lime)">Lime<small>e2e881</small></div>
+        <div style="background:var(--s-coral)">Coral<small>f86d4e</small></div>
+        <div style="background:var(--s-blue)">Light blue<small>a8bcff</small></div>
+        <div style="background:var(--s-peach)">Peach<small>fce5d7</small></div>
+      </div>
+      <div class="gridshow">
+        <figure><img src="/img/slepok/grid-d.webp" alt="First screen with the column grid" loading="lazy"><figcaption><span class="lab">Desktop 1440</span>12&nbsp;columns / margins 24 / gutter 20</figcaption></figure>
+        <figure><img src="/img/slepok/grid-m.webp" alt="Phone first screen with the column grid" loading="lazy"><figcaption><span class="lab">Mobile 375</span>4&nbsp;columns / margins&nbsp;16 / gutter&nbsp;16</figcaption></figure>
+      </div>
+    </div>
+    <figure class="kitimg"><img src="/img/slepok/kit.webp" alt="UI kit: buttons and links, ticker, star badges, dropdown, cards, category subheadings" loading="lazy"></figure>
+  </section>
+
+  <section class="ch" id="landing" data-t="Landing page">
+    <div class="ch-h"><h2><span class="n">07</span>Landing page</h2><p>The landing page is coded and live on GitHub Pages: scroll it right inside the window.</p></div>
+    <div class="page">
+      <div class="win live" data-native><iframe src="https://sashagrigori.github.io/slepok/?v=2" title="Slepok studio landing page" loading="lazy"></iframe></div>
+      <aside>
+        <p><a class="open" href="https://sashagrigori.github.io/slepok/" target="_blank" rel="noopener">Open website ↗</a></p>
+        <p>Booking is on every screen: in the header, on the cards and at the end of each section.</p>
+        <p>Scrolling tickers split the page into chapters and keep the rhythm.</p>
+        <p>Reviews and parties are laid out like cards scattered across a table.</p>
+      </aside>
+    </div>
+    <div class="pair">
+      <figure><img src="/img/slepok/form2.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab mut">Booking form</span><br>Service type from a list, name, phone and email</figcaption></figure>
+      <figure><img src="/img/slepok/thanks2.webp" alt="" loading="lazy"><figcaption class="cap"><span class="lab mut">Done</span><br>A promise to call back within 15&nbsp;minutes</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="mobile" data-t="Responsive">
+    <div class="ch-h"><h2><span class="n">08</span>Responsive</h2><p>The same landing page on a phone: cards in two columns and horizontal carousels. The screens are captured from the live site.</p></div>
+    <div class="screens">
+      <figure><img src="/img/slepok/mob-1.webp" alt="" loading="lazy"><figcaption><span class="lab mut">First screen</span>List menu and booking within reach</figcaption></figure>
+      <figure><img src="/img/slepok/mob-2.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Upcoming</span>Workshops and studio photos</figcaption></figure>
+      <figure><img src="/img/slepok/mob-3.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Workshops</span>Group and private</figcaption></figure>
+      <figure><img src="/img/slepok/mob-4.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Courses</span>Basic and PRO with a monthly price</figcaption></figure>
+      <figure><img src="/img/slepok/mob-5.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Parties</span>What’s included and the gift certificate</figcaption></figure>
+      <figure><img src="/img/slepok/mob-6.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Reviews</span>And a call to make something together</figcaption></figure>
+      <figure><img src="/img/slepok/mob-7.webp" alt="" loading="lazy"><figcaption><span class="lab mut">Where we sculpt</span>Map, schedule and contacts</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ch" id="result" data-t="Results">
+    <div class="ch-h"><h2><span class="n">09</span>Results</h2><p>How the brand and the landing page meet the three objectives.</p></div>
+    <dl class="kv" style="margin-top:0"><dt class="lab">Ease of use</dt><dd>Sections follow the three subgroups’ scenarios, booking is available from any screen, and the form has four fields.</dd>
+      <dt class="lab">Uniqueness</dt><dd>The studio has a character of its own: a name with a double meaning, a loud logo and a mug mascot. Where other studios go for minimalism and pastels, Slepok has a wide typeface, rich colors and scrolling tickers.</dd>
+      <dt class="lab">Vibrancy</dt><dd>The brand’s character made it into the interface: plasticine-style illustrations modeled on the mascot, scrolling tickers, animations on the first screen and in the parties section.</dd>
+      <dt class="lab">Delivered</dt><dd>A study project from idea to launch: research, brand (name, logo, mascot), wireframes, UI kit, desktop, responsive layouts, states and transition animations in the prototype.</dd>
+      <dt class="lab">Launch</dt><dd>The landing page is coded from the mockups and published: <a class="inl" href="https://sashagrigori.github.io/slepok/" target="_blank" rel="noopener">sashagrigori.github.io/slepok&nbsp;↗</a> Booking through the form, the first-screen and parties animations, and the mobile layout all work.</dd></dl>
+  </section>
+  </main>
+</div>
+
+<a class="next" href="/en/kino/"><div class="t"><div class="lab mut">Next case / 05</div><div>Cinema &amp; Coffee →</div></div><img src="/img/b3.jpg" alt=""></a>
+<Fragment slot="scripts"><script is:inline>
+const two = i => String(i).padStart(2,"0");
+// starburst tags: 16-point star polygon
+const star = (n=16, r=.5, ri=.36) => "polygon(" + Array.from({length:n*2},(_,k)=>{ const a=Math.PI*k/n, rr=k%2?ri:r; return `${50+Math.cos(a)*rr*100}% ${50+Math.sin(a)*rr*100}%`; }).join(",") + ")";
+const secs=[...document.querySelectorAll("section.ch")], toc=document.getElementById("toc");
+toc.innerHTML = secs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${two(i+1)}</span>${s.dataset.t}</a></li>`).join("");
+const links=[...toc.querySelectorAll("a")], main=document.getElementById("main");
+function sync(){ let k=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top < innerHeight*.35) k=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const r=main.getBoundingClientRect(); document.getElementById("prog").style.width=Math.min(100,Math.max(0,(innerHeight*.35-r.top)/r.height*100))+"%"; }
+addEventListener("scroll",sync,{passive:true}); sync();
+// scale the 1440-wide live site down to the window; on a phone show the site's own phone version at full size
+const win=document.querySelector(".win.live"), frame=win.querySelector("iframe");
+function fitFrame(){
+  if (matchMedia("(max-width:900px)").matches) { frame.style.width=win.clientWidth+"px"; frame.style.transform="none"; frame.style.height=win.clientHeight+"px"; return; }
+  const s=win.clientWidth/1440; frame.style.width="1440px"; frame.style.transform=`scale(${s})`; frame.style.height=(win.clientHeight/s)+"px"; }
+addEventListener("resize",fitFrame); fitFrame();
+</script></Fragment>
+</Base>

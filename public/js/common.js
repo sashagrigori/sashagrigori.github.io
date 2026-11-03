@@ -1,19 +1,37 @@
 // shared: covers, the «напиши мне» cursor and contacts card, case-page helpers, typograph
 window.num = i => String(i+1).padStart(2,"0");
+// the English version lives under /en/ and has lang="en"; the shared strings below follow it
+const EN = document.documentElement.lang === "en";
+const T = EN
+  ? { write:"get in touch", contacts:"Contacts", talk:"let’s talk", close:"close", open:"open", mail:"Email", copyMail:"copy email", copy:"copy", resume:"Resume", openResume:"open resume", copied:"Email copied", reach:"Contact", endText:"Need a designer who takes a product all the way to launch? Let’s talk.", chapters:"Chapters" }
+  : { write:"напиши мне", contacts:"Контакты", talk:"давай поговорим", close:"закрыть", open:"открыть", mail:"Почта", copyMail:"скопировать почту", copy:"скопировать", resume:"Резюме", openResume:"открыть резюме", copied:"Почта скопирована", reach:"Связаться", endText:"Нужен дизайнер, который доведёт продукт до&nbsp;запуска? Давай поговорим.", chapters:"Главы" };
+// the resume: hh.ru for the Russian version, LinkedIn for the English one
+const RESUME = EN ? "https://www.linkedin.com/in/sashagrigori/" : "https://hh.ru/resume/c519872bff0cb36c330039ed1f4a6f3376576b";
 window.cover = p => `<div class="ph"><img src="${p.cover}" alt="" draggable="false"><div class="xray" style="background-image:url(${p.ui})"></div></div>`;
 
 document.body.insertAdjacentHTML("beforeend", `
-<div class="cur" aria-hidden="true"><span class="in"><span class="lbl"><span class="star">✶</span>напиши мне</span></span></div>
-<div class="sheet" id="sheet" role="dialog" aria-label="Контакты"><div class="in">
-  <div class="sh-top"><span><span class="star">✶</span>давай поговорим</span><button type="button" id="sheetx" aria-label="закрыть">✕</button></div>
+<div class="cur" aria-hidden="true"><span class="in"><span class="lbl"><span class="star">✶</span>${T.write}</span></span></div>
+<div class="sheet" id="sheet" role="dialog" aria-label="${T.contacts}"><div class="in">
+  <div class="sh-top"><span><span class="star">✶</span>${T.talk}</span><button type="button" id="sheetx" aria-label="${T.close}">✕</button></div>
   <ul>
-    <li><span class="k">Telegram</span><a href="https://t.me/sashagrigori" target="_blank" rel="noopener">@sashagrigori</a><a class="act" href="https://t.me/sashagrigori" target="_blank" rel="noopener" aria-label="открыть Telegram">↗</a></li>
-    <li><span class="k">Почта</span><a href="mailto:grigoreva.asd@gmail.com">grigoreva.asd@gmail.com</a><button type="button" class="act" id="copymail" aria-label="скопировать почту" title="скопировать"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></li>
-    <li><span class="k">Behance</span><a href="https://www.behance.net/sashagrigori" target="_blank" rel="noopener">sashagrigori</a><a class="act" href="https://www.behance.net/sashagrigori" target="_blank" rel="noopener" aria-label="открыть Behance">↗</a></li>
-    <li><span class="k">Резюме</span><a href="https://hh.ru/resume/c519872bff0cb36c330039ed1f4a6f3376576b" target="_blank" rel="noopener">hh.ru</a><a class="act" href="https://hh.ru/resume/c519872bff0cb36c330039ed1f4a6f3376576b" target="_blank" rel="noopener" aria-label="открыть резюме">↗</a></li>
+    <li><span class="k">Telegram</span><a href="https://t.me/sashagrigori" target="_blank" rel="noopener">@sashagrigori</a><a class="act" href="https://t.me/sashagrigori" target="_blank" rel="noopener" aria-label="${T.open} Telegram">↗</a></li>
+    <li><span class="k">${T.mail}</span><a href="mailto:grigoreva.asd@gmail.com">grigoreva.asd@gmail.com</a><button type="button" class="act" id="copymail" aria-label="${T.copyMail}" title="${T.copy}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></li>
+    <li><span class="k">Behance</span><a href="https://www.behance.net/sashagrigori" target="_blank" rel="noopener">sashagrigori</a><a class="act" href="https://www.behance.net/sashagrigori" target="_blank" rel="noopener" aria-label="${T.open} Behance">↗</a></li>
+    <li><span class="k">${T.resume}</span><a href="${RESUME}" target="_blank" rel="noopener">${EN ? "LinkedIn" : "hh.ru"}</a><a class="act" href="${RESUME}" target="_blank" rel="noopener" aria-label="${T.openResume}">↗</a></li>
   </ul>
 </div></div>
 <div class="toast mono" id="toast"></div>`);
+
+// language switch: the last item of the header nav leads to the same page in the other language
+(() => {
+  const nav = document.querySelector(".top nav");
+  if (!nav) return;
+  const p = location.pathname, a = document.createElement("a");
+  a.href = EN ? (p.replace(/^\/en/, "") || "/") : "/en" + p;
+  a.textContent = EN ? "RU" : "EN"; a.lang = a.hreflang = EN ? "ru" : "en"; a.className = "lang";
+  if (nav.classList.contains("mid")) nav.append(Object.assign(document.createElement("span"), { className:"sl", textContent:"/" }));
+  nav.append(a);
+})();
 
 window.toast = m => { const t=document.getElementById("toast"); t.textContent=m; t.style.opacity=1; clearTimeout(t._t); t._t=setTimeout(()=>t.style.opacity=0,1400); };
 const sheet=document.getElementById("sheet");
@@ -31,7 +49,7 @@ window.openContacts = (x, y) => {
   sheet.offsetWidth; sheet.classList.add("on");
 };
 document.getElementById("sheetx").onclick=e=>{ e.preventDefault(); sheet.classList.remove("on"); };
-document.getElementById("copymail").onclick=e=>{ e.preventDefault(); navigator.clipboard && navigator.clipboard.writeText("grigoreva.asd@gmail.com"); toast("Почта скопирована"); };
+document.getElementById("copymail").onclick=e=>{ e.preventDefault(); navigator.clipboard && navigator.clipboard.writeText("grigoreva.asd@gmail.com"); toast(T.copied); };
 // the contacts sheet also closes on a click anywhere outside it or on Esc; that click does nothing else
 let sheetJustClosed=false;
 addEventListener("pointerdown", e => { if (sheet.classList.contains("on") && !e.target.closest(".sheet")) { sheet.classList.remove("on"); sheetJustClosed=true; } }, true);
@@ -43,7 +61,7 @@ addEventListener("keydown", e => { if (e.key==="Escape") sheet.classList.remove(
 const CASE = document.querySelector("aside.toc");
 if (CASE) {
   const end = document.createElement("section"); end.className="g case-end";
-  end.innerHTML = `<div class="side lab mut">Связаться</div><div class="main"><p>Нужен дизайнер, который доведёт продукт до&nbsp;запуска? Давай поговорим.</p><button class="write-btn" type="button"><span class="star">✶</span><span class="t">напиши мне</span></button></div>`;
+  end.innerHTML = `<div class="side lab mut">${T.reach}</div><div class="main"><p>${T.endText}</p><button class="write-btn" type="button"><span class="star">✶</span><span class="t">${T.write}</span></button></div>`;
   const next=document.querySelector("a.next"); (next ? next.before(end) : document.body.append(end));
   end.querySelector(".write-btn").onclick = e => { e.preventDefault(); const r=e.currentTarget.getBoundingClientRect(); openContacts(r.left+100, r.top+19); };
 
@@ -51,7 +69,7 @@ if (CASE) {
   const chs = [...document.querySelectorAll("main section.ch[id][data-t]")];
   if (chs.length) {
     const nn = i => String(i+1).padStart(2,"0");
-    const bar = document.createElement("nav"); bar.className = "chbar"; bar.setAttribute("aria-label","Главы");
+    const bar = document.createElement("nav"); bar.className = "chbar"; bar.setAttribute("aria-label",T.chapters);
     bar.innerHTML = `<button type="button" class="cb-cur" aria-expanded="false"><span class="cb-n"></span><span class="cb-t"></span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><i class="cb-prog"></i>`
       + `<ol class="cb-list">${chs.map((s,i)=>`<li><a href="#${s.id}"><span class="n">${nn(i)}</span>${s.dataset.t}</a></li>`).join("")}</ol>`;
     document.body.append(bar);
@@ -117,7 +135,7 @@ if (CASE) {
 
 // typograph: no hanging short words, no line starting with a dash, numbers stay with their word
 (() => {
-  const SHORT = "в|во|на|с|со|к|ко|у|о|об|обо|и|а|но|да|по|от|до|за|из|изо|не|ни|без|для|под|над|при|про|или|что|как|я|мы|ты|он|её|их";
+  const SHORT = EN ? "a|an|the|I|of|to|in|on|at|by|for|and|or|with" : "в|во|на|с|со|к|ко|у|о|об|обо|и|а|но|да|по|от|до|за|из|изо|не|ни|без|для|под|над|при|про|или|что|как|я|мы|ты|он|её|их";
   const reShort = new RegExp(`(^|[\\s\\u00A0«"(—–/])(${SHORT}) (?=\\S)`, "giu");
   const fix = s => s
     .replace(reShort, "$1$2 ").replace(reShort, "$1$2 ")
