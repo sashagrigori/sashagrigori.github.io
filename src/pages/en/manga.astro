@@ -265,11 +265,11 @@ import '@fontsource/wix-madefor-text/500.css';
   <section class="ch" id="reader" data-t="Reader">
     <div class="ch-h"><h2><span class="n">04</span>Reader</h2><p>The main screen of the site. A dark surface, so the art doesn’t compete with the interface.</p></div>
     <div class="feat">
-      <div><b>Two modes</b><p>Scroll is a continuous strip from top to bottom, pages shows one page at a time.</p></div>
+      <div><b>Two modes</b><p>“Scroll” is one continuous strip; “pages” shows one page at a time.</p></div>
       <div><b>Manga / comic</b><p>Read right to left, like Japanese manga, or left to right.</p></div>
       <div><b>Full spreads</b><p>Each half of a spread is the same size as a single page.</p></div>
       <div><b>Full screen</b><p>One button hides the browser and system bars.</p></div>
-      <div><b>Loading</b><p>While a page loads, a spinner turns on a placeholder of the same size — nothing shifts.</p></div>
+      <div><b>Loading</b><p>While a page loads, a spinner shows on a same-size placeholder, so nothing shifts.</p></div>
       <div><b>Continue reading</b><p>The site remembers the chapter and page where the reader stopped.</p></div>
     </div>
     <figure class="f wide"><img class="shot" src="/img/manga/r-spread2.webp" alt=""><figcaption><span class="lab mut">Desktop / pages</span>A full spread: reading modes and direction at the top, page turning and page number at the bottom</figcaption></figure>
@@ -302,7 +302,7 @@ import '@fontsource/wix-madefor-text/500.css';
   </section>
 
   <section class="ch" id="system" data-t="Design system">
-    <div class="ch-h"><h2><span class="n">07</span>Design system</h2><p>Bold typography, plenty of white space, and the art takes center stage.</p></div>
+    <div class="ch-h"><h2><span class="n">07</span>Design system</h2><p>Bold typography, plenty of white space, and the art comes first.</p></div>
     <h3>Typefaces</h3>
     <div class="type-m">
       <div class="sp"><span class="sofia">Chapters 08</span><span class="lab mut">Sofia Sans Extra Condensed / headings, chapter numbers, ticker</span></div>
@@ -331,17 +331,17 @@ import '@fontsource/wix-madefor-text/500.css';
   </section>
 
   <section class="ch" id="result" data-t="Development and results">
-    <div class="ch-h"><h2><span class="n">08</span>Development and results</h2><p>Own server, database, image storage, author login, https and SEO in five languages.</p></div>
+    <div class="ch-h"><h2><span class="n">08</span>Development and results</h2><p>My own server, database, image storage, author login, https and SEO in five languages.</p></div>
     <div class="stats">
       <div><b>0.24 s</b><p>first load of a manga page, down from 6–⁠9&nbsp;seconds: image versions are generated right after a chapter is saved</p></div>
-      <div><b>×1.6 → ×1</b><p>spread upscaling: spreads used to look blurry, now the file is picked to match the spread’s own width</p></div>
+      <div><b>×1.6 → ×1</b><p>spread upscaling: spreads used to look blurry; now the file matches the spread’s width</p></div>
       <div><b>8</b><p>chapters already published — the artist posts them himself</p></div>
       <div><b>5</b><p>languages for the interface and chapters, with the language in the page URL</p></div>
       <div><b>11</b><p>screens: the public part and the admin panel</p></div>
       <div><b>1&nbsp;login</b><p>for the author only: a lockout after wrong passwords, and uploads are checked by file content</p></div>
     </div>
     <div class="chipsrow"><span>Next.js</span><span>PostgreSQL</span><span>Prisma</span><span>Garage</span><span>Docker</span><span>nginx</span><span>https</span></div>
-    <dl class="kv"><dt class="lab">Results</dt><dd>The artist runs the site himself. Reading is comfortable on a phone and on a large monitor alike, with spreads shown in full. Five languages live in one site, with no separate versions. The design system is described in tokens and assembled into a UI kit.</dd>
+    <dl class="kv"><dt class="lab">Results</dt><dd>The artist runs the site himself. Reading is comfortable on a phone and on a large monitor alike, with spreads shown in full. Five languages live on one site, with no separate versions. The design system is described in tokens and assembled into a UI kit.</dd>
       <dt class="lab">Art and manga</dt><dd>TeoZyan — <a class="inl" href="https://teozyan.com" target="_blank" rel="noopener">teozyan.com&nbsp;↗</a></dd></dl>
   </section>
   </main>
